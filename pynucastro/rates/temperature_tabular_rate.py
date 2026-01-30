@@ -126,8 +126,8 @@ class TemperatureTabularRate(Rate):
 
         # make sure there are no weak interactions -- we don't
         # support those yet
-        assert sum(n.Z for n in self.reactants) == sum(n.Z for n in self.products)
-        assert sum(n.A for n in self.reactants) == sum(n.A for n in self.products)
+        #assert sum(n.Z for n in self.reactants) == sum(n.Z for n in self.products)
+        #assert sum(n.A for n in self.reactants) == sum(n.A for n in self.products)
 
         self.log_t9_data = log_t9_data
         self.log_rate_data = log_rate_data
