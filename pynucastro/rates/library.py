@@ -988,9 +988,10 @@ class TabularLibrary(Library):
 
         Library.__init__(self, rates=trates)
 
+
 class StarLibLibrary(Library):
     """Create a :py:class:`Library` containing tabulated rates (excluding
-    duplications and isomers of 'al26') as described in the StarLib Library.
+    duplications and isomers of 'al26') as described in the Starlib Library.
 
     Parameters
     ----------
@@ -1005,7 +1006,7 @@ class StarLibLibrary(Library):
     file_path = Path(__file__).parents[1]/"library/starlib.dat"
     INTERACTION_MAP = {1: (1, 1), 2: (1, 2), 3: (1, 3), 4: (2, 1),
                        5: (2, 2), 6: (2, 3), 7: (2, 4), 8: (3, 1),
-                       9: (3, 2), 10: (4, 2), 11:(1, 4)}
+                       9: (3, 2), 10: (4, 2), 11: (1, 4)}
     NLINES = 60
 
     def __init__(self, seed=None):
@@ -1052,14 +1053,14 @@ class StarLibLibrary(Library):
         super().__init__(rates=rates)
 
     def parse_header(self, line):
-        """StarLib provides its data in blocks where each block consists of
+        """Starlib provides its data in blocks where each block consists of
         a header followed by a 60 row grid of temperature, median rate and factor
         uncertainty. This method parses the header and returns a dict containing
         reactants, products, Q and more.
 
         Parameters
         ----------
-        line: string
+        line: str
             header that is to be parsed
 
         """

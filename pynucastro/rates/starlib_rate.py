@@ -39,12 +39,12 @@ class StarLibRate(TemperatureTabularRate):
         super().__init__(log_t9_data, sampled_rates, label=label, **kwargs)
 
     def sample_rates(self, seed=None):
-        """Samples rate values as median_rate + N(0,1)*sigma for each of the
+        """Sample rate values as median_rate + N(0,1)*sigma for each of the
         60 entries in the data for a Starlib rate.
 
         Parameters
         ----------
-        seed : int 
+        seed : int
             Seed for the rng necessary to sample rates. If seed is none, the
             method returns median rates.
         """
@@ -68,4 +68,3 @@ class StarLibRate(TemperatureTabularRate):
             return False
 
         return self.reactants == other.reactants and self.products == other.products
-    
