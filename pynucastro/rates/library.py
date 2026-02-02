@@ -3,6 +3,7 @@ multiple sources.
 
 """
 
+import bz2
 import collections
 import io
 import re
@@ -1003,7 +1004,7 @@ class StarLibLibrary(Library):
 
     """
 
-    file_path = Path(__file__).parents[1]/"library/starlib.dat"
+    file_path = Path(__file__).parents[1]/"library/starlib.dat.bz2"
     INTERACTION_MAP = {1: (1, 1), 2: (1, 2), 3: (1, 3), 4: (2, 1),
                        5: (2, 2), 6: (2, 3), 7: (2, 4), 8: (3, 1),
                        9: (3, 2), 10: (4, 2), 11: (1, 4)}
@@ -1011,7 +1012,7 @@ class StarLibLibrary(Library):
 
     def __init__(self, seed=None):
         rates = []
-        with self.file_path.open(mode="r") as f:
+        with bz2.open(self.file_path,mode="rt") as f:
             for header in f:
                 # Read header and relevant info
                 rate_info = self.parse_header(header)
