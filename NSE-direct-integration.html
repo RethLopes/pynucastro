@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>NSE vs. Direct Integration &#8212; pynucastro 0.0.post1648+g42713e934 documentation</title>
+    <title>NSE vs. Direct Integration &#8212; pynucastro 0.0.post1649+g90e398717 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=8d03372b"></script>
+    <script src="_static/documentation_options.js?v=a39ddafb"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -637,7 +637,7 @@ the rate equation assumed when deriving the <code class="docutils literal notran
 <p>To address assumption #3, the reaction network must be sufficiently connected so that the chemical potential of any species and be expressed in terms of the chemical potentials of only two species. Consider a network with <span class="math notranslate nohighlight">\(N\)</span> number of species and <span class="math notranslate nohighlight">\(M\)</span> number of strong reaction pairs, then the difference in the chemical potential between the reactants and products for the <span class="math notranslate nohighlight">\(i\)</span>-th reaction pair can be written as</p>
 <div class="math notranslate nohighlight">
 \[ S_{ij} \mu_j = \delta_i \]</div>
-<p>where <span class="math notranslate nohighlight">\(\mu_j\)</span> is the chemical potential of the <span class="math notranslate nohighlight">\(j\)</span>-th species, <span class="math notranslate nohighlight">\(S\)</span> is the stoichiometric matrix and <span class="math notranslate nohighlight">\(S_{ij}\)</span> is the stoichiometric coefficient of the <span class="math notranslate nohighlight">\(j\)</span>-th species participated in the <span class="math notranslate nohighlight">\(i\)</span>-th reaction pair, with opposite signs depending on whether it is a reactant or a product. System reaches global chemical equilibrium for <span class="math notranslate nohighlight">\(\mu_j = \mu^{\mathrm{eq}}_j\)</span> such that <span class="math notranslate nohighlight">\(\delta_i = 0\)</span> for all reaction pairs.
+<p>where <span class="math notranslate nohighlight">\(\mu_j\)</span> is the chemical potential of the <span class="math notranslate nohighlight">\(j\)</span>-th species, <span class="math notranslate nohighlight">\(S\)</span> is the stoichiometric matrix of shape <span class="math notranslate nohighlight">\((M, N)\)</span>, and <span class="math notranslate nohighlight">\(S_{ij}\)</span> is the stoichiometric coefficient of the <span class="math notranslate nohighlight">\(j\)</span>-th species participated in the <span class="math notranslate nohighlight">\(i\)</span>-th reaction pair, with opposite signs depending on whether it is a reactant or a product. System reaches global chemical equilibrium for <span class="math notranslate nohighlight">\(\mu_j = \mu^{\mathrm{eq}}_j\)</span> such that <span class="math notranslate nohighlight">\(\delta_i = 0\)</span> for all reaction pairs.
 For the equilibrium state to be consistent with NSE, the dimension of <span class="math notranslate nohighlight">\(\mu^{\mathrm{eq}}\)</span> must not be greater than the maximum independent equilibrium chemical potentials, <span class="math notranslate nohighlight">\(\mathrm{MAX\_DIM}\)</span>. In general, <span class="math notranslate nohighlight">\(\mathrm{MAX\_DIM} = 2\)</span> as there are two possible NSE constraints.
 If all species in the network have the same <span class="math notranslate nohighlight">\(Z/A\)</span> ratio, such as the <span class="math notranslate nohighlight">\(\alpha\)</span>-chain network, the <span class="math notranslate nohighlight">\(Y_e\)</span> constraint becomes redundant and <span class="math notranslate nohighlight">\(\mathrm{MAX\_DIM} \rightarrow 1\)</span>. The mathematical equivalent statement is to require</p>
 <div class="math notranslate nohighlight">
@@ -978,11 +978,11 @@ by the total activity of the rate (forward + reverse) by doing <code class="docu
 <section id="examples-of-incompatibility">
 <h2>Examples of incompatibility<a class="headerlink" href="#examples-of-incompatibility" title="Link to this heading">#</a></h2>
 <p>We previously demonstrated a potentially useful 19-nuclei network for Helium burning, where the network is intrinsically compatible with NSE. Now the question is what are some examples that are not compatible with NSE?</p>
-<p>Let’s consider expanding the network by adding more iron-group elementsabove by adding two rate pairs</p>
+<p>Let’s consider expanding the network with more iron-group species by adding two rate pairs</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-{}^{52}\mathrm{Fe} + \mathrm{n} \rightleftharpoons {}^{53}\mathrm{Fe} \\
-\end{split}\]</div>
+\[
+{}^{52}\mathrm{Fe} + \mathrm{n} \rightleftharpoons {}^{53}\mathrm{Fe}
+\]</div>
 <div class="math notranslate nohighlight">
 \[
  {}^{53}\mathrm{Fe} + \mathrm{n} \rightleftharpoons {}^{54}\mathrm{Fe}
@@ -1038,12 +1038,13 @@ But let’s verify it by integrating the network.</p>
 </div>
 <p>We see that the mass abundance computed from NSE is indeed different from integrating the network to equilibrium,
 suggesting the isotopes are not sufficiently connected. To resolve this issue, we need additional rates to provide connections
-from the newly added <span class="math notranslate nohighlight">\({}^{54}\mathrm{Fe}\)</span> to <span class="math notranslate nohighlight">\({}^{55}\mathrm{Co}\)</span>. Let’s consider adding,
-$<span class="math notranslate nohighlight">\(
+from the newly added <span class="math notranslate nohighlight">\({}^{54}\mathrm{Fe}\)</span> to <span class="math notranslate nohighlight">\({}^{55}\mathrm{Co}\)</span>. Let’s consider adding,</p>
+<div class="math notranslate nohighlight">
+\[
 {}^{54}\mathrm{Fe} + \mathrm{p} \rightleftharpoons {}^{55}\mathrm{Co}
-\)</span><span class="math notranslate nohighlight">\(
-This rate completes the loop between \)</span>{}^{52}\mathrm{Fe}<span class="math notranslate nohighlight">\(, \)</span>{}^{53}\mathrm{Fe}<span class="math notranslate nohighlight">\(, \)</span>{}^{54}\mathrm{Fe}<span class="math notranslate nohighlight">\(, and \)</span>{}^{55}\mathrm{Co}<span class="math notranslate nohighlight">\(,
-allowing for the exchange of \)</span>{}^{4}\mathrm{He}$ to 2 protons and 2 neutrons</p>
+\]</div>
+<p>This rate completes the loop between <span class="math notranslate nohighlight">\({}^{52}\mathrm{Fe}\)</span>, <span class="math notranslate nohighlight">\({}^{53}\mathrm{Fe}\)</span>, <span class="math notranslate nohighlight">\({}^{54}\mathrm{Fe}\)</span>, and <span class="math notranslate nohighlight">\({}^{55}\mathrm{Co}\)</span>,
+allowing for the exchange of <span class="math notranslate nohighlight">\({}^{4}\mathrm{He}\)</span> to 2 protons and 2 neutrons</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fe54p_co55</span> <span class="o">=</span> <span class="n">rl</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">&quot;fe54(p,g)co55&quot;</span><span class="p">)</span>
