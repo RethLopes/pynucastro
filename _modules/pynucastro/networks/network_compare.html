@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pynucastro.rates.files &#8212; pynucastro 0.0.post1667+gb43d10d71 documentation</title>
+    <title>pynucastro.networks.network_compare &#8212; pynucastro 0.0.post1667+gb43d10d71 documentation</title>
   
   
   
@@ -48,7 +48,7 @@
     <script src="../../../_static/copybutton.js?v=eaa7b67c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pynucastro/rates/files';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pynucastro/networks/network_compare';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -418,7 +418,7 @@
       
       
       
-      <li><a href="https://github.com/pynucastro/pynucastro/issues/new?title=Issue%20on%20page%20%2F_modules/pynucastro/rates/files.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/pynucastro/pynucastro/issues/new?title=Issue%20on%20page%20%2F_modules/pynucastro/networks/network_compare.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -488,80 +488,176 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for pynucastro.rates.files</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Functions for finding and working with the rate data directories.&quot;&quot;&quot;</span>
+  <h1>Source code for pynucastro.networks.network_compare</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Helper functions for comparing the output of different backends</span>
+<span class="sd">(python, C++) for the same network.  This will build and run each net</span>
+<span class="sd">and return the ydots.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span><span class="w"> </span><span class="nn">importlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
-<span class="n">_pynucastro_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">_pynucastro_rates_dir</span> <span class="o">=</span> <span class="n">_pynucastro_dir</span><span class="o">/</span><span class="s2">&quot;library&quot;</span>
-<span class="n">_pynucastro_tabular_dir</span> <span class="o">=</span> <span class="n">_pynucastro_rates_dir</span><span class="o">/</span><span class="s2">&quot;tabular&quot;</span>
-<span class="n">_pynucastro_suzuki_dir</span> <span class="o">=</span> <span class="n">_pynucastro_tabular_dir</span><span class="o">/</span><span class="s2">&quot;suzuki&quot;</span>
-<span class="n">_pynucastro_langanke_dir</span> <span class="o">=</span> <span class="n">_pynucastro_tabular_dir</span><span class="o">/</span><span class="s2">&quot;langanke&quot;</span>
-<span class="n">_pynucastro_ffn_dir</span> <span class="o">=</span> <span class="n">_pynucastro_tabular_dir</span><span class="o">/</span><span class="s2">&quot;ffn&quot;</span>
-<span class="n">_pynucastro_oda_dir</span> <span class="o">=</span> <span class="n">_pynucastro_tabular_dir</span><span class="o">/</span><span class="s2">&quot;oda&quot;</span>
-<span class="n">_pynucastro_pruetfuller_dir</span> <span class="o">=</span> <span class="n">_pynucastro_tabular_dir</span><span class="o">/</span><span class="s2">&quot;pruet_fuller&quot;</span>
-<span class="n">_dirs</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">_pynucastro_dir</span><span class="p">,</span> <span class="n">_pynucastro_rates_dir</span><span class="p">,</span> <span class="n">_pynucastro_tabular_dir</span><span class="p">,</span>
-    <span class="n">_pynucastro_suzuki_dir</span><span class="p">,</span> <span class="n">_pynucastro_langanke_dir</span><span class="p">,</span> <span class="n">_pynucastro_ffn_dir</span><span class="p">,</span>
-    <span class="n">_pynucastro_oda_dir</span><span class="p">,</span> <span class="n">_pynucastro_pruetfuller_dir</span>
-<span class="p">]</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pynucastro.networks.python_network</span><span class="w"> </span><span class="kn">import</span> <span class="n">PythonNetwork</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pynucastro.networks.rate_collection</span><span class="w"> </span><span class="kn">import</span> <span class="n">Composition</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pynucastro.networks.simple_cxx_network</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimpleCxxNetwork</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pynucastro.nucdata</span><span class="w"> </span><span class="kn">import</span> <span class="n">Nucleus</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pynucastro.screening</span><span class="w"> </span><span class="kn">import</span> <span class="n">chugunov_2007</span>
 
 
-<div class="viewcode-block" id="get_rates_dir">
-<a class="viewcode-back" href="../../../pynucastro.rates.files.html#pynucastro.rates.files.get_rates_dir">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">get_rates_dir</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the top-level directory containing rate files</span>
+<div class="viewcode-block" id="NetworkCompare">
+<a class="viewcode-back" href="../../../pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">NetworkCompare</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A simple class to manage building a network with different</span>
+<span class="sd">    backends to facilitate comparisons.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    pathlib.Path</span>
-
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lib : Library</span>
+<span class="sd">        pynucastro Library containing the rates</span>
+<span class="sd">    use_screening : bool</span>
+<span class="sd">        do we include screening in the comparison (Chugunov 2007)</span>
+<span class="sd">    include_simple_cxx : bool</span>
+<span class="sd">        do we build and evaluate a SimpleCxxNetwork?</span>
+<span class="sd">    python_module_name : str</span>
+<span class="sd">        the name of the module file to output the python net to</span>
+<span class="sd">    cxx_test_path : pathlib.Path</span>
+<span class="sd">        the Path to output the C++ source files and build in</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">return</span> <span class="n">_pynucastro_rates_dir</span></div>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lib</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+                 <span class="n">use_screening</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">include_simple_cxx</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">python_module_name</span><span class="o">=</span><span class="s2">&quot;compare_net.py&quot;</span><span class="p">,</span>
+                 <span class="n">cxx_test_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">lib</span> <span class="o">=</span> <span class="n">lib</span>
 
+        <span class="k">if</span> <span class="n">use_screening</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">screen_func</span> <span class="o">=</span> <span class="n">chugunov_2007</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">screen_func</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="get_tabular_dir">
-<a class="viewcode-back" href="../../../pynucastro.rates.files.html#pynucastro.rates.files.get_tabular_dir">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">get_tabular_dir</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the top-level directory containing the tabulated rates</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">include_simple_cxx</span> <span class="o">=</span> <span class="n">include_simple_cxx</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    pathlib.Path</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">python_module_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.py&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;invalid python_module_name&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">python_module_name</span> <span class="o">=</span> <span class="n">python_module_name</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">include_simple_cxx</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cxx_test_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">cxx_test_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;_test_compare/&quot;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">_pynucastro_tabular_dir</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cxx_test_path</span> <span class="o">=</span> <span class="n">cxx_test_path</span>
 
+            <span class="c1"># make the directory where the C++ output will go</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cxx_test_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
+        <span class="c1"># we will always have the python version</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pynet</span> <span class="o">=</span> <span class="n">PythonNetwork</span><span class="p">(</span><span class="n">libraries</span><span class="o">=</span><span class="p">[</span><span class="n">lib</span><span class="p">])</span>
 
-<div class="viewcode-block" id="RateFileError">
-<a class="viewcode-back" href="../../../pynucastro.rates.files.html#pynucastro.rates.files.RateFileError">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">RateFileError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error occurred while trying to read a Rate from a file.&quot;&quot;&quot;</span></div>
+        <span class="c1"># always use a uniform compostion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comp</span> <span class="o">=</span> <span class="n">Composition</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pynet</span><span class="o">.</span><span class="n">unique_nuclei</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comp</span><span class="o">.</span><span class="n">set_equal</span><span class="p">()</span>
 
+        <span class="c1"># storage for the ydots</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ydots_py_inline</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ydots_py_module</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ydots_cxx</span> <span class="o">=</span> <span class="kc">None</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">_run_python_inline_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mf">2.e8</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">1.e9</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Evaluate the rates using the methods built into</span>
+<span class="sd">        RateCollection</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_find_rate_file</span><span class="p">(</span><span class="n">ratename</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Locate the Reaclib or tabular rate or library file given its</span>
-<span class="sd">    name.  Return None if the file cannot be located, otherwise return</span>
-<span class="sd">    its path.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ydots_py_inline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pynet</span><span class="o">.</span><span class="n">evaluate_ydots</span><span class="p">(</span><span class="n">rho</span><span class="o">=</span><span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T</span><span class="p">,</span>
+                                                         <span class="n">composition</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">comp</span><span class="p">,</span>
+                                                         <span class="n">screen_func</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">screen_func</span><span class="p">)</span>
 
-    <span class="c1"># check to see if the rate file is in the working dir,</span>
-    <span class="c1"># is already the full path, or is in _dirs</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_run_python_module_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mf">2.e8</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">1.e9</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write the python network to a module and import it, and</span>
+<span class="sd">        then evaluate the rates from the rate functions in the module.</span>
 
-    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">_dirs</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">ratename</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
-            <span class="k">return</span> <span class="n">x</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-    <span class="c1"># notify user we can&#39;t find the file</span>
-    <span class="k">raise</span> <span class="n">RateFileError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;File </span><span class="si">{</span><span class="n">ratename</span><span class="si">!r}</span><span class="s1"> not found in the working directory, </span><span class="si">{</span><span class="n">_pynucastro_rates_dir</span><span class="si">}</span><span class="s1">, or </span><span class="si">{</span><span class="n">_pynucastro_tabular_dir</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pynet</span><span class="o">.</span><span class="n">write_network</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">python_module_name</span><span class="p">)</span>
+
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">spec_from_file_location</span><span class="p">(</span><span class="s2">&quot;cn&quot;</span><span class="p">,</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">python_module_name</span><span class="p">)</span>
+        <span class="n">cn</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">module_from_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">exec_module</span><span class="p">(</span><span class="n">cn</span><span class="p">)</span>
+
+        <span class="c1"># we can now compute the ydots via cn.rhs()</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">comp</span><span class="o">.</span><span class="n">get_molar</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">_tmp</span> <span class="o">=</span> <span class="n">cn</span><span class="o">.</span><span class="n">rhs</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">screen_func</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">screen_func</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ydots_py_module</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pynet</span><span class="o">.</span><span class="n">unique_nuclei</span><span class="p">,</span> <span class="n">_tmp</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ydots_py_module</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_run_simple_cxx_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mf">2.e8</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">1.e9</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Output the simple C++ network code, build it, run, and</span>
+<span class="sd">        parse the output to get the rates.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">cxx_net</span> <span class="o">=</span> <span class="n">SimpleCxxNetwork</span><span class="p">(</span><span class="n">libraries</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lib</span><span class="p">])</span>
+        <span class="n">cxx_net</span><span class="o">.</span><span class="n">write_network</span><span class="p">(</span><span class="n">odir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cxx_test_path</span><span class="p">)</span>
+
+        <span class="c1"># build an run the simple C++ network</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">opts</span> <span class="o">=</span> <span class="s2">&quot;USE_SCREENING=TRUE&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">opts</span> <span class="o">=</span> <span class="s2">&quot;USE_SCREENING=FALSE&quot;</span>
+
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;make </span><span class="si">{</span><span class="n">opts</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                       <span class="n">capture_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                       <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cxx_test_path</span><span class="p">)</span>
+
+        <span class="n">cp</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./main </span><span class="si">{</span><span class="n">rho</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cxx_test_path</span><span class="p">)</span>
+        <span class="n">stdout</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">stdout</span>
+
+        <span class="c1"># the stdout includes lines of the form:</span>
+        <span class="c1">#    Ydot(X) = ...</span>
+        <span class="c1"># for each nucleus X.  This regex will capture</span>
+        <span class="c1"># the nucleus and the ydot value for each of these</span>
+        <span class="n">ydot_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(Ydot)\((\w*)\)(\s+)(=)(\s+)([\d\-e\+.]*)&quot;</span><span class="p">,</span>
+                             <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ydots_cxx</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">stdout</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">match</span> <span class="o">:=</span> <span class="n">ydot_re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ydots_cxx</span><span class="p">[</span><span class="n">Nucleus</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span>
+
+<div class="viewcode-block" id="NetworkCompare.evaluate">
+<a class="viewcode-back" href="../../../pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.evaluate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mf">2.e8</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">1.e9</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Evaluate the ydots from all the backends we are</span>
+<span class="sd">        considering</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        rho : float</span>
+<span class="sd">            density to evaluate rates at (CGS)</span>
+<span class="sd">        T : float</span>
+<span class="sd">            temperature to evaluate rates at (K)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_run_python_inline_version</span><span class="p">(</span><span class="n">rho</span><span class="o">=</span><span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_run_python_module_version</span><span class="p">(</span><span class="n">rho</span><span class="o">=</span><span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">include_simple_cxx</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_run_simple_cxx_version</span><span class="p">(</span><span class="n">rho</span><span class="o">=</span><span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T</span><span class="p">)</span></div>
+</div>
+
 </pre></div>
 
                 </article>
