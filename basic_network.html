@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Basic Networks &#8212; pynucastro 0.0.post1667+gb43d10d71 documentation</title>
+    <title>Basic Networks &#8212; pynucastro 0.0.post1693+g864ffc786 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=64dc8865"></script>
+    <script src="_static/documentation_options.js?v=dc240f43"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -258,6 +258,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -299,6 +300,7 @@
 </ul>
 </details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="pynucastro.nucdata.html">pynucastro.nucdata package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.composition.html">pynucastro.nucdata.composition module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.elements.html">pynucastro.nucdata.elements module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.halflife_table.html">pynucastro.nucdata.halflife_table module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.mass_table.html">pynucastro.nucdata.mass_table module</a></li>
@@ -653,7 +655,7 @@ this can be changed via the <code class="docutils literal notranslate"><span cla
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/886b0e1a17d3e7d77a0f14eba77c04b5feba60338808236116e0fd8bfe0b1e2e.png" src="_images/886b0e1a17d3e7d77a0f14eba77c04b5feba60338808236116e0fd8bfe0b1e2e.png" />
+<img alt="_images/8c8e9f41453af110c3311bbe593d81b417797dbba79179362ed5d345bb65fd93.png" src="_images/8c8e9f41453af110c3311bbe593d81b417797dbba79179362ed5d345bb65fd93.png" />
 </div>
 </div>
 <p>We can see that it is using some tabulated weak rates for some links:</p>
@@ -676,8 +678,9 @@ this can be changed via the <code class="docutils literal notranslate"><span cla
   hidden rates: 0
 
   reaclib rates: 32
-  weak tabular rates: 8
+  starlib rates: 0
   temperature tabular rates: 0
+  weak tabular rates: 8
   approximate rates: 0
   derived rates: 29
   modified rates: 0
@@ -695,7 +698,7 @@ this can be changed via the <code class="docutils literal notranslate"><span cla
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/281c494251af1df3b1833cea8838a452873e854497e2c4f6edba762c553eb5bd.png" src="_images/281c494251af1df3b1833cea8838a452873e854497e2c4f6edba762c553eb5bd.png" />
+<img alt="_images/19580d8dc6f9e7776340d02d9bbb84d2d2b53222a703d5ba8bb746f910d8aab4.png" src="_images/19580d8dc6f9e7776340d02d9bbb84d2d2b53222a703d5ba8bb746f910d8aab4.png" />
 </div>
 </div>
 <p>Also notice that <code class="docutils literal notranslate"><span class="pre">network_helper</span></code> includes both the forward and reverse rates for all links.</p>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Computing the Screened Triple-alpha rate &#8212; pynucastro 0.0.post1667+gb43d10d71 documentation</title>
+    <title>Computing the Screened Triple-alpha rate &#8212; pynucastro 0.0.post1693+g864ffc786 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=64dc8865"></script>
+    <script src="../_static/documentation_options.js?v=dc240f43"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -258,6 +258,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -299,6 +300,7 @@
 </ul>
 </details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../pynucastro.nucdata.html">pynucastro.nucdata package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../pynucastro.nucdata.composition.html">pynucastro.nucdata.composition module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../pynucastro.nucdata.elements.html">pynucastro.nucdata.elements module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../pynucastro.nucdata.halflife_table.html">pynucastro.nucdata.halflife_table module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../pynucastro.nucdata.mass_table.html">pynucastro.nucdata.mass_table module</a></li>
@@ -621,7 +623,7 @@ We’ll do this 2 different ways (but both will get the same answer).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6cbc070b7e100f2d2364882e65b4cd1f2297bc4443f5a96bd66c3635dd3a03e6.png" src="../_images/6cbc070b7e100f2d2364882e65b4cd1f2297bc4443f5a96bd66c3635dd3a03e6.png" />
+<img alt="../_images/f14e9c7a5094bf6297324f267bcad0d65deea93552fc04502db32ef872241425.png" src="../_images/f14e9c7a5094bf6297324f267bcad0d65deea93552fc04502db32ef872241425.png" />
 </div>
 </div>
 <section id="manual-method">
@@ -649,7 +651,7 @@ We’ll do this 2 different ways (but both will get the same answer).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e00976df6c81e98db32faa1cbc953ec571bbda5a329efc3a5ba60eafa73c6935.png" src="../_images/e00976df6c81e98db32faa1cbc953ec571bbda5a329efc3a5ba60eafa73c6935.png" />
+<img alt="../_images/f2fb1467e1620c986444e0320c241a02aafd76cf94893b3bb172b12f8262a01d.png" src="../_images/f2fb1467e1620c986444e0320c241a02aafd76cf94893b3bb172b12f8262a01d.png" />
 </div>
 </div>
 <p>To compute the screening, we first need to get the plasma state</p>
@@ -713,7 +715,7 @@ We’ll do this 2 different ways (but both will get the same answer).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/820edd85c3adcb3eb9d6f66477825c9f5cc35e911b17f01aa54c89b1c14b062c.png" src="../_images/820edd85c3adcb3eb9d6f66477825c9f5cc35e911b17f01aa54c89b1c14b062c.png" />
+<img alt="../_images/96ff1f55a33b0eef87a41da43d57bc03d3d7b9c0e7149e774cb1ba981d2a6c93.png" src="../_images/96ff1f55a33b0eef87a41da43d57bc03d3d7b9c0e7149e774cb1ba981d2a6c93.png" />
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">evaluate_rates()</span></code> method will take the thermodynamic state and screening function (optionally) and compute the value of each of the rates in the network.</p>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Sensitivity Analysis &#8212; pynucastro 0.0.post1667+gb43d10d71 documentation</title>
+    <title>Sensitivity Analysis &#8212; pynucastro 0.0.post1693+g864ffc786 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=64dc8865"></script>
+    <script src="_static/documentation_options.js?v=dc240f43"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -258,6 +258,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -299,6 +300,7 @@
 </ul>
 </details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="pynucastro.nucdata.html">pynucastro.nucdata package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.composition.html">pynucastro.nucdata.composition module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.elements.html">pynucastro.nucdata.elements module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.halflife_table.html">pynucastro.nucdata.halflife_table module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.mass_table.html">pynucastro.nucdata.mass_table module</a></li>
@@ -681,8 +683,9 @@ to create the energy release.</p>
   hidden rates: 0
 
   reaclib rates: 1621
-  weak tabular rates: 110
+  starlib rates: 0
   temperature tabular rates: 0
+  weak tabular rates: 110
   approximate rates: 0
   derived rates: 0
   modified rates: 0
@@ -698,7 +701,7 @@ to create the energy release.</p>
 <p class="admonition-title">Warning</p>
 <p>Some of the nuclei are incredibly shortlived, and if we have any abundance there, it will dominate the rate evaluation.</p>
 </div>
-<p>When we initialize the <a class="reference internal" href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition" title="pynucastro.networks.rate_collection.Composition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Composition</span></code></a>, we’ll use the <code class="docutils literal notranslate"><span class="pre">half_life_thresh</span></code> option to zero out the abundance of any species that should immediately decay.</p>
+<p>When we initialize the <a class="reference internal" href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition" title="pynucastro.nucdata.composition.Composition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Composition</span></code></a>, we’ll use the <code class="docutils literal notranslate"><span class="pre">half_life_thresh</span></code> option to zero out the abundance of any species that should immediately decay.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">comp</span> <span class="o">=</span> <span class="n">pyna</span><span class="o">.</span><span class="n">Composition</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">unique_nuclei</span><span class="p">)</span>
@@ -747,7 +750,7 @@ to create the energy release.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.3/x64/lib/python3.14/site-packages/pynucastro/reduction/drgep_module.py:95: RuntimeWarning: invalid value encountered in divide
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.4/x64/lib/python3.14/site-packages/pynucastro/reduction/drgep_module.py:95: RuntimeWarning: invalid value encountered in divide
   r_AB = np.abs(p_AB - c_AB) / denom
 </pre></div>
 </div>
@@ -760,7 +763,7 @@ to create the energy release.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d694dc6281b5b2745682096183a63910fdc1bb3cace178a334136ec07101ec74.png" src="_images/d694dc6281b5b2745682096183a63910fdc1bb3cace178a334136ec07101ec74.png" />
+<img alt="_images/fa5878b770857ab334e112603d4c7a142ba9533edb17aa9bc840c95b041a56b0.png" src="_images/fa5878b770857ab334e112603d4c7a142ba9533edb17aa9bc840c95b041a56b0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -782,8 +785,9 @@ to create the energy release.</p>
   hidden rates: 0
 
   reaclib rates: 260
-  weak tabular rates: 30
+  starlib rates: 0
   temperature tabular rates: 0
+  weak tabular rates: 30
   approximate rates: 0
   derived rates: 0
   modified rates: 0
@@ -857,8 +861,9 @@ is that we provide an error-function—we’ll use the energy generation rate as
   hidden rates: 0
 
   reaclib rates: 127
-  weak tabular rates: 12
+  starlib rates: 0
   temperature tabular rates: 0
+  weak tabular rates: 12
   approximate rates: 0
   derived rates: 0
   modified rates: 0
@@ -875,7 +880,7 @@ is that we provide an error-function—we’ll use the energy generation rate as
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b0b01d3dccaf43c0bd5425b4045caf9aa620ea8eb0f4c242bcef12501b6d5b0a.png" src="_images/b0b01d3dccaf43c0bd5425b4045caf9aa620ea8eb0f4c242bcef12501b6d5b0a.png" />
+<img alt="_images/693131fe7eab5c53eb1f8cd35181f3863122395a46baedf885f4f2afd41f53cd.png" src="_images/693131fe7eab5c53eb1f8cd35181f3863122395a46baedf885f4f2afd41f53cd.png" />
 </div>
 </div>
 <p>We see that there is a disjoint sequence of nuclei here.  The choice of conditions and threshold make this reduction very sensitive, so some experimentation is usually needed.</p>

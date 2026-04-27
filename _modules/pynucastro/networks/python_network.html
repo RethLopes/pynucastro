@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pynucastro.networks.python_network &#8212; pynucastro 0.0.post1667+gb43d10d71 documentation</title>
+    <title>pynucastro.networks.python_network &#8212; pynucastro 0.0.post1693+g864ffc786 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=64dc8865"></script>
+    <script src="../../../_static/documentation_options.js?v=dc240f43"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -254,6 +254,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -295,6 +296,7 @@
 </ul>
 </details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../pynucastro.nucdata.html">pynucastro.nucdata package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.nucdata.composition.html">pynucastro.nucdata.composition module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.nucdata.elements.html">pynucastro.nucdata.elements module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.nucdata.halflife_table.html">pynucastro.nucdata.halflife_table module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.nucdata.mass_table.html">pynucastro.nucdata.mass_table module</a></li>
@@ -501,7 +503,8 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">solve_ivp</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynucastro.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">constants</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pynucastro.networks.rate_collection</span><span class="w"> </span><span class="kn">import</span> <span class="n">Composition</span><span class="p">,</span> <span class="n">RateCollection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pynucastro.networks.rate_collection</span><span class="w"> </span><span class="kn">import</span> <span class="n">RateCollection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pynucastro.nucdata</span><span class="w"> </span><span class="kn">import</span> <span class="n">Composition</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynucastro.rates</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApproximateRate</span><span class="p">,</span> <span class="n">ModifiedRate</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynucastro.screening</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_screening_func</span><span class="p">,</span> <span class="n">get_screening_pair_set</span>
 
@@ -747,6 +750,11 @@
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">temperature_tabular_rates</span><span class="p">:</span>
             <span class="n">ostr</span> <span class="o">+=</span> <span class="n">format_rate_call</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">use_tf</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">starlib_rates</span><span class="p">:</span>
+            <span class="n">ostr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2"># starlib rates</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">starlib_rates</span><span class="p">:</span>
+            <span class="n">ostr</span> <span class="o">+=</span> <span class="n">format_rate_call</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">use_tf</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">custom_rates</span><span class="p">:</span>
             <span class="n">ostr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2"># custom rates</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">custom_rates</span><span class="p">:</span>
@@ -912,11 +920,11 @@
             <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    np.array(</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">tabular_data_table</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;)</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="c1"># temperature tabular rate data</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">temperature_tabular_rates</span><span class="p">:</span>
+        <span class="c1"># temperature tabular / starlib rate data</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">temperature_tabular_rates</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">starlib_rates</span><span class="p">:</span>
             <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;# note: we cannot make the TempTableInterpolator global, since numba doesn&#39;t like global jitclass</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">temperature_tabular_rates</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">temperature_tabular_rates</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">starlib_rates</span><span class="p">:</span>
 
             <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;# temperature / rate tabulation for </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">rid</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -979,7 +987,7 @@
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">return rhs_eq(t, Y, rho, T, screen_func)</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;@numba.njit()</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;def rhs_eq(t, Y, rho, T, screen_func):</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;def do_rate_eval(t, Y, rho, T, screen_func):</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="c1"># get the rates</span>
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">tf = Tfactors(T)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -988,6 +996,13 @@
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rates_string</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="n">indent</span><span class="p">))</span>
 
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">return rate_eval</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;@numba.njit()</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;def rhs_eq(t, Y, rho, T, screen_func):</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">rate_eval = do_rate_eval(t, Y, rho, T, screen_func)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">dYdt = np.zeros((nnuc), dtype=np.float64)</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 

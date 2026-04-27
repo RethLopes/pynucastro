@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Reaction Rate Types &#8212; pynucastro 0.0.post1667+gb43d10d71 documentation</title>
+    <title>Reaction Rate Types &#8212; pynucastro 0.0.post1693+g864ffc786 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=64dc8865"></script>
+    <script src="_static/documentation_options.js?v=dc240f43"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -258,6 +258,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -299,6 +300,7 @@
 </ul>
 </details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="pynucastro.nucdata.html">pynucastro.nucdata package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.composition.html">pynucastro.nucdata.composition module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.elements.html">pynucastro.nucdata.elements module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.halflife_table.html">pynucastro.nucdata.halflife_table module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.mass_table.html">pynucastro.nucdata.mass_table module</a></li>
@@ -581,14 +583,17 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ydot-term">ydot term</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#starlib-rates">StarLib rates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature-tabulated-rates">Temperature-tabulated Rates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#starlib-rates">StarLib rates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling">Sampling</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabulated-weak-rates">Tabulated Weak Rates</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ydot term</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#table-format">Table format</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Rate evaluation functions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature-tabulated-rates">Temperature-tabulated Rates</a></li>
 </ul>
             </nav>
         </div>
@@ -773,6 +778,17 @@ is the responsibility of the network.</p>
 outputs the contribution to the Jacobian for this rate.</p>
 </section>
 </section>
+<section id="temperature-tabulated-rates">
+<h2>Temperature-tabulated Rates<a class="headerlink" href="#temperature-tabulated-rates" title="Link to this heading">#</a></h2>
+<p>For charged-particle capture rates, an alternative to the ReacLib parameterization
+is to provide a table of <span class="math notranslate nohighlight">\(T\)</span> vs. <span class="math notranslate nohighlight">\(N_A \langle \sigma v \rangle\)</span>.  This tabulation
+is provided by the <a class="reference internal" href="pynucastro.rates.temperature_tabular_rate.html#pynucastro.rates.temperature_tabular_rate.TemperatureTabularRate" title="pynucastro.rates.temperature_tabular_rate.TemperatureTabularRate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TemperatureTabularRate</span></code></a>.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">TemperatureTabularRate</span></code> stores the 1D table of <span class="math notranslate nohighlight">\(N_A \langle \sigma v\rangle\)</span> and
+the <code class="docutils literal notranslate"><span class="pre">eval()</span></code> method performs an interpolation on this given a
+temperature.  This rate can then be used in the same way as a
+<code class="docutils literal notranslate"><span class="pre">ReacLibRate</span></code>, and it provides compatible functions to write out the
+function string needed to evaluate the rate.</p>
+</section>
 <section id="starlib-rates">
 <h2>StarLib rates<a class="headerlink" href="#starlib-rates" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://starlib.github.io/Rate-Library/">STARLIB</a> is a rate library that provides rate probability densities over a
@@ -800,11 +816,18 @@ if a given rate is weak, “v” if a rate is a reverse reaction and
 <li><p>Energy released (+) or consumed (-).</p></li>
 </ul>
 <p>The <a class="reference internal" href="pynucastro.rates.starlib_rate.html#pynucastro.rates.starlib_rate.StarLibRate" title="pynucastro.rates.starlib_rate.StarLibRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">StarLibRate</span></code></a> class provides the
-structure necessary to store and sample StarLib rates within pynucastro.
-Upon creation, instances of <code class="docutils literal notranslate"><span class="pre">StarLibRate</span></code> sample log rates across the
-temperature grid given the lognormal distributions and a rng seed.</p>
+structure necessary to store and sample StarLib rates within
+pynucastro.  This is based on <code class="docutils literal notranslate"><span class="pre">TemperatureTabularRate</span></code>, and uses the
+same interpolation methods.</p>
 <p>Note that StarLib provides rates for isomers of Al26 which are not
 presently supported in pynucastro.</p>
+<section id="sampling">
+<h3>Sampling<a class="headerlink" href="#sampling" title="Link to this heading">#</a></h3>
+<p>Upon creation, instances of <code class="docutils literal notranslate"><span class="pre">StarLibRate</span></code> sample log rates across the
+temperature grid given the lognormal distributions and a rng seed.
+The <a class="reference internal" href="pynucastro.rates.starlib_rate.html#pynucastro.rates.starlib_rate.StarLibRate.sample_rates" title="pynucastro.rates.starlib_rate.StarLibRate.sample_rates"><code class="xref py py-func docutils literal notranslate"><span class="pre">sample_rates</span></code></a>
+can be used to resample the rates in the library.</p>
+</section>
 </section>
 <section id="tabulated-weak-rates">
 <h2>Tabulated Weak Rates<a class="headerlink" href="#tabulated-weak-rates" title="Link to this heading">#</a></h2>
@@ -878,17 +901,6 @@ outputs the python code for managing the interpolation of the data.
 For C++ networks, this interpolation is handled directly by the network class.</p>
 </section>
 </section>
-<section id="temperature-tabulated-rates">
-<h2>Temperature-tabulated Rates<a class="headerlink" href="#temperature-tabulated-rates" title="Link to this heading">#</a></h2>
-<p>For charged-particle capture rates, an alternative to the ReacLib parameterization
-is to provide a table of <span class="math notranslate nohighlight">\(T\)</span> vs. <span class="math notranslate nohighlight">\(N_A \langle \sigma v \rangle\)</span>.  This tabulation
-is provided by the <a class="reference internal" href="pynucastro.rates.temperature_tabular_rate.html#pynucastro.rates.temperature_tabular_rate.TemperatureTabularRate" title="pynucastro.rates.temperature_tabular_rate.TemperatureTabularRate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TemperatureTabularRate</span></code></a>.</p>
-<p>A <code class="docutils literal notranslate"><span class="pre">TemperatureTabularRate</span></code> stores the 1D table of <span class="math notranslate nohighlight">\(N_A \langle \sigma v\rangle\)</span> and
-the <code class="docutils literal notranslate"><span class="pre">eval()</span></code> method performs an interpolation on this given a
-temperature.  This rate can then be used in the same way as a
-<code class="docutils literal notranslate"><span class="pre">ReacLibRate</span></code>, and it provides compatible functions to write out the
-function string needed to evaluate the rate.</p>
-</section>
 </section>
 
 
@@ -947,14 +959,17 @@ function string needed to evaluate the rate.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ydot-term">ydot term</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#starlib-rates">StarLib rates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature-tabulated-rates">Temperature-tabulated Rates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#starlib-rates">StarLib rates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling">Sampling</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabulated-weak-rates">Tabulated Weak Rates</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">ydot term</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#table-format">Table format</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Rate evaluation functions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature-tabulated-rates">Temperature-tabulated Rates</a></li>
 </ul>
   </nav></div>
 

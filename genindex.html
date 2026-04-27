@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; pynucastro 0.0.post1667+gb43d10d71 documentation</title>
+    <title>Index &#8212; pynucastro 0.0.post1693+g864ffc786 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=64dc8865"></script>
+    <script src="_static/documentation_options.js?v=dc240f43"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -252,6 +252,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -293,6 +294,7 @@
 </ul>
 </details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="pynucastro.nucdata.html">pynucastro.nucdata package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.composition.html">pynucastro.nucdata.composition module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.elements.html">pynucastro.nucdata.elements module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.halflife_table.html">pynucastro.nucdata.halflife_table module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.mass_table.html">pynucastro.nucdata.mass_table module</a></li>
@@ -523,7 +525,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pynucastro.constants.constants.html#pynucastro.constants.constants.a">a (in module pynucastro.constants.constants)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.A">A (pynucastro.networks.rate_collection.Composition property)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.A">A (pynucastro.nucdata.composition.Composition property)</a>
 
       <ul>
         <li><a href="pynucastro.nucdata.nucleus.html#pynucastro.nucdata.nucleus.Nucleus.A">(pynucastro.nucdata.nucleus.Nucleus attribute)</a>
@@ -533,7 +535,7 @@
 </li>
       <li><a href="pynucastro.screening.screen.html#pynucastro.screening.screen.PlasmaState.aa">aa (pynucastro.screening.screen.PlasmaState attribute)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.abar">abar (pynucastro.networks.rate_collection.Composition property)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.abar">abar (pynucastro.nucdata.composition.Composition property)</a>
 
       <ul>
         <li><a href="pynucastro.screening.screen.html#pynucastro.screening.screen.PlasmaState.abar">(pynucastro.screening.screen.PlasmaState attribute)</a>
@@ -571,7 +573,7 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.bin_as">bin_as() (pynucastro.networks.rate_collection.Composition method)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.bin_as">bin_as() (pynucastro.nucdata.composition.Composition method)</a>
 </li>
       <li><a href="pynucastro.reduction.sensitivity_analysis.html#pynucastro.reduction.sensitivity_analysis.binary_search_trim">binary_search_trim() (in module pynucastro.reduction.sensitivity_analysis)</a>
 </li>
@@ -623,7 +625,7 @@
 </li>
       <li><a href="pynucastro.networks.base_cxx_network.html#pynucastro.networks.base_cxx_network.BaseCxxNetwork.compose_ydot">compose_ydot() (pynucastro.networks.base_cxx_network.BaseCxxNetwork method)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition">Composition (class in pynucastro.networks.rate_collection)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition">Composition (class in pynucastro.nucdata.composition)</a>
 </li>
       <li><a href="pynucastro.rates.derived_rate.html#pynucastro.rates.derived_rate.DerivedRate.counter_factors">counter_factors() (pynucastro.rates.derived_rate.DerivedRate method)</a>
 </li>
@@ -649,12 +651,14 @@
 </li>
       <li><a href="pynucastro.rates.library.html#pynucastro.rates.library.Library.derived_backward">derived_backward() (pynucastro.rates.library.Library method)</a>
 </li>
-      <li><a href="pynucastro.rates.derived_rate.html#pynucastro.rates.derived_rate.DerivedRate">DerivedRate (class in pynucastro.rates.derived_rate)</a>
+      <li><a href="pynucastro.rates.reaclib_rate.html#pynucastro.rates.reaclib_rate.SingleSet.derived_from_inverse">derived_from_inverse (pynucastro.rates.reaclib_rate.SingleSet attribute)</a>
 </li>
-      <li><a href="pynucastro.rates.reaclib_rate.html#pynucastro.rates.reaclib_rate.SingleSet.dfdT">dfdT() (pynucastro.rates.reaclib_rate.SingleSet method)</a>
+      <li><a href="pynucastro.rates.derived_rate.html#pynucastro.rates.derived_rate.DerivedRate">DerivedRate (class in pynucastro.rates.derived_rate)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pynucastro.rates.reaclib_rate.html#pynucastro.rates.reaclib_rate.SingleSet.dfdT">dfdT() (pynucastro.rates.reaclib_rate.SingleSet method)</a>
+</li>
       <li><a href="pynucastro.rates.reaclib_rate.html#pynucastro.rates.reaclib_rate.SingleSet.dln_set_string_dT9_cxx">dln_set_string_dT9_cxx() (pynucastro.rates.reaclib_rate.SingleSet method)</a>
 </li>
       <li><a href="pynucastro.nucdata.nucleus.html#pynucastro.nucdata.nucleus.Nucleus.dm">dm (pynucastro.nucdata.nucleus.Nucleus attribute)</a>
@@ -845,14 +849,14 @@
 </li>
       <li><a href="pynucastro.nucdata.mass_table.html#pynucastro.nucdata.mass_table.MassTable.get_mass_diff">get_mass_diff() (pynucastro.nucdata.mass_table.MassTable method)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.get_molar">get_molar() (pynucastro.networks.rate_collection.Composition method)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.get_molar">get_molar() (pynucastro.nucdata.composition.Composition method)</a>
 </li>
       <li><a href="pynucastro.rates.tabular_rate.html#pynucastro.rates.tabular_rate.TabularRate.get_nu_loss">get_nu_loss() (pynucastro.rates.tabular_rate.TabularRate method)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.get_nuclei">get_nuclei() (pynucastro.networks.rate_collection.Composition method)</a>
+      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.get_nuclei">get_nuclei() (pynucastro.networks.rate_collection.RateCollection method)</a>
 
       <ul>
-        <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.get_nuclei">(pynucastro.networks.rate_collection.RateCollection method)</a>
+        <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.get_nuclei">(pynucastro.nucdata.composition.Composition method)</a>
 </li>
         <li><a href="pynucastro.nucdata.partition_function.html#pynucastro.nucdata.partition_function.PartitionFunctionCollection.get_nuclei">(pynucastro.nucdata.partition_function.PartitionFunctionCollection method)</a>
 </li>
@@ -925,7 +929,7 @@
 </li>
       <li><a href="pynucastro.nucdata.spin_table.html#pynucastro.nucdata.spin_table.SpinTable.get_spin_states">get_spin_states() (pynucastro.nucdata.spin_table.SpinTable method)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.get_sum_X">get_sum_X() (pynucastro.networks.rate_collection.Composition method)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.get_sum_X">get_sum_X() (pynucastro.nucdata.composition.Composition method)</a>
 </li>
       <li><a href="pynucastro.rates.files.html#pynucastro.rates.files.get_tabular_dir">get_tabular_dir() (in module pynucastro.rates.files)</a>
 </li>
@@ -1007,6 +1011,8 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pynucastro.rates.reaclib_rate.html#pynucastro.rates.reaclib_rate.SingleSet.label">label (pynucastro.rates.reaclib_rate.SingleSet attribute)</a>
+</li>
       <li><a href="pynucastro.rates.rate.html#pynucastro.rates.rate.RateSource.labels">labels (pynucastro.rates.rate.RateSource attribute)</a>
 </li>
       <li><a href="pynucastro.rates.library.html#pynucastro.rates.library.LangankeLibrary">LangankeLibrary (class in pynucastro.rates.library)</a>
@@ -1031,8 +1037,10 @@
 </li>
       <li><a href="pynucastro.rates.html#pynucastro.rates.load_rate">load_rate() (in module pynucastro.rates)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.LoddersComposition">LoddersComposition (class in pynucastro.networks.rate_collection)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.LoddersComposition">LoddersComposition (class in pynucastro.nucdata.composition)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pynucastro.rates.approximate_rates.html#pynucastro.rates.approximate_rates.ApproximateRate.log_eval">log_eval() (pynucastro.rates.approximate_rates.ApproximateRate method)</a>
 
       <ul>
@@ -1049,8 +1057,6 @@
         <li><a href="pynucastro.rates.temperature_tabular_rate.html#pynucastro.rates.temperature_tabular_rate.TemperatureTabularRate.log_eval">(pynucastro.rates.temperature_tabular_rate.TemperatureTabularRate method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pynucastro.rates.reaclib_rate.html#pynucastro.rates.reaclib_rate.SingleSet.log_f">log_f() (pynucastro.rates.reaclib_rate.SingleSet method)</a>
 </li>
       <li><a href="pynucastro.rates.library.html#pynucastro.rates.library.StarLibLibrary.LOG_RATE_FLOOR">LOG_RATE_FLOOR (pynucastro.rates.library.StarLibLibrary attribute)</a>
@@ -1173,6 +1179,8 @@
 </li>
         <li><a href="pynucastro.nucdata.html#module-pynucastro.nucdata">pynucastro.nucdata</a>
 </li>
+        <li><a href="pynucastro.nucdata.composition.html#module-pynucastro.nucdata.composition">pynucastro.nucdata.composition</a>
+</li>
         <li><a href="pynucastro.nucdata.elements.html#module-pynucastro.nucdata.elements">pynucastro.nucdata.elements</a>
 </li>
         <li><a href="pynucastro.nucdata.halflife_table.html#module-pynucastro.nucdata.halflife_table">pynucastro.nucdata.halflife_table</a>
@@ -1266,7 +1274,7 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.normalize">normalize() (pynucastro.networks.rate_collection.Composition method)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.normalize">normalize() (pynucastro.nucdata.composition.Composition method)</a>
 </li>
       <li><a href="pynucastro.nucdata.nucleus.html#pynucastro.nucdata.nucleus.Nucleus.nse">nse (pynucastro.nucdata.nucleus.Nucleus attribute)</a>
 </li>
@@ -1322,12 +1330,12 @@
 </li>
       <li><a href="pynucastro.screening.screen.html#pynucastro.screening.screen.PlasmaState">PlasmaState (class in pynucastro.screening.screen)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.plot">plot() (pynucastro.networks.rate_collection.Composition method)</a>
+      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.plot">plot() (pynucastro.networks.rate_collection.RateCollection method)</a>
 
       <ul>
-        <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.plot">(pynucastro.networks.rate_collection.RateCollection method)</a>
-</li>
         <li><a href="pynucastro.neutrino_cooling.neutrino_cooling.html#pynucastro.neutrino_cooling.neutrino_cooling.NeutrinoCooling.plot">(pynucastro.neutrino_cooling.neutrino_cooling.NeutrinoCooling method)</a>
+</li>
+        <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.plot">(pynucastro.nucdata.composition.Composition method)</a>
 </li>
         <li><a href="pynucastro.nucdata.partition_function.html#pynucastro.nucdata.partition_function.PartitionFunction.plot">(pynucastro.nucdata.partition_function.PartitionFunction method)</a>
 </li>
@@ -1347,6 +1355,8 @@
       <li><a href="pynucastro.screening.screen.html#pynucastro.screening.screen.potekhin_1998">potekhin_1998() (in module pynucastro.screening.screen)</a>
 </li>
       <li><a href="pynucastro.nucdata.nucleus.html#pynucastro.nucdata.nucleus.Nucleus.pretty">pretty (pynucastro.nucdata.nucleus.Nucleus attribute)</a>
+</li>
+      <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.print_summary">print_summary() (pynucastro.networks.network_compare.NetworkCompare method)</a>
 </li>
       <li><a href="pynucastro.rates.rate.html#pynucastro.rates.rate.Rate.product_count">product_count() (pynucastro.rates.rate.Rate method)</a>
 </li>
@@ -1541,6 +1551,13 @@
 
       <ul>
         <li><a href="pynucastro.nucdata.html#module-pynucastro.nucdata">module</a>
+</li>
+      </ul></li>
+      <li>
+    pynucastro.nucdata.composition
+
+      <ul>
+        <li><a href="pynucastro.nucdata.composition.html#module-pynucastro.nucdata.composition">module</a>
 </li>
       </ul></li>
       <li>
@@ -1781,8 +1798,16 @@
 </li>
       <li><a href="pynucastro.rates.rate.html#pynucastro.rates.rate.RatePair">RatePair (class in pynucastro.rates.rate)</a>
 </li>
+      <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.rates_amrex">rates_amrex (pynucastro.networks.network_compare.NetworkCompare attribute)</a>
+</li>
+      <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.rates_cxx">rates_cxx (pynucastro.networks.network_compare.NetworkCompare attribute)</a>
+</li>
+      <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.rates_py_inline">rates_py_inline (pynucastro.networks.network_compare.NetworkCompare attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.rates_py_module">rates_py_module (pynucastro.networks.network_compare.NetworkCompare attribute)</a>
+</li>
       <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.PythonNetwork.rates_string">rates_string() (pynucastro.networks.python_network.PythonNetwork method)</a>
 </li>
       <li><a href="pynucastro.rates.rate.html#pynucastro.rates.rate.RateSource">RateSource (class in pynucastro.rates.rate)</a>
@@ -1800,6 +1825,10 @@
       <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.remove_rates">remove_rates() (pynucastro.networks.rate_collection.RateCollection method)</a>
 </li>
       <li><a href="pynucastro.rates.library.html#pynucastro.rates.library.StarLibLibrary.resample">resample() (pynucastro.rates.library.StarLibLibrary method)</a>
+</li>
+      <li><a href="pynucastro.rates.reaclib_rate.html#pynucastro.rates.reaclib_rate.SingleSet.resonant">resonant (pynucastro.rates.reaclib_rate.SingleSet attribute)</a>
+</li>
+      <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.rho_eval">rho_eval (pynucastro.networks.network_compare.NetworkCompare attribute)</a>
 </li>
       <li><a href="pynucastro.rates.tabular_rate.html#pynucastro.rates.tabular_rate.TableIndex.RHOY">RHOY (pynucastro.rates.tabular_rate.TableIndex attribute)</a>
 </li>
@@ -1823,17 +1852,17 @@
 </li>
       <li><a href="pynucastro.reduction.sensitivity_analysis.html#pynucastro.reduction.sensitivity_analysis.sens_analysis">sens_analysis() (in module pynucastro.reduction.sensitivity_analysis)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.set_all">set_all() (pynucastro.networks.rate_collection.Composition method)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.set_all">set_all() (pynucastro.nucdata.composition.Composition method)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.set_array">set_array() (pynucastro.networks.rate_collection.Composition method)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.set_array">set_array() (pynucastro.nucdata.composition.Composition method)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.set_equal">set_equal() (pynucastro.networks.rate_collection.Composition method)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.set_equal">set_equal() (pynucastro.nucdata.composition.Composition method)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.set_nuc">set_nuc() (pynucastro.networks.rate_collection.Composition method)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.set_nuc">set_nuc() (pynucastro.nucdata.composition.Composition method)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.set_random">set_random() (pynucastro.networks.rate_collection.Composition method)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.set_random">set_random() (pynucastro.nucdata.composition.Composition method)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.set_solar_like">set_solar_like() (pynucastro.networks.rate_collection.Composition method)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.set_solar_like">set_solar_like() (pynucastro.nucdata.composition.Composition method)</a>
 </li>
       <li><a href="pynucastro.rates.reaclib_rate.html#pynucastro.rates.reaclib_rate.SingleSet.set_string_cxx">set_string_cxx() (pynucastro.rates.reaclib_rate.SingleSet method)</a>
 </li>
@@ -1911,6 +1940,8 @@
 </li>
       <li><a href="pynucastro.rates.rate.html#pynucastro.rates.rate.Tfactors.T9i">T9i (pynucastro.rates.rate.Tfactors attribute)</a>
 </li>
+      <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.T_eval">T_eval (pynucastro.networks.network_compare.NetworkCompare attribute)</a>
+</li>
       <li><a href="pynucastro.rates.tabular_rate.html#pynucastro.rates.tabular_rate.TableIndex">TableIndex (class in pynucastro.rates.tabular_rate)</a>
 </li>
       <li><a href="pynucastro.rates.tabular_rate.html#pynucastro.rates.tabular_rate.TableInterpolator">TableInterpolator (class in pynucastro.rates.tabular_rate)</a>
@@ -1977,10 +2008,12 @@
 </li>
       <li><a href="pynucastro.eos.quadrature_weights.html#pynucastro.eos.quadrature_weights.w_leg">w_leg (in module pynucastro.eos.quadrature_weights)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.write_network">write_network() (pynucastro.networks.rate_collection.RateCollection method)</a>
+      <li><a href="pynucastro.rates.reaclib_rate.html#pynucastro.rates.reaclib_rate.SingleSet.weak">weak (pynucastro.rates.reaclib_rate.SingleSet attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.write_network">write_network() (pynucastro.networks.rate_collection.RateCollection method)</a>
+</li>
       <li><a href="pynucastro.networks.base_cxx_network.html#pynucastro.networks.base_cxx_network.BaseCxxNetwork.write_screen_var">write_screen_var() (pynucastro.networks.base_cxx_network.BaseCxxNetwork method)</a>
 </li>
       <li><a href="pynucastro.rates.library.html#pynucastro.rates.library.ReacLibLibrary.write_to_file">write_to_file() (pynucastro.rates.library.ReacLibLibrary method)</a>
@@ -1995,7 +2028,7 @@
 <h2 id="X">X</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.X">X (pynucastro.networks.rate_collection.Composition property)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.X">X (pynucastro.nucdata.composition.Composition property)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -2011,11 +2044,19 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pynucastro.rates.rate.html#pynucastro.rates.rate.Rate.ydot_string_py">ydot_string_py() (pynucastro.rates.rate.Rate method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pynucastro.networks.sympy_network_support.html#pynucastro.networks.sympy_network_support.SympyRates.ydot_term_symbol">ydot_term_symbol() (pynucastro.networks.sympy_network_support.SympyRates method)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.ye">ye (pynucastro.networks.rate_collection.Composition property)</a>
+      <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.ydots_amrex">ydots_amrex (pynucastro.networks.network_compare.NetworkCompare attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.ydots_cxx">ydots_cxx (pynucastro.networks.network_compare.NetworkCompare attribute)</a>
+</li>
+      <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.ydots_py_inline">ydots_py_inline (pynucastro.networks.network_compare.NetworkCompare attribute)</a>
+</li>
+      <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.ydots_py_module">ydots_py_module (pynucastro.networks.network_compare.NetworkCompare attribute)</a>
+</li>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.ye">ye (pynucastro.nucdata.composition.Composition property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -2023,7 +2064,7 @@
 <h2 id="Z">Z</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.Z">Z (pynucastro.networks.rate_collection.Composition property)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.Z">Z (pynucastro.nucdata.composition.Composition property)</a>
 
       <ul>
         <li><a href="pynucastro.nucdata.nucleus.html#pynucastro.nucdata.nucleus.Nucleus.Z">(pynucastro.nucdata.nucleus.Nucleus attribute)</a>
@@ -2031,7 +2072,7 @@
       </ul></li>
       <li><a href="pynucastro.screening.screen.html#pynucastro.screening.screen.PlasmaState.z2bar">z2bar (pynucastro.screening.screen.PlasmaState attribute)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition.zbar">zbar (pynucastro.networks.rate_collection.Composition property)</a>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.zbar">zbar (pynucastro.nucdata.composition.Composition property)</a>
 
       <ul>
         <li><a href="pynucastro.screening.screen.html#pynucastro.screening.screen.PlasmaState.zbar">(pynucastro.screening.screen.PlasmaState attribute)</a>

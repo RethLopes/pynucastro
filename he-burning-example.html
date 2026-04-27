@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>A He-burning Network &#8212; pynucastro 0.0.post1667+gb43d10d71 documentation</title>
+    <title>A He-burning Network &#8212; pynucastro 0.0.post1693+g864ffc786 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=64dc8865"></script>
+    <script src="_static/documentation_options.js?v=dc240f43"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -258,6 +258,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -299,6 +300,7 @@
 </ul>
 </details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="pynucastro.nucdata.html">pynucastro.nucdata package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.composition.html">pynucastro.nucdata.composition module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.elements.html">pynucastro.nucdata.elements module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.halflife_table.html">pynucastro.nucdata.halflife_table module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.mass_table.html">pynucastro.nucdata.mass_table module</a></li>
@@ -798,8 +800,9 @@ warning: Fe54 was not able to be linked in TabularLibrary
   hidden rates: 39
 
   reaclib rates: 67
-  weak tabular rates: 6
+  starlib rates: 0
   temperature tabular rates: 0
+  weak tabular rates: 6
   approximate rates: 14
   derived rates: 64
   modified rates: 3
@@ -823,7 +826,7 @@ warning: Fe54 was not able to be linked in TabularLibrary
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bd91ec7413d73bf505d8e3bafc841af6704f82e70977952b617656d06e134b65.png" src="_images/bd91ec7413d73bf505d8e3bafc841af6704f82e70977952b617656d06e134b65.png" />
+<img alt="_images/d4ec3e08f48e81e8eb61984bae22de6be92703d1084f61354857c7f9d14f753c.png" src="_images/d4ec3e08f48e81e8eb61984bae22de6be92703d1084f61354857c7f9d14f753c.png" />
 </div>
 </div>
 <p>We see a basic <span class="math notranslate nohighlight">\(\alpha\)</span>-network with a few additional nuclei and then a small iron-group NSE set of nuclei.</p>
@@ -838,13 +841,11 @@ warning: Fe54 was not able to be linked in TabularLibrary
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.3/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:120: UserWarning: C12 partition function is not supported by tables: set log_pf = 0.0 by default
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.4/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:120: UserWarning: C12 partition function is not supported by tables: set log_pf = 0.0 by default
   warnings.warn(UserWarning(f&#39;{nuc} partition function is not supported by tables: set log_pf = 0.0 by default&#39;))
-/opt/hostedtoolcache/Python/3.14.3/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:120: UserWarning: N13 partition function is not supported by tables: set log_pf = 0.0 by default
+/opt/hostedtoolcache/Python/3.14.4/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:120: UserWarning: N13 partition function is not supported by tables: set log_pf = 0.0 by default
   warnings.warn(UserWarning(f&#39;{nuc} partition function is not supported by tables: set log_pf = 0.0 by default&#39;))
-/opt/hostedtoolcache/Python/3.14.3/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:120: UserWarning: N14 partition function is not supported by tables: set log_pf = 0.0 by default
-  warnings.warn(UserWarning(f&#39;{nuc} partition function is not supported by tables: set log_pf = 0.0 by default&#39;))
-/opt/hostedtoolcache/Python/3.14.3/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:120: UserWarning: p_nse partition function is not supported by tables: set log_pf = 0.0 by default
+/opt/hostedtoolcache/Python/3.14.4/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:120: UserWarning: N14 partition function is not supported by tables: set log_pf = 0.0 by default
   warnings.warn(UserWarning(f&#39;{nuc} partition function is not supported by tables: set log_pf = 0.0 by default&#39;))
 </pre></div>
 </div>
@@ -952,7 +953,7 @@ warning: Fe54 was not able to be linked in TabularLibrary
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4d5f530a624a346e190922296b49156b5b1e5796bcbb88fe456eb7f7dd1cd63b.png" src="_images/4d5f530a624a346e190922296b49156b5b1e5796bcbb88fe456eb7f7dd1cd63b.png" />
+<img alt="_images/4f04fd01e8ff72faf8096af55bd0a54a25495deb39ff67d08438db535ea9fce3.png" src="_images/4f04fd01e8ff72faf8096af55bd0a54a25495deb39ff67d08438db535ea9fce3.png" />
 </div>
 </div>
 <p>At the very end, we see that the electron-captures on <span class="math notranslate nohighlight">\({}^{56}\mathrm{Ni}\)</span> are starting to decrease its abundance appreciably.</p>
@@ -984,17 +985,15 @@ warning: Fe54 was not able to be linked in TabularLibrary
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.3/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:120: UserWarning: C12 partition function is not supported by tables: set log_pf = 0.0 by default
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.4/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:120: UserWarning: C12 partition function is not supported by tables: set log_pf = 0.0 by default
   warnings.warn(UserWarning(f&#39;{nuc} partition function is not supported by tables: set log_pf = 0.0 by default&#39;))
-/opt/hostedtoolcache/Python/3.14.3/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:120: UserWarning: N13 partition function is not supported by tables: set log_pf = 0.0 by default
+/opt/hostedtoolcache/Python/3.14.4/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:120: UserWarning: N13 partition function is not supported by tables: set log_pf = 0.0 by default
   warnings.warn(UserWarning(f&#39;{nuc} partition function is not supported by tables: set log_pf = 0.0 by default&#39;))
-/opt/hostedtoolcache/Python/3.14.3/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:120: UserWarning: N14 partition function is not supported by tables: set log_pf = 0.0 by default
-  warnings.warn(UserWarning(f&#39;{nuc} partition function is not supported by tables: set log_pf = 0.0 by default&#39;))
-/opt/hostedtoolcache/Python/3.14.3/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:120: UserWarning: p_nse partition function is not supported by tables: set log_pf = 0.0 by default
+/opt/hostedtoolcache/Python/3.14.4/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:120: UserWarning: N14 partition function is not supported by tables: set log_pf = 0.0 by default
   warnings.warn(UserWarning(f&#39;{nuc} partition function is not supported by tables: set log_pf = 0.0 by default&#39;))
 </pre></div>
 </div>
-<img alt="_images/d6a9a2b2cdb8b00b8b1a7c2d289f2a2f5db8eda04fe9e16a8fa87bf6e3be16eb.png" src="_images/d6a9a2b2cdb8b00b8b1a7c2d289f2a2f5db8eda04fe9e16a8fa87bf6e3be16eb.png" />
+<img alt="_images/abc49066a1f93681ea4bfb5a1da0129f56fff02b7f96a3a4023b8e90a8598bce.png" src="_images/abc49066a1f93681ea4bfb5a1da0129f56fff02b7f96a3a4023b8e90a8598bce.png" />
 </div>
 </div>
 <p>At this point we see that we are really in the iron-group, with some lingering He.</p>

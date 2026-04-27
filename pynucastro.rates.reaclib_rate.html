@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pynucastro.rates.reaclib_rate module &#8212; pynucastro 0.0.post1667+gb43d10d71 documentation</title>
+    <title>pynucastro.rates.reaclib_rate module &#8212; pynucastro 0.0.post1693+g864ffc786 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=64dc8865"></script>
+    <script src="_static/documentation_options.js?v=dc240f43"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -255,6 +255,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -296,6 +297,7 @@
 </ul>
 </details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="pynucastro.nucdata.html">pynucastro.nucdata package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.composition.html">pynucastro.nucdata.composition module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.elements.html">pynucastro.nucdata.elements module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.halflife_table.html">pynucastro.nucdata.halflife_table module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.mass_table.html">pynucastro.nucdata.mass_table module</a></li>
@@ -581,6 +583,10 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet"><code class="docutils literal notranslate"><span class="pre">SingleSet</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet.label"><code class="docutils literal notranslate"><span class="pre">SingleSet.label</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet.resonant"><code class="docutils literal notranslate"><span class="pre">SingleSet.resonant</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet.weak"><code class="docutils literal notranslate"><span class="pre">SingleSet.weak</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet.derived_from_inverse"><code class="docutils literal notranslate"><span class="pre">SingleSet.derived_from_inverse</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet.dfdT"><code class="docutils literal notranslate"><span class="pre">SingleSet.dfdT()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet.dln_set_string_dT9_cxx"><code class="docutils literal notranslate"><span class="pre">SingleSet.dln_set_string_dT9_cxx()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet.f"><code class="docutils literal notranslate"><span class="pre">SingleSet.f()</span></code></a></li>
@@ -637,7 +643,7 @@ This currently does NOT consider electron screening effects.</p>
 <li><p><strong>rho</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – the density to evaluate the rate at (not needed for ReacLib
 rates).</p></li>
 <li><p><strong>comp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – the composition (of type
-<a class="reference internal" href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition" title="pynucastro.networks.rate_collection.Composition"><code class="xref py py-class docutils literal notranslate"><span class="pre">Composition</span></code></a>)
+<a class="reference internal" href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition" title="pynucastro.nucdata.composition.Composition"><code class="xref py py-class docutils literal notranslate"><span class="pre">Composition</span></code></a>)
 to evaluate the rate with (not needed for ReacLib rates).</p></li>
 </ul>
 </dd>
@@ -711,7 +717,7 @@ screening effect if screen_func is passed in.</p>
 <li><p><strong>rho</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – the density to evaluate the rate at (not needed for ReacLib
 rates), but needed for evaluating screening effects.</p></li>
 <li><p><strong>comp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – the composition (of type
-<a class="reference internal" href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition" title="pynucastro.networks.rate_collection.Composition"><code class="xref py py-class docutils literal notranslate"><span class="pre">Composition</span></code></a>)
+<a class="reference internal" href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition" title="pynucastro.nucdata.composition.Composition"><code class="xref py py-class docutils literal notranslate"><span class="pre">Composition</span></code></a>)
 to evaluate the rate with (not needed for ReacLib rates),
 but needed for evaluating screening effects.</p></li>
 <li><p><strong>screen_func</strong> (<em>Callable</em>) – one of the screening functions from <a class="reference internal" href="pynucastro.screening.html#module-pynucastro.screening" title="pynucastro.screening"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pynucastro.screening</span></code></a>
@@ -736,7 +742,7 @@ for temperature T.</p>
 <li><p><strong>rho</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – the density to evaluate the rate at (not needed for ReacLib
 rates), but needed for evaluating screening effects.</p></li>
 <li><p><strong>comp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – the composition (of type
-<a class="reference internal" href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition" title="pynucastro.networks.rate_collection.Composition"><code class="xref py py-class docutils literal notranslate"><span class="pre">Composition</span></code></a>)
+<a class="reference internal" href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition" title="pynucastro.nucdata.composition.Composition"><code class="xref py py-class docutils literal notranslate"><span class="pre">Composition</span></code></a>)
 to evaluate the rate with (not needed for ReacLib rates),
 but needed for evaluating screening effects.</p></li>
 <li><p><strong>screen_func</strong> (<em>Callable</em>) – one of the screening functions from <a class="reference internal" href="pynucastro.screening.html#module-pynucastro.screening" title="pynucastro.screening"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pynucastro.screening</span></code></a>
@@ -763,14 +769,14 @@ but needed for evaluating screening effects.</p></li>
 <li><p><strong>figsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – the horizontal, vertical size (in inches) for the plot</p></li>
 <li><p><strong>rho</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – the density to evaluate the screening effect.</p></li>
 <li><p><strong>comp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – the composition (of type
-<a class="reference internal" href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition" title="pynucastro.networks.rate_collection.Composition"><code class="xref py py-class docutils literal notranslate"><span class="pre">Composition</span></code></a>)
+<a class="reference internal" href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition" title="pynucastro.nucdata.composition.Composition"><code class="xref py py-class docutils literal notranslate"><span class="pre">Composition</span></code></a>)
 to evaluate the screening effect.</p></li>
 <li><p><strong>screen_func</strong> (<em>Callable</em>) – one of the screening functions from <a class="reference internal" href="pynucastro.screening.html#module-pynucastro.screening" title="pynucastro.screening"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pynucastro.screening</span></code></a>
 – if provided, then the rate will include the screening correction.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure" title="(in Matplotlib v3.10.8)">matplotlib.figure.Figure</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure" title="(in Matplotlib v3.10.9)">matplotlib.figure.Figure</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -803,6 +809,50 @@ to evaluate the screening effect.</p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynucastro.rates.reaclib_rate.SingleSet.label">
+<span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#pynucastro.rates.reaclib_rate.SingleSet.label" title="Link to this definition">#</a></dt>
+<dd><p>the ReacLib label for this set</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynucastro.rates.reaclib_rate.SingleSet.resonant">
+<span class="sig-name descname"><span class="pre">resonant</span></span><a class="headerlink" href="#pynucastro.rates.reaclib_rate.SingleSet.resonant" title="Link to this definition">#</a></dt>
+<dd><p>whether this set is for a resonance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynucastro.rates.reaclib_rate.SingleSet.weak">
+<span class="sig-name descname"><span class="pre">weak</span></span><a class="headerlink" href="#pynucastro.rates.reaclib_rate.SingleSet.weak" title="Link to this definition">#</a></dt>
+<dd><p>whether this set represents a weak interaction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynucastro.rates.reaclib_rate.SingleSet.derived_from_inverse">
+<span class="sig-name descname"><span class="pre">derived_from_inverse</span></span><a class="headerlink" href="#pynucastro.rates.reaclib_rate.SingleSet.derived_from_inverse" title="Link to this definition">#</a></dt>
+<dd><p>has this set be recomputed via detailed balance?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="pynucastro.rates.reaclib_rate.SingleSet.dfdT">
 <span class="sig-name descname"><span class="pre">dfdT</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynucastro/rates/reaclib_rate.html#SingleSet.dfdT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynucastro.rates.reaclib_rate.SingleSet.dfdT" title="Link to this definition">#</a></dt>
@@ -957,6 +1007,10 @@ with a derived rate for reaclib rate.</p></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet"><code class="docutils literal notranslate"><span class="pre">SingleSet</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet.label"><code class="docutils literal notranslate"><span class="pre">SingleSet.label</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet.resonant"><code class="docutils literal notranslate"><span class="pre">SingleSet.resonant</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet.weak"><code class="docutils literal notranslate"><span class="pre">SingleSet.weak</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet.derived_from_inverse"><code class="docutils literal notranslate"><span class="pre">SingleSet.derived_from_inverse</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet.dfdT"><code class="docutils literal notranslate"><span class="pre">SingleSet.dfdT()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet.dln_set_string_dT9_cxx"><code class="docutils literal notranslate"><span class="pre">SingleSet.dln_set_string_dT9_cxx()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.rates.reaclib_rate.SingleSet.f"><code class="docutils literal notranslate"><span class="pre">SingleSet.f()</span></code></a></li>

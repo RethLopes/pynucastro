@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>NSE Examples &#8212; pynucastro 0.0.post1667+gb43d10d71 documentation</title>
+    <title>NSE Examples &#8212; pynucastro 0.0.post1693+g864ffc786 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=64dc8865"></script>
+    <script src="_static/documentation_options.js?v=dc240f43"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -258,6 +258,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -299,6 +300,7 @@
 </ul>
 </details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="pynucastro.nucdata.html">pynucastro.nucdata package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.composition.html">pynucastro.nucdata.composition module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.elements.html">pynucastro.nucdata.elements module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.halflife_table.html">pynucastro.nucdata.halflife_table module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.nucdata.mass_table.html">pynucastro.nucdata.mass_table module</a></li>
@@ -631,7 +633,7 @@
 </div>
 </div>
 </div>
-<p>We seek the NSE composition at a specified thermodynamic state, the <code class="docutils literal notranslate"><span class="pre">NSENetwork</span></code> uses <code class="docutils literal notranslate"><span class="pre">scipy.optimize.fsolve()</span></code> to solve the constraint equations for the proton and neutron chemical potentials. Then using this solution, it can compute the mass fractions. The main interface for this is <a class="reference internal" href="pynucastro.networks.nse_network.html#pynucastro.networks.nse_network.NSENetwork.get_comp_nse" title="pynucastro.networks.nse_network.NSENetwork.get_comp_nse"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_comp_nse(rho,</span> <span class="pre">T,</span> <span class="pre">ye)</span></code></a> which returns the composition at NSE as a <a class="reference internal" href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.Composition" title="pynucastro.networks.rate_collection.Composition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Composition</span></code></a> object.</p>
+<p>We seek the NSE composition at a specified thermodynamic state, the <code class="docutils literal notranslate"><span class="pre">NSENetwork</span></code> uses <code class="docutils literal notranslate"><span class="pre">scipy.optimize.fsolve()</span></code> to solve the constraint equations for the proton and neutron chemical potentials. Then using this solution, it can compute the mass fractions. The main interface for this is <a class="reference internal" href="pynucastro.networks.nse_network.html#pynucastro.networks.nse_network.NSENetwork.get_comp_nse" title="pynucastro.networks.nse_network.NSENetwork.get_comp_nse"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_comp_nse(rho,</span> <span class="pre">T,</span> <span class="pre">ye)</span></code></a> which returns the composition at NSE as a <a class="reference internal" href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition" title="pynucastro.nucdata.composition.Composition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Composition</span></code></a> object.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">get_comp_nse()</span></code> has options of incorporating Coulomb correction terms by setting <code class="docutils literal notranslate"><span class="pre">use_coulomb_corr=True</span></code>, and to return the proton and neutron chemical potentials by <code class="docutils literal notranslate"><span class="pre">return_sol=True</span></code>.<code class="docutils literal notranslate"><span class="pre">NSENetwork</span></code> also has an option of choosing to be more strict about the confidence of spin data with <code class="docutils literal notranslate"><span class="pre">use_unreliable_spins=True</span></code>.</p>
@@ -644,7 +646,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a7e059413c8b52021152129a7a172e44c08f728067e5ab161a0016b41e6d65bc.png" src="_images/a7e059413c8b52021152129a7a172e44c08f728067e5ab161a0016b41e6d65bc.png" />
+<img alt="_images/794d9b8bd449e60df359dd87c39cf5751c40f058d20b0852fde8c7a61c59f07c.png" src="_images/794d9b8bd449e60df359dd87c39cf5751c40f058d20b0852fde8c7a61c59f07c.png" />
 </div>
 </div>
 <div class="admonition tip">
@@ -750,7 +752,7 @@ Ni56   :     0.018915105
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/09d5b03a8db1eef763f6c20b431d83cbb8cbff3166679c0617740fbf9712f47e.png" src="_images/09d5b03a8db1eef763f6c20b431d83cbb8cbff3166679c0617740fbf9712f47e.png" />
+<img alt="_images/4e2a3e4a9c24904d14d9bd6148bca5cfa59382bc39839f183e9c66ef43735fc1.png" src="_images/4e2a3e4a9c24904d14d9bd6148bca5cfa59382bc39839f183e9c66ef43735fc1.png" />
 </div>
 </div>
 </section>
@@ -807,7 +809,7 @@ Ni56   :     0.018915105
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a4c90b90d7899a0e9549b15afba61af2107d192b8484311ac64b7f974f49ecf0.png" src="_images/a4c90b90d7899a0e9549b15afba61af2107d192b8484311ac64b7f974f49ecf0.png" />
+<img alt="_images/509ca6d524bd809cae146666b3ea96f3feb322d7980b84acddd19c8f57d74373.png" src="_images/509ca6d524bd809cae146666b3ea96f3feb322d7980b84acddd19c8f57d74373.png" />
 </div>
 </div>
 </section>
