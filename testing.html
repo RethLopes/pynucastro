@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Testing and Comparing Backends &#8212; pynucastro 0.0.post1695+gbf4880f1a documentation</title>
+    <title>Testing and Comparing Backends &#8212; pynucastro 0.0.post1738+gad1880c32 documentation</title>
   
   
   
@@ -42,21 +42,20 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=3ab0ad6a"></script>
+    <script src="_static/documentation_options.js?v=c1976b5f"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=eaa7b67c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'testing';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Citing pynucastro" href="citing.html" />
-    <link rel="prev" title="Notes on Working with Rate Objects" href="rates-devel.html" />
+    <link rel="prev" title="Adding Rates from the Literature" href="adding-rates.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.0" />
@@ -202,6 +201,7 @@
 <li class="toctree-l2"><a class="reference internal" href="alpha-gamma-approx.html">Approximating alpha-capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="double-n-capture.html">Approximating double n-capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modified-rates.html">Modified Rates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="co-approximations.html">Approximating C and O Burning</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="nse-protons.html">Using NSE Protons</a></li>
@@ -245,6 +245,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Some Useful Networks</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="aprox13.html">The “aprox13” network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="he-burning-example.html">A He-burning Network</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples in Nuclear Astrophysics</span></p>
@@ -259,6 +260,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adding-rates.html">Adding Rates from the Literature</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -312,6 +314,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="pynucastro.rates.html">pynucastro.rates package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.alternate_rates.html">pynucastro.rates.alternate_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.approximate_rates.html">pynucastro.rates.approximate_rates module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.aprox_family_rates.html">pynucastro.rates.aprox_family_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.derived_rate.html">pynucastro.rates.derived_rate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.files.html">pynucastro.rates.files module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.known_duplicates.html">pynucastro.rates.known_duplicates module</a></li>
@@ -334,6 +337,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.screening.screening_util.html">pynucastro.screening.screening_util module</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="pynucastro.mesa_utils.html">pynucastro.mesa_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.mpi_utils.html">pynucastro.mpi_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.numba_util.html">pynucastro.numba_util module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.utils.html">pynucastro.utils module</a></li>
@@ -630,16 +634,18 @@ equivalent) is stored as a <code class="docutils literal notranslate"><span clas
 an <span class="math notranslate nohighlight">\(\alpha\)</span>-chain and an iron-group, with <span class="math notranslate nohighlight">\((\alpha,p)(p,\gamma)\)</span> and
 <span class="math notranslate nohighlight">\((nn,\gamma)\)</span> rate approximations, derived reverse rates, modified
 rates, and tabular weak rates.  It is modeled off of the <a class="reference external" href="https://amrex-astro.github.io/Microphysics/docs/networks.html#ase-iron">AMReX
-Astro Microphysics ase-iron network</a>.
-Note that simple-C++ networks are not currently included.</p></li>
+Astro Microphysics ase-iron network</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_compare_co_approx.py</span></code> : this compares the approximate
+rates for carbon and oxygen burning.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">test_compare_cxx_and_python.py</span></code> : this compares just strong
 reaction rates, but includes derived reverse rates.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">test_compare_cxx_and_python_screened.py</span></code> : a simpler version of
 <code class="docutils literal notranslate"><span class="pre">test_compare_cxx_and_python.py</span></code> (no derived reverse rates), but
 with screening enabled.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">test_compare_temperature_tabular.py</span></code> : this compares the
-evaluation of a <code class="docutils literal notranslate"><span class="pre">TemperatureTabularRate</span></code>.  Note that simple-C++
-networks are not currently included.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_compare_temp_tabular_starlib.py</span></code> : this compares the
+evaluation of a <code class="docutils literal notranslate"><span class="pre">TemperatureTabularRate</span></code> and several
+<code class="docutils literal notranslate"><span class="pre">StarLibRate</span></code>.  Note that simple-C++ networks are not currently
+included.</p></li>
 </ul>
 <p>As more features are ported to <code class="docutils literal notranslate"><span class="pre">SimpleCxxNetwork</span></code>, we should extend
 the testing to compare with python rates.</p>
@@ -658,12 +664,12 @@ the testing to compare with python rates.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="rates-devel.html"
+       href="adding-rates.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</p>
+        <p class="prev-next-title">Adding Rates from the Literature</p>
       </div>
     </a>
     <a class="right-next"

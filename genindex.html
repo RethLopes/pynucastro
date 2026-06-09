@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; pynucastro 0.0.post1695+gbf4880f1a documentation</title>
+    <title>Index &#8212; pynucastro 0.0.post1738+gad1880c32 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=3ab0ad6a"></script>
+    <script src="_static/documentation_options.js?v=c1976b5f"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -196,6 +196,7 @@
 <li class="toctree-l2"><a class="reference internal" href="alpha-gamma-approx.html">Approximating alpha-capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="double-n-capture.html">Approximating double n-capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modified-rates.html">Modified Rates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="co-approximations.html">Approximating C and O Burning</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="nse-protons.html">Using NSE Protons</a></li>
@@ -239,6 +240,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Some Useful Networks</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="aprox13.html">The “aprox13” network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="he-burning-example.html">A He-burning Network</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples in Nuclear Astrophysics</span></p>
@@ -253,6 +255,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adding-rates.html">Adding Rates from the Literature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -306,6 +309,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="pynucastro.rates.html">pynucastro.rates package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.alternate_rates.html">pynucastro.rates.alternate_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.approximate_rates.html">pynucastro.rates.approximate_rates module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.aprox_family_rates.html">pynucastro.rates.aprox_family_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.derived_rate.html">pynucastro.rates.derived_rate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.files.html">pynucastro.rates.files module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.known_duplicates.html">pynucastro.rates.known_duplicates module</a></li>
@@ -328,6 +332,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.screening.screening_util.html">pynucastro.screening.screening_util module</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="pynucastro.mesa_utils.html">pynucastro.mesa_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.mpi_utils.html">pynucastro.mpi_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.numba_util.html">pynucastro.numba_util module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.utils.html">pynucastro.utils module</a></li>
@@ -687,6 +692,10 @@
 </li>
       <li><a href="pynucastro.rates.library.html#pynucastro.rates.library.Library.eliminate_duplicates">eliminate_duplicates() (pynucastro.rates.library.Library method)</a>
 </li>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.energy_release">energy_release() (pynucastro.networks.python_network.NetworkSolution method)</a>
+</li>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.energy_release_at">energy_release_at() (pynucastro.networks.python_network.NetworkSolution method)</a>
+</li>
       <li><a href="pynucastro.eos.eos_components.html#pynucastro.eos.eos_components.EOSComponentState">EOSComponentState (class in pynucastro.eos.eos_components)</a>
 </li>
       <li><a href="pynucastro.eos.stellar_eos.html#pynucastro.eos.stellar_eos.EOSState">EOSState (class in pynucastro.eos.stellar_eos)</a>
@@ -701,10 +710,12 @@
         <li><a href="pynucastro.rates.rate.html#pynucastro.rates.rate.Rate.eval">(pynucastro.rates.rate.Rate method)</a>
 </li>
       </ul></li>
-      <li><a href="pynucastro.rates.reaclib_rate.html#pynucastro.rates.reaclib_rate.ReacLibRate.eval_deriv">eval_deriv() (pynucastro.rates.reaclib_rate.ReacLibRate method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pynucastro.rates.reaclib_rate.html#pynucastro.rates.reaclib_rate.ReacLibRate.eval_deriv">eval_deriv() (pynucastro.rates.reaclib_rate.ReacLibRate method)</a>
+</li>
+      <li><a href="pynucastro.rates.rate.html#pynucastro.rates.rate.Rate.eval_full_rate">eval_full_rate() (pynucastro.rates.rate.Rate method)</a>
+</li>
       <li><a href="pynucastro.rates.rate.html#pynucastro.rates.rate.Rate.eval_jacobian_term">eval_jacobian_term() (pynucastro.rates.rate.Rate method)</a>
 </li>
       <li><a href="pynucastro.eos.fermi_integrals.html#pynucastro.eos.fermi_integrals.FermiIntegral.evaluate">evaluate() (pynucastro.eos.fermi_integrals.FermiIntegral method)</a>
@@ -760,6 +771,8 @@
       <li><a href="pynucastro.rates.known_duplicates.html#pynucastro.rates.known_duplicates.find_duplicate_rates">find_duplicate_rates() (in module pynucastro.rates.known_duplicates)</a>
 </li>
       <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.find_reverse">find_reverse() (pynucastro.networks.rate_collection.RateCollection method)</a>
+</li>
+      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.find_stiffest_rate">find_stiffest_rate() (pynucastro.networks.rate_collection.RateCollection method)</a>
 </li>
       <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.find_unimportant_rates">find_unimportant_rates() (pynucastro.networks.rate_collection.RateCollection method)</a>
 </li>
@@ -833,7 +846,11 @@
 </li>
       <li><a href="pynucastro.reduction.drgep_module.html#pynucastro.reduction.drgep_module.get_adj_nuc">get_adj_nuc() (in module pynucastro.reduction.drgep_module)</a>
 </li>
+      <li><a href="pynucastro.mesa_utils.html#pynucastro.mesa_utils.get_all_data">get_all_data() (in module pynucastro.mesa_utils)</a>
+</li>
       <li><a href="pynucastro.nucdata.nucleus.html#pynucastro.nucdata.nucleus.get_all_nuclei">get_all_nuclei() (in module pynucastro.nucdata.nucleus)</a>
+</li>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.get_array">get_array() (pynucastro.nucdata.composition.Composition method)</a>
 </li>
       <li><a href="pynucastro.rates.approximate_rates.html#pynucastro.rates.approximate_rates.ApproximateRate.get_child_rates">get_child_rates() (pynucastro.rates.approximate_rates.ApproximateRate method)</a>
 </li>
@@ -853,11 +870,15 @@
 </li>
       <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.get_molar">get_molar() (pynucastro.nucdata.composition.Composition method)</a>
 </li>
+      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.get_molar_array">get_molar_array() (pynucastro.nucdata.composition.Composition method)</a>
+</li>
       <li><a href="pynucastro.rates.tabular_rate.html#pynucastro.rates.tabular_rate.TabularRate.get_nu_loss">get_nu_loss() (pynucastro.rates.tabular_rate.TabularRate method)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.get_nuclei">get_nuclei() (pynucastro.networks.rate_collection.RateCollection method)</a>
+      <li><a href="pynucastro.mesa_utils.html#pynucastro.mesa_utils.get_nuclei">get_nuclei() (in module pynucastro.mesa_utils)</a>
 
       <ul>
+        <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.get_nuclei">(pynucastro.networks.rate_collection.RateCollection method)</a>
+</li>
         <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.get_nuclei">(pynucastro.nucdata.composition.Composition method)</a>
 </li>
         <li><a href="pynucastro.nucdata.partition_function.html#pynucastro.nucdata.partition_function.PartitionFunctionCollection.get_nuclei">(pynucastro.nucdata.partition_function.PartitionFunctionCollection method)</a>
@@ -871,12 +892,12 @@
 </li>
       <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.get_nuclei_latex_string">get_nuclei_latex_string() (pynucastro.networks.rate_collection.RateCollection method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.get_nuclei_needing_partition_functions">get_nuclei_needing_partition_functions() (pynucastro.networks.rate_collection.RateCollection method)</a>
 </li>
       <li><a href="pynucastro.nucdata.nucleus.html#pynucastro.nucdata.nucleus.Nucleus.get_part_func_threshold_temp">get_part_func_threshold_temp() (pynucastro.nucdata.nucleus.Nucleus method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pynucastro.nucdata.partition_function.html#pynucastro.nucdata.partition_function.PartitionFunctionCollection.get_partition_function">get_partition_function() (pynucastro.nucdata.partition_function.PartitionFunctionCollection method)</a>
 
       <ul>
@@ -935,6 +956,8 @@
 </li>
       <li><a href="pynucastro.rates.files.html#pynucastro.rates.files.get_tabular_dir">get_tabular_dir() (in module pynucastro.rates.files)</a>
 </li>
+      <li><a href="pynucastro.mesa_utils.html#pynucastro.mesa_utils.get_zone_data">get_zone_data() (in module pynucastro.mesa_utils)</a>
+</li>
       <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.gridplot">gridplot() (pynucastro.networks.rate_collection.RateCollection method)</a>
 </li>
   </ul></td>
@@ -981,7 +1004,7 @@
 </li>
       <li><a href="pynucastro.rates.known_duplicates.html#pynucastro.rates.known_duplicates.is_allowed_dupe">is_allowed_dupe() (in module pynucastro.rates.known_duplicates)</a>
 </li>
-      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.isNSECompatible">isNSECompatible() (pynucastro.networks.rate_collection.RateCollection method)</a>
+      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.is_NSE_compatible">is_NSE_compatible() (pynucastro.networks.rate_collection.RateCollection method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -989,10 +1012,14 @@
 <h2 id="J">J</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pynucastro.rates.rate.html#pynucastro.rates.rate.Rate.jacobian_string_py">jacobian_string_py() (pynucastro.rates.rate.Rate method)</a>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.jac">jac() (pynucastro.networks.python_network.NetworkSolution method)</a>
+</li>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.jac_at">jac_at() (pynucastro.networks.python_network.NetworkSolution method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pynucastro.rates.rate.html#pynucastro.rates.rate.Rate.jacobian_string_py">jacobian_string_py() (pynucastro.rates.rate.Rate method)</a>
+</li>
       <li><a href="pynucastro.networks.sympy_network_support.html#pynucastro.networks.sympy_network_support.SympyRates.jacobian_term_symbol">jacobian_term_symbol() (pynucastro.networks.sympy_network_support.SympyRates method)</a>
 </li>
   </ul></td>
@@ -1041,6 +1068,8 @@
 </li>
       <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.LoddersComposition">LoddersComposition (class in pynucastro.nucdata.composition)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pynucastro.rates.approximate_rates.html#pynucastro.rates.approximate_rates.ApproximateRate.log_eval">log_eval() (pynucastro.rates.approximate_rates.ApproximateRate method)</a>
 
       <ul>
@@ -1057,13 +1086,9 @@
         <li><a href="pynucastro.rates.temperature_tabular_rate.html#pynucastro.rates.temperature_tabular_rate.TemperatureTabularRate.log_eval">(pynucastro.rates.temperature_tabular_rate.TemperatureTabularRate method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pynucastro.rates.reaclib_rate.html#pynucastro.rates.reaclib_rate.SingleSet.log_f">log_f() (pynucastro.rates.reaclib_rate.SingleSet method)</a>
 </li>
       <li><a href="pynucastro.rates.starlib_rate.html#pynucastro.rates.starlib_rate.StarLibRate.log_median_rate">log_median_rate (pynucastro.rates.starlib_rate.StarLibRate attribute)</a>
-</li>
-      <li><a href="pynucastro.rates.library.html#pynucastro.rates.library.StarLibLibrary.LOG_RATE_FLOOR">LOG_RATE_FLOOR (pynucastro.rates.library.StarLibLibrary attribute)</a>
 </li>
       <li><a href="pynucastro.nucdata.elements.html#pynucastro.nucdata.elements.PeriodicTable.lookup_abbreviation">lookup_abbreviation() (pynucastro.nucdata.elements.PeriodicTable class method)</a>
 </li>
@@ -1104,6 +1129,10 @@
       <li><a href="pynucastro.constants.constants.html#pynucastro.constants.constants.m_u_MeV_C18">m_u_MeV_C18 (in module pynucastro.constants.constants)</a>
 </li>
       <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.make_ap_pg_approx">make_ap_pg_approx() (pynucastro.networks.rate_collection.RateCollection method)</a>
+</li>
+      <li><a href="pynucastro.rates.aprox_family_rates.html#pynucastro.rates.aprox_family_rates.make_CO_approx_rates">make_CO_approx_rates() (in module pynucastro.rates.aprox_family_rates)</a>
+</li>
+      <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.make_CO_burning_approx">make_CO_burning_approx() (pynucastro.networks.rate_collection.RateCollection method)</a>
 </li>
       <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.make_nn_g_approx">make_nn_g_approx() (pynucastro.networks.rate_collection.RateCollection method)</a>
 </li>
@@ -1150,6 +1179,8 @@
         <li><a href="pynucastro.eos.quadrature_weights.html#module-pynucastro.eos.quadrature_weights">pynucastro.eos.quadrature_weights</a>
 </li>
         <li><a href="pynucastro.eos.stellar_eos.html#module-pynucastro.eos.stellar_eos">pynucastro.eos.stellar_eos</a>
+</li>
+        <li><a href="pynucastro.mesa_utils.html#module-pynucastro.mesa_utils">pynucastro.mesa_utils</a>
 </li>
         <li><a href="pynucastro.mpi_utils.html#module-pynucastro.mpi_utils">pynucastro.mpi_utils</a>
 </li>
@@ -1204,6 +1235,8 @@
         <li><a href="pynucastro.rates.alternate_rates.html#module-pynucastro.rates.alternate_rates">pynucastro.rates.alternate_rates</a>
 </li>
         <li><a href="pynucastro.rates.approximate_rates.html#module-pynucastro.rates.approximate_rates">pynucastro.rates.approximate_rates</a>
+</li>
+        <li><a href="pynucastro.rates.aprox_family_rates.html#module-pynucastro.rates.aprox_family_rates">pynucastro.rates.aprox_family_rates</a>
 </li>
         <li><a href="pynucastro.rates.derived_rate.html#module-pynucastro.rates.derived_rate">pynucastro.rates.derived_rate</a>
 </li>
@@ -1270,14 +1303,16 @@
 </li>
       <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare">NetworkCompare (class in pynucastro.networks.network_compare)</a>
 </li>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution">NetworkSolution (class in pynucastro.networks.python_network)</a>
+</li>
       <li><a href="pynucastro.neutrino_cooling.sneut5_mod.html#pynucastro.neutrino_cooling.sneut5_mod.NeutrinoComponents">NeutrinoComponents (class in pynucastro.neutrino_cooling.sneut5_mod)</a>
 </li>
       <li><a href="pynucastro.neutrino_cooling.neutrino_cooling.html#pynucastro.neutrino_cooling.neutrino_cooling.NeutrinoCooling">NeutrinoCooling (class in pynucastro.neutrino_cooling.neutrino_cooling)</a>
 </li>
-      <li><a href="pynucastro.rates.library.html#pynucastro.rates.library.StarLibLibrary.NLINES">NLINES (pynucastro.rates.library.StarLibLibrary attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pynucastro.rates.library.html#pynucastro.rates.library.StarLibLibrary.NLINES">NLINES (pynucastro.rates.library.StarLibLibrary attribute)</a>
+</li>
       <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.normalize">normalize() (pynucastro.nucdata.composition.Composition method)</a>
 </li>
       <li><a href="pynucastro.nucdata.nucleus.html#pynucastro.nucdata.nucleus.Nucleus.nse">nse (pynucastro.nucdata.nucleus.Nucleus attribute)</a>
@@ -1350,7 +1385,7 @@
         <li><a href="pynucastro.rates.temperature_tabular_rate.html#pynucastro.rates.temperature_tabular_rate.TemperatureTabularRate.plot">(pynucastro.rates.temperature_tabular_rate.TemperatureTabularRate method)</a>
 </li>
       </ul></li>
-      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.PythonNetwork.plot_evolution">plot_evolution() (pynucastro.networks.python_network.PythonNetwork method)</a>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.plot_evolution">plot_evolution() (pynucastro.networks.python_network.NetworkSolution method)</a>
 </li>
       <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.plot_jacobian">plot_jacobian() (pynucastro.networks.rate_collection.RateCollection method)</a>
 </li>
@@ -1441,6 +1476,13 @@
 
       <ul>
         <li><a href="pynucastro.eos.stellar_eos.html#module-pynucastro.eos.stellar_eos">module</a>
+</li>
+      </ul></li>
+      <li>
+    pynucastro.mesa_utils
+
+      <ul>
+        <li><a href="pynucastro.mesa_utils.html#module-pynucastro.mesa_utils">module</a>
 </li>
       </ul></li>
       <li>
@@ -1635,6 +1677,13 @@
 </li>
       </ul></li>
       <li>
+    pynucastro.rates.aprox_family_rates
+
+      <ul>
+        <li><a href="pynucastro.rates.aprox_family_rates.html#module-pynucastro.rates.aprox_family_rates">module</a>
+</li>
+      </ul></li>
+      <li>
     pynucastro.rates.derived_rate
 
       <ul>
@@ -1808,10 +1857,10 @@
 </li>
       <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.rates_py_inline">rates_py_inline (pynucastro.networks.network_compare.NetworkCompare attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.rates_py_module">rates_py_module (pynucastro.networks.network_compare.NetworkCompare attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.PythonNetwork.rates_string">rates_string() (pynucastro.networks.python_network.PythonNetwork method)</a>
 </li>
       <li><a href="pynucastro.rates.rate.html#pynucastro.rates.rate.RateSource">RateSource (class in pynucastro.rates.rate)</a>
@@ -1835,6 +1884,10 @@
       <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.rho_eval">rho_eval (pynucastro.networks.network_compare.NetworkCompare attribute)</a>
 </li>
       <li><a href="pynucastro.rates.tabular_rate.html#pynucastro.rates.tabular_rate.TableIndex.RHOY">RHOY (pynucastro.rates.tabular_rate.TableIndex attribute)</a>
+</li>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.rhs">rhs() (pynucastro.networks.python_network.NetworkSolution method)</a>
+</li>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.rhs_at">rhs_at() (pynucastro.networks.python_network.NetworkSolution method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1914,6 +1967,8 @@
 </li>
       <li><a href="pynucastro.eos.stellar_eos.html#pynucastro.eos.stellar_eos.StellarEOS">StellarEOS (class in pynucastro.eos.stellar_eos)</a>
 </li>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.success">success (pynucastro.networks.python_network.NetworkSolution property)</a>
+</li>
       <li><a href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.summary">summary() (pynucastro.networks.rate_collection.RateCollection method)</a>
 
       <ul>
@@ -1932,6 +1987,8 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.t">t (pynucastro.networks.python_network.NetworkSolution property)</a>
+</li>
       <li><a href="pynucastro.rates.tabular_rate.html#pynucastro.rates.tabular_rate.TableIndex.T">T (pynucastro.rates.tabular_rate.TableIndex attribute)</a>
 </li>
       <li><a href="pynucastro.rates.rate.html#pynucastro.rates.rate.Tfactors.T9">T9 (pynucastro.rates.rate.Tfactors attribute)</a>
@@ -1948,10 +2005,10 @@
 </li>
       <li><a href="pynucastro.rates.tabular_rate.html#pynucastro.rates.tabular_rate.TableIndex">TableIndex (class in pynucastro.rates.tabular_rate)</a>
 </li>
-      <li><a href="pynucastro.rates.tabular_rate.html#pynucastro.rates.tabular_rate.TableInterpolator">TableInterpolator (class in pynucastro.rates.tabular_rate)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pynucastro.rates.tabular_rate.html#pynucastro.rates.tabular_rate.TableInterpolator">TableInterpolator (class in pynucastro.rates.tabular_rate)</a>
+</li>
       <li><a href="pynucastro.rates.library.html#pynucastro.rates.library.TabularLibrary">TabularLibrary (class in pynucastro.rates.library)</a>
 </li>
       <li><a href="pynucastro.rates.tabular_rate.html#pynucastro.rates.tabular_rate.TabularRate">TabularRate (class in pynucastro.rates.tabular_rate)</a>
@@ -1977,6 +2034,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pynucastro.nucdata.elements.html#pynucastro.nucdata.elements.UnidentifiedElement">UnidentifiedElement</a>
+</li>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.unique_nuclei">unique_nuclei (pynucastro.networks.python_network.NetworkSolution property)</a>
 </li>
       <li><a href="pynucastro.rates.library.html#pynucastro.rates.library.StarLibLibrary.unsample">unsample() (pynucastro.rates.library.StarLibLibrary method)</a>
 </li>
@@ -2032,10 +2091,16 @@
 <h2 id="X">X</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.X">X (pynucastro.nucdata.composition.Composition property)</a>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.X">X (pynucastro.networks.python_network.NetworkSolution property)</a>
+
+      <ul>
+        <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.X">(pynucastro.nucdata.composition.Composition property)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.X_at">X_at() (pynucastro.networks.python_network.NetworkSolution method)</a>
+</li>
       <li><a href="pynucastro.eos.quadrature_weights.html#pynucastro.eos.quadrature_weights.x_lag">x_lag (in module pynucastro.eos.quadrature_weights)</a>
 </li>
       <li><a href="pynucastro.eos.quadrature_weights.html#pynucastro.eos.quadrature_weights.x_leg">x_leg (in module pynucastro.eos.quadrature_weights)</a>
@@ -2046,6 +2111,10 @@
 <h2 id="Y">Y</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.Y">Y (pynucastro.networks.python_network.NetworkSolution property)</a>
+</li>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.Y_at">Y_at() (pynucastro.networks.python_network.NetworkSolution method)</a>
+</li>
       <li><a href="pynucastro.rates.rate.html#pynucastro.rates.rate.Rate.ydot_string_py">ydot_string_py() (pynucastro.rates.rate.Rate method)</a>
 </li>
       <li><a href="pynucastro.networks.sympy_network_support.html#pynucastro.networks.sympy_network_support.SympyRates.ydot_term_symbol">ydot_term_symbol() (pynucastro.networks.sympy_network_support.SympyRates method)</a>
@@ -2061,6 +2130,10 @@
       <li><a href="pynucastro.networks.network_compare.html#pynucastro.networks.network_compare.NetworkCompare.ydots_py_module">ydots_py_module (pynucastro.networks.network_compare.NetworkCompare attribute)</a>
 </li>
       <li><a href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition.ye">ye (pynucastro.nucdata.composition.Composition property)</a>
+</li>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.ye">ye() (pynucastro.networks.python_network.NetworkSolution method)</a>
+</li>
+      <li><a href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.ye_at">ye_at() (pynucastro.networks.python_network.NetworkSolution method)</a>
 </li>
   </ul></td>
 </tr></table>

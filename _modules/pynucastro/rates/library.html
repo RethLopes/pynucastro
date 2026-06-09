@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pynucastro.rates.library &#8212; pynucastro 0.0.post1695+gbf4880f1a documentation</title>
+    <title>pynucastro.rates.library &#8212; pynucastro 0.0.post1738+gad1880c32 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=3ab0ad6a"></script>
+    <script src="../../../_static/documentation_options.js?v=c1976b5f"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -198,6 +198,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../alpha-gamma-approx.html">Approximating alpha-capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../double-n-capture.html">Approximating double n-capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../modified-rates.html">Modified Rates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../co-approximations.html">Approximating C and O Burning</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../nse-protons.html">Using NSE Protons</a></li>
@@ -241,6 +242,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Some Useful Networks</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../aprox13.html">The “aprox13” network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../he-burning-example.html">A He-burning Network</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples in Nuclear Astrophysics</span></p>
@@ -255,6 +257,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adding-rates.html">Adding Rates from the Literature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -308,6 +311,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../pynucastro.rates.html">pynucastro.rates package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.rates.alternate_rates.html">pynucastro.rates.alternate_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.rates.approximate_rates.html">pynucastro.rates.approximate_rates module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.rates.aprox_family_rates.html">pynucastro.rates.aprox_family_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.rates.derived_rate.html">pynucastro.rates.derived_rate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.rates.files.html">pynucastro.rates.files module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.rates.known_duplicates.html">pynucastro.rates.known_duplicates module</a></li>
@@ -330,6 +334,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.screening.screening_util.html">pynucastro.screening.screening_util module</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../pynucastro.mesa_utils.html">pynucastro.mesa_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../pynucastro.mpi_utils.html">pynucastro.mpi_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../pynucastro.numba_util.html">pynucastro.numba_util module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../pynucastro.utils.html">pynucastro.utils module</a></li>
@@ -1598,7 +1603,6 @@
                        <span class="mi">5</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">6</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mi">7</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">8</span><span class="p">:</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
                        <span class="mi">9</span><span class="p">:</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">10</span><span class="p">:</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">11</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)}</span>
     <span class="n">NLINES</span> <span class="o">=</span> <span class="mi">60</span>
-    <span class="n">LOG_RATE_FLOOR</span> <span class="o">=</span> <span class="o">-</span><span class="mf">700.0</span>
     <span class="n">UNSUPPORTED_NUCLIDES</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">([</span><span class="s2">&quot;al-6&quot;</span><span class="p">,</span> <span class="s2">&quot;al*6&quot;</span><span class="p">,</span> <span class="s2">&quot;al01&quot;</span><span class="p">,</span> <span class="s2">&quot;al02&quot;</span><span class="p">,</span> <span class="s2">&quot;al03&quot;</span><span class="p">])</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -1630,13 +1634,14 @@
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;incomplete STARLIB data block for header: </span><span class="si">{</span><span class="n">header</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="n">block</span> <span class="o">=</span> <span class="n">block</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">NLINES</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
-                <span class="n">log_t9</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">block</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
-                <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">block</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span>
-
-                <span class="c1"># initialize log_rate to the floor value and fill the non-zero entries</span>
-                <span class="n">log_rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">NLINES</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">LOG_RATE_FLOOR</span><span class="p">)</span>
+                <span class="c1"># Sometimes there are 0 rates in the original data</span>
+                <span class="c1"># These are likely placeholders values.</span>
+                <span class="c1"># So including them is not physical and messes up interpolation</span>
                 <span class="n">positive</span> <span class="o">=</span> <span class="n">block</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.0</span>
-                <span class="n">log_rate</span><span class="p">[</span><span class="n">positive</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="n">positive</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">log_block</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="n">positive</span><span class="p">])</span>
+                <span class="n">log_t9</span> <span class="o">=</span> <span class="n">log_block</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+                <span class="n">log_rate</span> <span class="o">=</span> <span class="n">log_block</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">sigma</span> <span class="o">=</span> <span class="n">log_block</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
 
                 <span class="c1"># Create rate</span>
                 <span class="n">rate</span> <span class="o">=</span> <span class="n">StarLibRate</span><span class="p">(</span><span class="n">log_t9</span><span class="p">,</span> <span class="n">log_rate</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">rng</span><span class="o">=</span><span class="n">rng</span><span class="p">,</span>

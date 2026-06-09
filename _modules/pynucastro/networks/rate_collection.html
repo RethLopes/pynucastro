@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pynucastro.networks.rate_collection &#8212; pynucastro 0.0.post1695+gbf4880f1a documentation</title>
+    <title>pynucastro.networks.rate_collection &#8212; pynucastro 0.0.post1738+gad1880c32 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=3ab0ad6a"></script>
+    <script src="../../../_static/documentation_options.js?v=c1976b5f"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -198,6 +198,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../alpha-gamma-approx.html">Approximating alpha-capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../double-n-capture.html">Approximating double n-capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../modified-rates.html">Modified Rates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../co-approximations.html">Approximating C and O Burning</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../nse-protons.html">Using NSE Protons</a></li>
@@ -241,6 +242,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Some Useful Networks</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../aprox13.html">The “aprox13” network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../he-burning-example.html">A He-burning Network</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples in Nuclear Astrophysics</span></p>
@@ -255,6 +257,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adding-rates.html">Adding Rates from the Literature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -308,6 +311,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../pynucastro.rates.html">pynucastro.rates package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.rates.alternate_rates.html">pynucastro.rates.alternate_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.rates.approximate_rates.html">pynucastro.rates.approximate_rates module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.rates.aprox_family_rates.html">pynucastro.rates.aprox_family_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.rates.derived_rate.html">pynucastro.rates.derived_rate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.rates.files.html">pynucastro.rates.files module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.rates.known_duplicates.html">pynucastro.rates.known_duplicates module</a></li>
@@ -330,6 +334,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../pynucastro.screening.screening_util.html">pynucastro.screening.screening_util module</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../pynucastro.mesa_utils.html">pynucastro.mesa_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../pynucastro.mpi_utils.html">pynucastro.mpi_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../pynucastro.numba_util.html">pynucastro.numba_util module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../pynucastro.utils.html">pynucastro.utils module</a></li>
@@ -498,10 +503,8 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">collections</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">mul</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
@@ -522,7 +525,7 @@
                               <span class="n">ModifiedRate</span><span class="p">,</span> <span class="n">Rate</span><span class="p">,</span> <span class="n">RateFileError</span><span class="p">,</span> <span class="n">RatePair</span><span class="p">,</span>
                               <span class="n">ReacLibRate</span><span class="p">,</span> <span class="n">StarLibRate</span><span class="p">,</span> <span class="n">TabularRate</span><span class="p">,</span>
                               <span class="n">TemperatureTabularRate</span><span class="p">,</span> <span class="n">find_duplicate_rates</span><span class="p">,</span>
-                              <span class="n">is_allowed_dupe</span><span class="p">,</span> <span class="n">load_rate</span><span class="p">)</span>
+                              <span class="n">is_allowed_dupe</span><span class="p">,</span> <span class="n">load_rate</span><span class="p">,</span> <span class="n">make_CO_approx_rates</span><span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynucastro.rates.library</span><span class="w"> </span><span class="kn">import</span> <span class="n">_rate_name_to_nuc</span><span class="p">,</span> <span class="n">capitalize_id</span>
 
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
@@ -1424,6 +1427,36 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_build_collection</span><span class="p">()</span></div>
 
 
+<div class="viewcode-block" id="RateCollection.make_CO_burning_approx">
+<a class="viewcode-back" href="../../../pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.make_CO_burning_approx">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_CO_burning_approx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root_nuclei</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Approximate C+C, C+O, or O+O burning by removing the</span>
+<span class="sd">        intermediate nucleus from the proton emission channel.  Note:</span>
+<span class="sd">        the intermediate nucleus is not removed by this function, but</span>
+<span class="sd">        it can be removed manually after this call.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        root_nuclei : str</span>
+<span class="sd">            The nuclei for the process we are approximating.  It can</span>
+<span class="sd">            be &quot;C&quot; for C+C, &quot;CO&quot; for C+O, or &quot;O&quot; for O+O</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="n">root_nuclei</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;CO&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">]</span>
+
+        <span class="n">new_rates</span><span class="p">,</span> <span class="n">old_rate_str</span> <span class="o">=</span> <span class="n">make_CO_approx_rates</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rates</span><span class="p">,</span>
+                                                       <span class="n">root_nuclei</span><span class="p">,</span>
+                                                       <span class="n">return_obsolete_rate_names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># get the rates we are approximating out and remove them</span>
+        <span class="n">rr</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">old_rate_str</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_rates</span><span class="p">(</span><span class="n">rr</span><span class="p">)</span>
+
+        <span class="c1"># add the new rates</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_rates</span><span class="p">(</span><span class="n">new_rates</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="RateCollection.make_nse_protons">
 <a class="viewcode-back" href="../../../pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.make_nse_protons">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">make_nse_protons</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
@@ -1473,26 +1506,35 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_build_collection</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="RateCollection.isNSECompatible">
-<a class="viewcode-back" href="../../../pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.isNSECompatible">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">isNSECompatible</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RateCollection.is_NSE_compatible">
+<a class="viewcode-back" href="../../../pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.is_NSE_compatible">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_NSE_compatible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine whether the current network is compatible</span>
-<span class="sd">        with the NSE description. Checks if there are any rate that</span>
+<span class="sd">        with the NSE description. Checks if there are any rates that</span>
 <span class="sd">        uses stoichiometry, or if every strong rate has a corresponding</span>
-<span class="sd">        inverse rate. If none of the both are true, check if we are sufficienctly</span>
-<span class="sd">        connected by checking whether the the nullity of the network</span>
+<span class="sd">        inverse rate. If neither of those is true, check if we are sufficiently</span>
+<span class="sd">        connected by checking whether the nullity of the network</span>
 <span class="sd">        stoichiometric matrix is not greater than 2, then the</span>
 <span class="sd">        NSE equation will predict the correct equilibrium abundance.</span>
-<span class="sd">        If all isotope in the network have the same Ye ratio,</span>
+<span class="sd">        If all isotopes in the network have the same Ye ratio,</span>
 <span class="sd">        then the nullity must not be greater than 1.</span>
 <span class="sd">        An example would be the alpha-chain network, i.e. Ye = 0.5 always.</span>
 <span class="sd">        In this case, the second NSE constraint on Ye is pointless.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        verbose : bool</span>
+<span class="sd">            Do we print an NSE summary?  If not set, the network verbose</span>
+<span class="sd">            property is used.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        bool</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">verbose</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span>
 
         <span class="n">S</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">rp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rate_pairs</span><span class="p">():</span>
@@ -1507,7 +1549,7 @@
 
             <span class="c1"># After treating weak rate cases, return False if one of them is None</span>
             <span class="k">if</span> <span class="n">fr</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">rr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Either the forward or the reverse rate for the &quot;</span>
                           <span class="sa">f</span><span class="s2">&quot;following strong reaction rate pair is missing: </span><span class="si">{</span><span class="n">rp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="k">return</span> <span class="kc">False</span>
@@ -1520,14 +1562,14 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="p">((</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">fr</span><span class="p">,</span> <span class="n">DerivedRate</span><span class="p">)</span> <span class="ow">and</span> <span class="n">fr</span><span class="o">.</span><span class="n">source_rate</span> <span class="o">==</span> <span class="n">rr</span><span class="p">)</span> <span class="ow">or</span>
                     <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">rr</span><span class="p">,</span> <span class="n">DerivedRate</span><span class="p">)</span> <span class="ow">and</span> <span class="n">rr</span><span class="o">.</span><span class="n">source_rate</span> <span class="o">==</span> <span class="n">fr</span><span class="p">)</span> <span class="ow">or</span>
                     <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">fr</span><span class="p">,</span> <span class="n">ApproximateRate</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rr</span><span class="p">,</span> <span class="n">ApproximateRate</span><span class="p">))):</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Either the forward or the reverse rate for the &quot;</span>
                           <span class="sa">f</span><span class="s2">&quot;following strong reaction rate pair is not a DerivedRate: </span><span class="si">{</span><span class="n">rp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="k">return</span> <span class="kc">False</span>
 
             <span class="c1"># Check if there are any rate uses stoichiometry</span>
             <span class="k">if</span> <span class="n">fr</span><span class="o">.</span><span class="n">stoichiometry</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">rr</span><span class="o">.</span><span class="n">stoichiometry</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Either the forward or the reverse rate for the &quot;</span>
                           <span class="sa">f</span><span class="s2">&quot;following strong reaction rate pair uses stoichiometry: </span><span class="si">{</span><span class="n">rp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="k">return</span> <span class="kc">False</span>
@@ -1561,7 +1603,7 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Z_A_ratios</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">max_dim</span> <span class="o">=</span> <span class="mi">1</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NSE Compatibility Summary </span><span class="se">\n</span><span class="s2">&quot;</span>
                   <span class="s2">&quot;-------------------------</span><span class="se">\n</span><span class="s2">&quot;</span>
                   <span class="sa">f</span><span class="s2">&quot;  Nullity: </span><span class="si">{</span><span class="n">nullity</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -1588,6 +1630,9 @@
 
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  NSE compatible? </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">is_NSE_compatible</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  total number of rates: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_rates</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
@@ -1607,7 +1652,8 @@
 
 <div class="viewcode-block" id="RateCollection.evaluate_rates">
 <a class="viewcode-back" href="../../../pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.evaluate_rates">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate_rates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">composition</span><span class="p">,</span> <span class="n">screen_func</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate_rates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">composition</span><span class="p">,</span>
+                       <span class="n">screen_func</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Evaluate the rates for a specific density, temperature, and</span>
 <span class="sd">        composition, with optional screening.  Note: this returns that</span>
 <span class="sd">        rate as dY/dt, where Y is the molar fraction.  For a 2 body</span>
@@ -1645,13 +1691,9 @@
         <span class="n">y_e</span> <span class="o">=</span> <span class="n">composition</span><span class="o">.</span><span class="n">ye</span>
 
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rates</span><span class="p">:</span>
-            <span class="c1"># Note screening effect is already included</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">prefactor</span> <span class="o">*</span> <span class="n">rho</span><span class="o">**</span><span class="n">r</span><span class="o">.</span><span class="n">dens_exp</span> <span class="o">*</span> <span class="n">r</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="n">rho</span><span class="p">,</span> <span class="n">comp</span><span class="o">=</span><span class="n">composition</span><span class="p">,</span>
-                                                         <span class="n">screen_func</span><span class="o">=</span><span class="n">screen_func</span><span class="p">)</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">weak_type</span> <span class="o">==</span> <span class="s1">&#39;electron_capture&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">TabularRate</span><span class="p">)):</span>
-                <span class="n">val</span> <span class="o">=</span> <span class="n">val</span> <span class="o">*</span> <span class="n">y_e</span>
-            <span class="n">yfac</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">mul</span><span class="p">,</span> <span class="p">[</span><span class="n">ys</span><span class="p">[</span><span class="n">q</span><span class="p">]</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">reactants</span><span class="p">])</span>
-            <span class="n">rvals</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">yfac</span> <span class="o">*</span> <span class="n">val</span>
+            <span class="n">rvals</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">eval_full_rate</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">composition</span><span class="p">,</span>
+                                        <span class="n">screen_func</span><span class="o">=</span><span class="n">screen_func</span><span class="p">,</span>
+                                        <span class="n">y_molar</span><span class="o">=</span><span class="n">ys</span><span class="p">,</span> <span class="n">y_e</span><span class="o">=</span><span class="n">y_e</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">rvals</span></div>
 
@@ -1752,22 +1794,74 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">J</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_jacobian</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span>
-                                   <span class="n">screen_func</span><span class="o">=</span><span class="n">screen_func</span><span class="p">,</span>
-                                   <span class="n">exclude_rates</span><span class="o">=</span><span class="n">exclude_rates</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+            <span class="c1"># don&#39;t display partition function warnings</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span>
+            <span class="n">J</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_jacobian</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span>
+                                       <span class="n">screen_func</span><span class="o">=</span><span class="n">screen_func</span><span class="p">,</span>
+                                       <span class="n">exclude_rates</span><span class="o">=</span><span class="n">exclude_rates</span><span class="p">)</span>
         <span class="n">e</span> <span class="o">=</span> <span class="n">eigvals</span><span class="p">(</span><span class="n">J</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></div>
 
 
+<div class="viewcode-block" id="RateCollection.find_stiffest_rate">
+<a class="viewcode-back" href="../../../pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.find_stiffest_rate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">find_stiffest_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+                        <span class="n">screen_func</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Iterate through rates and compute the spectral radius for the</span>
+<span class="sd">        network excluding the rate to determine which rate is most responsible</span>
+<span class="sd">        for making the network stiff.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        rho : float</span>
+<span class="sd">            density used to evaluate Jacobian terms</span>
+<span class="sd">        T : float</span>
+<span class="sd">            temperature used to evaluate Jacobian terms</span>
+<span class="sd">        comp : Composition</span>
+<span class="sd">            composition used to evaluate Jacobian terms</span>
+<span class="sd">        screen_func : Callable</span>
+<span class="sd">            one of the screening functions from :py:mod:`pynucastro.screening`</span>
+<span class="sd">            -- if provided, then the evaluated rates will include the screening</span>
+<span class="sd">            correction.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Rate</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">stiff_rate</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">spectral_radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectral_radius</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">screen_func</span><span class="o">=</span><span class="n">screen_func</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rates</span><span class="p">:</span>
+            <span class="n">_sprad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectral_radius</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">screen_func</span><span class="o">=</span><span class="n">screen_func</span><span class="p">,</span> <span class="n">exclude_rates</span><span class="o">=</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">_sprad</span> <span class="o">&lt;</span> <span class="n">spectral_radius</span><span class="p">:</span>
+                <span class="n">stiff_rate</span> <span class="o">=</span> <span class="n">r</span>
+                <span class="n">spectral_radius</span> <span class="o">=</span> <span class="n">_sprad</span>
+
+        <span class="k">return</span> <span class="n">stiff_rate</span></div>
+
+
 <div class="viewcode-block" id="RateCollection.validate">
 <a class="viewcode-back" href="../../../pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.validate">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_library</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">forward_only</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_library</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+                 <span class="n">forward_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">skip_duplicates</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform various checks on the library, comparing to</span>
 <span class="sd">        ``other_library``, to ensure that we are not missing important</span>
-<span class="sd">        rates.  The idea is that the current library should be a</span>
-<span class="sd">        reduced library (perhaps the result of filtering) and then we</span>
-<span class="sd">        want to compare to the larger ``other_library`` to see if we</span>
-<span class="sd">        missed something important.</span>
+<span class="sd">        rates.  The idea is that the current network represents a</span>
+<span class="sd">        reduced set of rates (perhaps the result of filtering) and</span>
+<span class="sd">        then we want to compare to the larger ``other_library`` to see</span>
+<span class="sd">        if we missed something important.</span>
+
+<span class="sd">        Currently we check:</span>
+
+<span class="sd">        * If there are any additional rates in ``other_library`` that</span>
+<span class="sd">          have the same reactants as rates we already carry.</span>
+
+<span class="sd">        * If we are missing any p, n, or α-captures on the nuclei in</span>
+<span class="sd">          our network (only checked if p, n or α already exist in the</span>
+<span class="sd">          network).</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1775,12 +1869,21 @@
 <span class="sd">            the library to compare to</span>
 <span class="sd">        forward_only : bool</span>
 <span class="sd">            do we only check the forward rates?</span>
+<span class="sd">        return_dict : bool</span>
+<span class="sd">            do we return a dictionary of the rates that are missing?</span>
+<span class="sd">            if so, we suppress their output to stdout and include the</span>
+<span class="sd">            reason as the dictionary value.</span>
+<span class="sd">        skip_duplicates : bool</span>
+<span class="sd">            if a rate in `other_library` represents the same process</span>
+<span class="sd">            as one already in the network, don&#39;t consider it missing</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        bool</span>
+<span class="sd">        bool, dict(Rate)</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">missing_rates</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="n">current_rates</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_rates</span><span class="p">())</span>
 
@@ -1807,7 +1910,8 @@
                     <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;validation: </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2"> produced in </span><span class="si">{</span><span class="n">rate</span><span class="si">}</span><span class="s2"> never consumed.&quot;</span>
                     <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-        <span class="c1"># now check if we are missing any rates from other_library with the exact same reactants</span>
+        <span class="c1"># now check if we are missing any rates from other_library</span>
+        <span class="c1"># with the exact same reactants</span>
 
         <span class="n">other_by_reactants</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">rate</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">other_library</span><span class="o">.</span><span class="n">get_rates</span><span class="p">()):</span>
@@ -1820,14 +1924,50 @@
             <span class="n">key</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">rate</span><span class="o">.</span><span class="n">reactants</span><span class="p">))</span>
             <span class="k">for</span> <span class="n">other_rate</span> <span class="ow">in</span> <span class="n">other_by_reactants</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
                 <span class="c1"># check to see if other_rate is already in current_rates</span>
+                <span class="c1"># start by assuming we already have other_rate</span>
                 <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="k">if</span> <span class="n">other_rate</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current_rates</span><span class="p">:</span>
                     <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
 
+                <span class="c1"># now check to see if perhaps it is a duplicate of</span>
+                <span class="c1"># something we already have</span>
+                <span class="k">if</span> <span class="n">skip_duplicates</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">find_duplicate_rates</span><span class="p">([</span><span class="n">other_rate</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rates</span><span class="p">()))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
                     <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;validation: missing </span><span class="si">{</span><span class="n">other_rate</span><span class="si">}</span><span class="s2"> as alternative to </span><span class="si">{</span><span class="n">rate</span><span class="si">}</span><span class="s2"> (Q = </span><span class="si">{</span><span class="n">other_rate</span><span class="o">.</span><span class="n">Q</span><span class="si">}</span><span class="s2"> MeV).&quot;</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">return_dict</span><span class="p">:</span>
+                        <span class="n">missing_rates</span><span class="p">[</span><span class="n">other_rate</span><span class="p">]</span> <span class="o">=</span> <span class="n">msg</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
+        <span class="c1"># next loop over the nuclei in our network and check if we are missing</span>
+        <span class="c1"># any alpha, p, or n captures</span>
+        <span class="n">net_has_n</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">Nucleus</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unique_nuclei</span><span class="p">)</span>
+        <span class="n">net_has_p</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">Nucleus</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unique_nuclei</span><span class="p">)</span>
+        <span class="n">net_has_alpha</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">Nucleus</span><span class="p">(</span><span class="s2">&quot;he4&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unique_nuclei</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">nuc</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unique_nuclei</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">net_has_n</span><span class="p">:</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">([</span><span class="n">Nucleus</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">),</span> <span class="n">nuc</span><span class="p">]))</span>
+                <span class="k">for</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">other_by_reactants</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">rate</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current_rates</span> <span class="ow">and</span> <span class="n">rate</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">missing_rates</span><span class="p">:</span>
+                        <span class="n">missing_rates</span><span class="p">[</span><span class="n">rate</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;neutron capture&quot;</span>
+
+            <span class="k">if</span> <span class="n">net_has_p</span><span class="p">:</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">([</span><span class="n">Nucleus</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">),</span> <span class="n">nuc</span><span class="p">]))</span>
+                <span class="k">for</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">other_by_reactants</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">rate</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current_rates</span> <span class="ow">and</span> <span class="n">rate</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">missing_rates</span><span class="p">:</span>
+                        <span class="n">missing_rates</span><span class="p">[</span><span class="n">rate</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;proton capture&quot;</span>
+
+            <span class="k">if</span> <span class="n">net_has_alpha</span><span class="p">:</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">([</span><span class="n">Nucleus</span><span class="p">(</span><span class="s2">&quot;he4&quot;</span><span class="p">),</span> <span class="n">nuc</span><span class="p">]))</span>
+                <span class="k">for</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">other_by_reactants</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">rate</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current_rates</span> <span class="ow">and</span> <span class="n">rate</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">missing_rates</span><span class="p">:</span>
+                        <span class="n">missing_rates</span><span class="p">[</span><span class="n">rate</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;alpha capture&quot;</span>
+
+        <span class="k">if</span> <span class="n">return_dict</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">passed_validation</span><span class="p">,</span> <span class="n">missing_rates</span>
         <span class="k">return</span> <span class="n">passed_validation</span></div>
 
 
@@ -2263,7 +2403,7 @@
                              <span class="n">normalize_net_rate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                              <span class="n">consuming_rate_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                              <span class="n">show_small_ydot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                             <span class="n">hide_xalpha</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">hide_xp</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                             <span class="n">hide_xalpha</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">hide_xp</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                              <span class="n">rate_filter_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                              <span class="n">highlight_filter_function</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a graph representation of the network using</span>
@@ -2484,7 +2624,7 @@
              <span class="n">curved_edges</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
              <span class="n">N_range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Z_range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rotated</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
              <span class="n">always_show_p</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">always_show_alpha</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-             <span class="n">hide_xp</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">hide_xalpha</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+             <span class="n">hide_xp</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">hide_xalpha</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
              <span class="n">edge_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
              <span class="n">highlight_filter_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
              <span class="n">nucleus_filter_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rate_filter_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -2771,30 +2911,33 @@
         <span class="n">real_edges</span> <span class="o">=</span> <span class="p">[(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">sorted_edges</span> <span class="k">if</span> <span class="n">e</span><span class="p">[</span><span class="s2">&quot;real&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
         <span class="n">real_weights</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">sorted_edges</span> <span class="k">if</span> <span class="n">e</span><span class="p">[</span><span class="s2">&quot;real&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">real_weights</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">real_weights</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">show_small_ydot</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No rates to show below ydot_cutoff_value.&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">rate_ydots</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">edge_color</span> <span class="o">=</span> <span class="s2">&quot;C0&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">edge_color</span> <span class="o">=</span> <span class="n">real_weights</span>
-        <span class="n">ww</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">real_weights</span><span class="p">)</span>
-        <span class="n">min_weight</span> <span class="o">=</span> <span class="n">ww</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-        <span class="n">max_weight</span> <span class="o">=</span> <span class="n">ww</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-        <span class="n">dw</span> <span class="o">=</span> <span class="p">(</span><span class="n">max_weight</span> <span class="o">-</span> <span class="n">min_weight</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span>
-        <span class="n">widths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">ww</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">dw</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">widths</span><span class="p">[</span><span class="n">ww</span> <span class="o">&gt;</span> <span class="n">min_weight</span> <span class="o">+</span> <span class="n">dw</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.5</span>
-            <span class="n">widths</span><span class="p">[</span><span class="n">ww</span> <span class="o">&gt;</span> <span class="n">min_weight</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">dw</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.5</span>
-            <span class="n">widths</span><span class="p">[</span><span class="n">ww</span> <span class="o">&gt;</span> <span class="n">min_weight</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">dw</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">widths</span> <span class="o">*=</span> <span class="mi">2</span>
 
-        <span class="n">real_edges_lc</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">G</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">widths</span><span class="p">),</span>
-                                               <span class="n">edgelist</span><span class="o">=</span><span class="n">real_edges</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_color</span><span class="p">,</span>
-                                               <span class="n">connectionstyle</span><span class="o">=</span><span class="n">connectionstyle</span><span class="p">,</span>
-                                               <span class="n">node_size</span><span class="o">=</span><span class="n">node_size</span><span class="p">,</span>
-                                               <span class="n">edge_cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+        <span class="n">real_edges_lc</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">real_weights</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ww</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">real_weights</span><span class="p">)</span>
+            <span class="n">min_weight</span> <span class="o">=</span> <span class="n">ww</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+            <span class="n">max_weight</span> <span class="o">=</span> <span class="n">ww</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+            <span class="n">dw</span> <span class="o">=</span> <span class="p">(</span><span class="n">max_weight</span> <span class="o">-</span> <span class="n">min_weight</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span>
+            <span class="n">widths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">ww</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dw</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">widths</span><span class="p">[</span><span class="n">ww</span> <span class="o">&gt;</span> <span class="n">min_weight</span> <span class="o">+</span> <span class="n">dw</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.5</span>
+                <span class="n">widths</span><span class="p">[</span><span class="n">ww</span> <span class="o">&gt;</span> <span class="n">min_weight</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">dw</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.5</span>
+                <span class="n">widths</span><span class="p">[</span><span class="n">ww</span> <span class="o">&gt;</span> <span class="n">min_weight</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">dw</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">widths</span> <span class="o">*=</span> <span class="mi">2</span>
+
+            <span class="n">real_edges_lc</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">G</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">widths</span><span class="p">),</span>
+                                                   <span class="n">edgelist</span><span class="o">=</span><span class="n">real_edges</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_color</span><span class="p">,</span>
+                                                   <span class="n">connectionstyle</span><span class="o">=</span><span class="n">connectionstyle</span><span class="p">,</span>
+                                                   <span class="n">node_size</span><span class="o">=</span><span class="n">node_size</span><span class="p">,</span>
+                                                   <span class="n">edge_cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 
         <span class="c1"># highlight edges -- this is basically overplotting the edges we already drew</span>
 
@@ -2845,7 +2988,7 @@
         <span class="k">if</span> <span class="n">rotated</span><span class="p">:</span>
             <span class="n">orientation</span> <span class="o">=</span> <span class="s2">&quot;horizontal&quot;</span>
 
-        <span class="k">if</span> <span class="n">rate_ydots</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">rate_ydots</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">real_edges_lc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">pc</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">collections</span><span class="o">.</span><span class="n">PatchCollection</span><span class="p">(</span><span class="n">real_edges_lc</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">)</span>
             <span class="n">pc</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">real_weights</span><span class="p">)</span>
             <span class="n">label</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;$\log_</span><span class="si">{10}</span><span class="s2">(\mathrm</span><span class="si">{rate}</span><span class="s2">)$&quot;</span>
@@ -2878,8 +3021,8 @@
         <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
 
-        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MaxNLocator</span><span class="p">(</span><span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MaxNLocator</span><span class="p">(</span><span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MaxNLocator</span><span class="p">(</span><span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_n_ticks</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MaxNLocator</span><span class="p">(</span><span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_n_ticks</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">rotated</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">Z_range</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">N_range</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

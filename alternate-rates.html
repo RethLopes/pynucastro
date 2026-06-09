@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>alternate_rates &#8212; pynucastro 0.0.post1695+gbf4880f1a documentation</title>
+    <title>alternate_rates &#8212; pynucastro 0.0.post1738+gad1880c32 documentation</title>
   
   
   
@@ -42,14 +42,13 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=3ab0ad6a"></script>
+    <script src="_static/documentation_options.js?v=c1976b5f"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=eaa7b67c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'alternate-rates';</script>
@@ -202,6 +201,7 @@
 <li class="toctree-l2"><a class="reference internal" href="alpha-gamma-approx.html">Approximating alpha-capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="double-n-capture.html">Approximating double n-capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modified-rates.html">Modified Rates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="co-approximations.html">Approximating C and O Burning</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="nse-protons.html">Using NSE Protons</a></li>
@@ -245,6 +245,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Some Useful Networks</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="aprox13.html">The “aprox13” network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="he-burning-example.html">A He-burning Network</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples in Nuclear Astrophysics</span></p>
@@ -259,6 +260,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adding-rates.html">Adding Rates from the Literature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -312,6 +314,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="pynucastro.rates.html">pynucastro.rates package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.alternate_rates.html">pynucastro.rates.alternate_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.approximate_rates.html">pynucastro.rates.approximate_rates module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.aprox_family_rates.html">pynucastro.rates.aprox_family_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.derived_rate.html">pynucastro.rates.derived_rate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.files.html">pynucastro.rates.files module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.known_duplicates.html">pynucastro.rates.known_duplicates module</a></li>
@@ -334,6 +337,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.screening.screening_util.html">pynucastro.screening.screening_util module</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="pynucastro.mesa_utils.html">pynucastro.mesa_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.mpi_utils.html">pynucastro.mpi_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.numba_util.html">pynucastro.numba_util module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.utils.html">pynucastro.utils module</a></li>
@@ -604,9 +608,9 @@
 in one of two forms:</p>
 <ul class="simple">
 <li><p>As a new set of fit parameters in the ReacLib format.  An example of this is the
-<span id="id1">deBoer <em>et al.</em> [<a class="reference internal" href="zreferences.html#id35" title="R. J. deBoer, J. Görres, M. Wiescher, R. E. Azuma, A. Best, C. R. Brune, C. E. Fields, S. Jones, M. Pignatari, D. Sayre, K. Smith, F. X. Timmes, and E. Uberseder. The $^12$C(\ensuremath \alpha  ,\ensuremath \gamma  )$^16$O reaction and its implications for stellar helium burning. Reviews of Modern Physics, 89(3):035007, July 2017. arXiv:1709.03144, doi:10.1103/RevModPhys.89.035007.">2017</a>]</span> <span class="math notranslate nohighlight">\({}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}\)</span> rate.
+<span class="bibtex-citation" id="id1">deBoer <em>et al.</em> [<a class="reference internal" href="zreferences.html#id35" title="R. J. deBoer, J. Görres, M. Wiescher, R. E. Azuma, A. Best, C. R. Brune, C. E. Fields, S. Jones, M. Pignatari, D. Sayre, K. Smith, F. X. Timmes, and E. Uberseder. The $^12$C(\ensuremath \alpha  ,\ensuremath \gamma  )$^16$O reaction and its implications for stellar helium burning. Reviews of Modern Physics, 89(3):035007, July 2017. arXiv:1709.03144, doi:10.1103/RevModPhys.89.035007.">2017</a>]</span> <span class="math notranslate nohighlight">\({}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}\)</span> rate.
 This type of rate can be added by subclassing the <a class="reference internal" href="pynucastro.rates.reaclib_rate.html#pynucastro.rates.reaclib_rate.ReacLibRate" title="pynucastro.rates.reaclib_rate.ReacLibRate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ReacLibRate</span></code></a> class.</p></li>
-<li><p>A tabulation of <span class="math notranslate nohighlight">\(N_A \langle \sigma v\rangle\)</span> in terms of temperature.  An example of this is the <span id="id2">Iliadis <em>et al.</em> [<a class="reference internal" href="zreferences.html#id36" title="Christian Iliadis, Vimal Palanivelrajan, and Rafael S. de Souza. Bayesian estimation of the S factor and thermonuclear reaction rate for $^16$O(p ,\ensuremath \gamma  )$^17$F. \prc , 106(5):055802, November 2022. arXiv:2210.14354, doi:10.1103/PhysRevC.106.055802.">2022</a>]</span>
+<li><p>A tabulation of <span class="math notranslate nohighlight">\(N_A \langle \sigma v\rangle\)</span> in terms of temperature.  An example of this is the <span class="bibtex-citation" id="id2">Iliadis <em>et al.</em> [<a class="reference internal" href="zreferences.html#id36" title="Christian Iliadis, Vimal Palanivelrajan, and Rafael S. de Souza. Bayesian estimation of the S factor and thermonuclear reaction rate for $^16$O(p ,\ensuremath \gamma  )$^17$F. \prc , 106(5):055802, November 2022. arXiv:2210.14354, doi:10.1103/PhysRevC.106.055802.">2022</a>]</span>
 <span class="math notranslate nohighlight">\({}^{16}\mathrm{O}(p, \gamma){}^{17}\mathrm{F}\)</span> rate.  This type of rate can be added by
 subclassing the <a class="reference internal" href="pynucastro.rates.temperature_tabular_rate.html#pynucastro.rates.temperature_tabular_rate.TemperatureTabularRate" title="pynucastro.rates.temperature_tabular_rate.TemperatureTabularRate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TemperatureTabularRate</span></code></a> class.</p></li>
 </ul>
@@ -705,7 +709,7 @@ subclassing the <a class="reference internal" href="pynucastro.rates.temperature
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fc864ddbb60&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f24e46c3a10&gt;
 </pre></div>
 </div>
 <img alt="_images/1ccdc3cddff1b3b03a037289b256b1f86ff6d08e50c0a18d8d0ec857cd604f1f.png" src="_images/1ccdc3cddff1b3b03a037289b256b1f86ff6d08e50c0a18d8d0ec857cd604f1f.png" />
@@ -935,7 +939,7 @@ use the median value of the rate.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/52c65c18e6752e029e8c9a9b77aeda7344ea55a5650d1467189e1b74abe51616.png" src="_images/52c65c18e6752e029e8c9a9b77aeda7344ea55a5650d1467189e1b74abe51616.png" />
+<img alt="_images/b44655bab47f1cefc14524b7e2b65afe2a81629152b3270ccd68c44225cd756f.png" src="_images/b44655bab47f1cefc14524b7e2b65afe2a81629152b3270ccd68c44225cd756f.png" />
 </div>
 </div>
 <section id="id3">
@@ -962,7 +966,7 @@ use the median value of the rate.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b83466fef3e0fcdfa324f841432da40a883039aef756629a0d9643216bb1fe62.png" src="_images/b83466fef3e0fcdfa324f841432da40a883039aef756629a0d9643216bb1fe62.png" />
+<img alt="_images/8348a5e802c20f75469cecc9c509dbcd9b3f3061c4ed23e3359e30759f71568a.png" src="_images/8348a5e802c20f75469cecc9c509dbcd9b3f3061c4ed23e3359e30759f71568a.png" />
 </div>
 </div>
 <p>We see that the maximum difference is about 5%</p>
