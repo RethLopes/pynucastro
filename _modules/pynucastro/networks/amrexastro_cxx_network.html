@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pynucastro.networks.amrexastro_cxx_network &#8212; pynucastro 0.0.post1747+g2398c9d62 documentation</title>
+    <title>pynucastro.networks.amrexastro_cxx_network &#8212; pynucastro 0.0.post1753+g929c4159e documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=74babcc4"></script>
+    <script src="../../../_static/documentation_options.js?v=a2de834d"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -225,6 +225,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Plasma Neutrinos</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../neutrino-cooling.html">Neutrino Cooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../neutrino-cooling-effects.html">Effects of Thermal Neutrino Cooling in Network Integrations</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Exporting Networks</span></p>
 <ul class="nav bd-sidenav">
@@ -700,7 +701,11 @@
         <span class="c1"># Write RatePair data table</span>
         <span class="n">nse_rate_pairs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_nse_rate_pairs</span><span class="p">()</span>
         <span class="n">NumNSERatePairs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nse_rate_pairs</span><span class="p">)</span>
-        <span class="n">dtype</span> <span class="o">=</span> <span class="n">_signed_rate_dtype</span><span class="p">(</span><span class="n">NumNSERatePairs</span><span class="p">)</span>
+
+        <span class="c1"># the data type must accommodate the largest rate index, not</span>
+        <span class="c1"># just the number of rate pairs.  It also is signed because</span>
+        <span class="c1"># we use -1 to indicate no nucleus for &lt; 3-body reactions.</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">_signed_rate_dtype</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_rates</span><span class="p">))</span>
 
         <span class="c1"># Write Fill in the rate indices</span>
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">indent</span><span class="o">*</span><span class="n">n_indent</span><span class="si">}</span><span class="s2">constexpr int NumNSERatePairs = </span><span class="si">{</span><span class="n">NumNSERatePairs</span><span class="si">}</span><span class="s2">;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
