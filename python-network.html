@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Python network &#8212; pynucastro 0.0.post1768+g30a1d175d documentation</title>
+    <title>Python network &#8212; pynucastro 0.0.post1781+g167aa061a documentation</title>
   
   
   
@@ -42,14 +42,13 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=a85922c6"></script>
+    <script src="_static/documentation_options.js?v=106bc651"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=eaa7b67c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'python-network';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
@@ -641,7 +640,9 @@ Numba JIT decorators for performance.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">to_composition(Y)</span></code> : convert an array of molar fractions to a <a class="reference internal" href="pynucastro.nucdata.composition.html#pynucastro.nucdata.composition.Composition" title="pynucastro.nucdata.composition.Composition"><code class="xref py py-func docutils literal notranslate"><span class="pre">Composition</span></code></a> object</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">energy_release(dY)</span></code> : computes the energy release (in erg/g) given the change
-in molar fractions <code class="docutils literal notranslate"><span class="pre">dY</span></code>.</p></li>
+in molar fractions <code class="docutils literal notranslate"><span class="pre">dY</span></code>. This does not include weak-rate energy terms from neutrino losses and gamma deposition.
+These contributions are accumulated separately during rate evaluations and included in self-heating
+integrations and <a class="reference internal" href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.energy_release_at" title="pynucastro.networks.python_network.NetworkSolution.energy_release_at"><code class="xref py py-func docutils literal notranslate"><span class="pre">NetworkSolution.energy_release_at</span></code></a>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ye(Y)</span></code> : computes the electron fraction, <span class="math notranslate nohighlight">\(Y_e\)</span>, for input molar fractions <code class="docutils literal notranslate"><span class="pre">Y</span></code>.</p></li>
 </ul>
 </li>

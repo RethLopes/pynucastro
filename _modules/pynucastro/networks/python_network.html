@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pynucastro.networks.python_network &#8212; pynucastro 0.0.post1768+g30a1d175d documentation</title>
+    <title>pynucastro.networks.python_network &#8212; pynucastro 0.0.post1781+g167aa061a documentation</title>
   
   
   
@@ -41,13 +41,12 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=a85922c6"></script>
+    <script src="../../../_static/documentation_options.js?v=106bc651"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=eaa7b67c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pynucastro/networks/python_network';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -569,7 +568,7 @@
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sol</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">jac</span><span class="p">,</span> <span class="n">network</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">self_heating</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">thermal_neutrinos</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">screen_func</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">screen_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">do_rate_eval</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ydot_eq</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_sol</span> <span class="o">=</span> <span class="n">sol</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_rhs</span> <span class="o">=</span> <span class="n">rhs</span>
@@ -580,6 +579,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">self_heating</span> <span class="o">=</span> <span class="n">self_heating</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">thermal_neutrinos</span> <span class="o">=</span> <span class="n">thermal_neutrinos</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">screen_func</span> <span class="o">=</span> <span class="n">screen_func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_do_rate_eval</span> <span class="o">=</span> <span class="n">do_rate_eval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ydot_eq</span> <span class="o">=</span> <span class="n">ydot_eq</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">success</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -896,6 +897,15 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_rate_eval</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ydot_eq</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">Y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y_at</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="n">T</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">T_at</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">self_heating</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span>
+
+            <span class="n">rate_eval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_rate_eval</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_func</span><span class="p">)</span>
+            <span class="n">dYdt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ydot_eq</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rho</span><span class="p">,</span> <span class="n">rate_eval</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">energy_release</span><span class="p">(</span><span class="n">dYdt</span><span class="p">)</span> <span class="o">+</span> <span class="n">rate_eval</span><span class="o">.</span><span class="n">enuc_weak</span>
+
         <span class="n">dYdt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rhs_at</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
         <span class="n">enuc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">energy_release</span><span class="p">(</span><span class="n">dYdt</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">enuc</span></div>
@@ -903,12 +913,14 @@
 
 <div class="viewcode-block" id="NetworkSolution.plot_evolution">
 <a class="viewcode-back" href="../../../pynucastro.networks.python_network.html#pynucastro.networks.python_network.NetworkSolution.plot_evolution">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">plot_evolution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_evolution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
                        <span class="n">tmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                        <span class="n">ymin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                        <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                        <span class="n">X_cutoff_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                       <span class="n">label_size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">legend_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                       <span class="n">label_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">legend_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
+                       <span class="n">ncol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend_frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="n">legend_outside</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tick_dir</span><span class="o">=</span><span class="s2">&quot;in&quot;</span><span class="p">,</span>
                        <span class="n">three_level_style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                        <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Plot the time evolution of nuclei mass fractions using the</span>
@@ -939,6 +951,16 @@
 <span class="sd">            Font size for axis labels.</span>
 <span class="sd">        legend_size : int</span>
 <span class="sd">            Font size for the legend.</span>
+<span class="sd">        linewidth : int, float</span>
+<span class="sd">            Linewidth for plotting.</span>
+<span class="sd">        ncol : int</span>
+<span class="sd">            Number of columns for legend</span>
+<span class="sd">        legend_frameon: bool</span>
+<span class="sd">            Turn legend frame on or off.</span>
+<span class="sd">        legend_outside: bool</span>
+<span class="sd">            Put the legend on top of the figure.</span>
+<span class="sd">        tick_dir: str</span>
+<span class="sd">            Tick directions. Either &quot;in&quot; or &quot;out&quot;</span>
 <span class="sd">        three_level_style : bool</span>
 <span class="sd">            If `True`, use three-level linestyle and linewidth based on the peak</span>
 <span class="sd">            mass fraction to help distinguish different curves.</span>
@@ -978,22 +1000,22 @@
             <span class="k">if</span> <span class="n">three_level_style</span><span class="p">:</span>
                 <span class="c1"># Set 3 levels of visual levels depending on maximum mass fraction</span>
                 <span class="k">if</span> <span class="n">max_X</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
-                    <span class="n">lw</span> <span class="o">=</span> <span class="mf">2.5</span>
+                    <span class="n">lw</span> <span class="o">=</span> <span class="n">linewidth</span> <span class="o">+</span> <span class="mi">1</span>
                     <span class="n">ls</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span>
                     <span class="n">color</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">c1</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">10</span><span class="si">}</span><span class="s2">&quot;</span>
                     <span class="n">c1</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="k">elif</span> <span class="n">max_X</span> <span class="o">&gt;</span> <span class="mf">0.01</span><span class="p">:</span>
-                    <span class="n">lw</span> <span class="o">=</span> <span class="mf">1.5</span>
+                    <span class="n">lw</span> <span class="o">=</span> <span class="n">linewidth</span>
                     <span class="n">ls</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span>
                     <span class="n">color</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">c2</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">10</span><span class="si">}</span><span class="s2">&quot;</span>
                     <span class="n">c2</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">lw</span> <span class="o">=</span> <span class="n">linewidth</span> <span class="o">-</span> <span class="mf">0.5</span>
                     <span class="n">ls</span> <span class="o">=</span> <span class="s2">&quot;--&quot;</span>
                     <span class="n">color</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">c3</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">10</span><span class="si">}</span><span class="s2">&quot;</span>
                     <span class="n">c3</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">lw</span> <span class="o">=</span> <span class="mf">1.5</span>
+                <span class="n">lw</span> <span class="o">=</span> <span class="n">linewidth</span>
                 <span class="n">ls</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span>
                 <span class="n">color</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">c1</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">10</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="n">c1</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -1018,7 +1040,8 @@
             <span class="n">tmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
         <span class="c1"># Auto set number of legend column</span>
-        <span class="n">ncol</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">lines</span><span class="p">)</span> <span class="o">//</span> <span class="mi">8</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ncol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ncol</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">lines</span><span class="p">)</span> <span class="o">//</span> <span class="mi">8</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
@@ -1030,7 +1053,19 @@
 
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;time [s]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">label_size</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">label_size</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">legend_size</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="n">ncol</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">legend_outside</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower center&quot;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.01</span><span class="p">),</span>
+                      <span class="n">fontsize</span><span class="o">=</span><span class="n">legend_size</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="n">ncol</span><span class="p">,</span>
+                      <span class="n">frameon</span><span class="o">=</span><span class="n">legend_frameon</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">legend_size</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="n">ncol</span><span class="p">,</span>
+                      <span class="n">frameon</span><span class="o">=</span><span class="n">legend_frameon</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="n">direction</span><span class="o">=</span><span class="n">tick_dir</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+
         <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
@@ -1496,7 +1531,7 @@
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;import numpy as np</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;from pynucastro.constants import constants</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;from numba.experimental import jitclass</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
-
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;N_A = constants.N_A</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;from pynucastro.rates import (TableIndex, TableInterpolator, TabularWeakRate,</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;                              TempTableInterpolator, TemperatureTabularRate,</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;                              Tfactors)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1573,11 +1608,13 @@
         <span class="c1"># rate_eval class</span>
 
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;@jitclass([</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s1">(&quot;enuc_weak&quot;, numba.float64),</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_rates</span><span class="p">:</span>
             <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s1">(&quot;</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">fname</span><span class="si">}</span><span class="s1">&quot;, numba.float64),</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;])</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;class RateEval:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">def __init__(self):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="o">*</span><span class="mi">2</span><span class="si">}</span><span class="s2">self.enuc_weak = 0.0</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_rates</span><span class="p">:</span>
             <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="o">*</span><span class="mi">2</span><span class="si">}</span><span class="s2">self.</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">fname</span><span class="si">}</span><span class="s2"> = np.nan</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -1642,7 +1679,7 @@
                 <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">function_string_py</span><span class="p">())</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">ModifiedRate</span><span class="p">):</span>
                 <span class="n">orig_rate</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">original_rate</span>
-                <span class="k">if</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">_rate_func_written</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">orig_rate</span> <span class="ow">in</span> <span class="n">_rate_func_written</span><span class="p">:</span>
                     <span class="k">continue</span>
                 <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">orig_rate</span><span class="o">.</span><span class="n">function_string_py</span><span class="p">())</span>
                 <span class="n">_rate_func_written</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">orig_rate</span><span class="p">)</span>
@@ -1676,17 +1713,18 @@
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;@numba.njit()</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;def rhs_eq(t, Y, rho, T, screen_func):</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
-
-        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">rate_eval = do_rate_eval(t, Y, rho, T, screen_func)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;def ydot_eq(Y, rho, rate_eval):</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">dYdt = np.zeros((nnuc), dtype=np.float64)</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="c1"># now make the RHSs</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unique_nuclei</span><span class="p">:</span>
             <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_ydot_string</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="n">indent</span><span class="p">))</span>
 
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">return dYdt</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;@numba.njit()</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;def rhs_eq(t, Y, rho, T, screen_func):</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">rate_eval = do_rate_eval(t, Y, rho, T, screen_func)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">return ydot_eq(Y, rho, rate_eval)</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="c1"># the jacobian() function</span>
 
@@ -1697,12 +1735,7 @@
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;def jacobian_eq(t, Y, rho, T, screen_func):</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="c1"># get the rates</span>
-        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">tf = Tfactors(T)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">rate_eval = RateEval()</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
-
-        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rates_string</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="n">indent</span><span class="p">))</span>
-
-        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">rate_eval = do_rate_eval(t, Y, rho, T, screen_func)</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s2">jac = np.zeros((nnuc, nnuc), dtype=np.float64)</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -1778,6 +1811,8 @@
 
         <span class="c1"># Get RHS and Jacobian. Use getattr to avoid pylint warning.</span>
         <span class="n">rhs</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="s2">&quot;rhs&quot;</span><span class="p">)</span>
+        <span class="n">do_rate_eval</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="s2">&quot;do_rate_eval&quot;</span><span class="p">)</span>
+        <span class="n">ydot_eq</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="s2">&quot;ydot_eq&quot;</span><span class="p">)</span>
         <span class="n">jacobian</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="s2">&quot;jacobian&quot;</span><span class="p">)</span>
 
         <span class="c1"># Get the appropriate screening function</span>
@@ -1798,7 +1833,7 @@
         <span class="k">if</span> <span class="n">self_heating</span><span class="p">:</span>
             <span class="n">energy_release</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="s2">&quot;energy_release&quot;</span><span class="p">)</span>
 
-            <span class="k">def</span><span class="w"> </span><span class="nf">rhs_wrapper</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">energy_release</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">screen_func</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">rhs_wrapper</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">do_rate_eval</span><span class="p">,</span> <span class="n">ydot_eq</span><span class="p">,</span> <span class="n">energy_release</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">screen_func</span><span class="p">):</span>
                 <span class="n">nspec</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_nuclei</span><span class="p">)</span>
                 <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span> <span class="o">==</span> <span class="n">nspec</span> <span class="o">+</span> <span class="mi">1</span>
 
@@ -1808,11 +1843,12 @@
 
                 <span class="n">dxidt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
 
-                <span class="c1"># first get the dYdt from our network module</span>
-                <span class="n">dxidt</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nspec</span><span class="p">]</span> <span class="o">=</span> <span class="n">rhs</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">screen_func</span><span class="o">=</span><span class="n">screen_func</span><span class="p">)</span>
+                <span class="n">rate_eval</span> <span class="o">=</span> <span class="n">do_rate_eval</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">screen_func</span><span class="p">)</span>
+                <span class="n">dYdt</span> <span class="o">=</span> <span class="n">ydot_eq</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">rate_eval</span><span class="p">)</span>
+                <span class="n">dxidt</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nspec</span><span class="p">]</span> <span class="o">=</span> <span class="n">dYdt</span>
 
                 <span class="c1"># now get the energy generation rate using this dY/dt</span>
-                <span class="n">eps</span> <span class="o">=</span> <span class="n">energy_release</span><span class="p">(</span><span class="n">dxidt</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nspec</span><span class="p">])</span>
+                <span class="n">eps</span> <span class="o">=</span> <span class="n">energy_release</span><span class="p">(</span><span class="n">dYdt</span><span class="p">)</span> <span class="o">+</span> <span class="n">rate_eval</span><span class="o">.</span><span class="n">enuc_weak</span>
 
                 <span class="c1"># use the EOS to get the specific heat</span>
                 <span class="n">eos</span> <span class="o">=</span> <span class="n">StellarEOS</span><span class="p">()</span>
@@ -1833,7 +1869,7 @@
             <span class="n">xi0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Y0</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
             <span class="n">sol</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">rhs_wrapper</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">],</span> <span class="n">xi0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;BDF&quot;</span><span class="p">,</span>
                             <span class="n">dense_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                            <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">energy_release</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">screen_func</span><span class="p">),</span>
+                            <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">do_rate_eval</span><span class="p">,</span> <span class="n">ydot_eq</span><span class="p">,</span> <span class="n">energy_release</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">screen_func</span><span class="p">),</span>
                             <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
@@ -1850,7 +1886,9 @@
         <span class="n">network_sol</span> <span class="o">=</span> <span class="n">NetworkSolution</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">jacobian</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span>
                                       <span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">screen_func</span><span class="o">=</span><span class="n">screen_func</span><span class="p">,</span>
                                       <span class="n">self_heating</span><span class="o">=</span><span class="n">self_heating</span><span class="p">,</span>
-                                      <span class="n">thermal_neutrinos</span><span class="o">=</span><span class="n">thermal_neutrinos</span><span class="p">)</span>
+                                      <span class="n">thermal_neutrinos</span><span class="o">=</span><span class="n">thermal_neutrinos</span><span class="p">,</span>
+                                      <span class="n">do_rate_eval</span><span class="o">=</span><span class="n">do_rate_eval</span><span class="p">,</span>
+                                      <span class="n">ydot_eq</span><span class="o">=</span><span class="n">ydot_eq</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">network_sol</span></div>
 </div>
