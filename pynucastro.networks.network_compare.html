@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pynucastro.networks.network_compare module &#8212; pynucastro 0.0.post1781+g167aa061a documentation</title>
+    <title>pynucastro.networks.network_compare module &#8212; pynucastro 0.0.post1823+g3d9979209 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=106bc651"></script>
+    <script src="_static/documentation_options.js?v=74959819"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -196,19 +196,20 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Rate Operations</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="screening-examples.html">Screening Rates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modify-example.html">Modifying Rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom-rates.html">Creating a Custom Rate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="derived-rates.html">Derived Rates</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Approximating Rates</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="alpha-gamma-approx.html">Approximating alpha-capture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="double-n-capture.html">Approximating double n-capture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modified-rates.html">Modified Rates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="co-approximations.html">Approximating C and O Burning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="branched-rates.html"><code class="docutils literal notranslate"><span class="pre">BranchedRate</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="not_in_ydot_term.html">Rate Sequences with Extra Reactants</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Network Operations</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="approximate-rates.html">Approximate and Modified Rates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="alpha-gamma-approx.html">Approximating alpha-capture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="double-n-capture.html">Approximating double n-capture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modified-rates.html">Modified Rates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="co-approximations.html">Approximating C and O Burning</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1"><a class="reference internal" href="nse-protons.html">Using NSE Protons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unimportant-rates.html">Removing Unimportant Rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network-cycles.html">Finding Cycles (with NetworkX)</a></li>
@@ -251,8 +252,15 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Some Useful Networks</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="common-nets.html">Common Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mesa-basic.html">MESA <code class="docutils literal notranslate"><span class="pre">basic.net</span></code> Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cno-network.html">CNO burning network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aprox13.html">The “aprox13” network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="he-burning-example.html">A He-burning Network</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working With Simulation Codes</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="mesa-nova.html">Importing MESA Models and Visualizing Reactive Flow</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples in Nuclear Astrophysics</span></p>
 <ul class="nav bd-sidenav">
@@ -292,6 +300,7 @@
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="pynucastro.networks.html">pynucastro.networks package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.amrexastro_cxx_network.html">pynucastro.networks.amrexastro_cxx_network module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.base_cxx_network.html">pynucastro.networks.base_cxx_network module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.common_networks.html">pynucastro.networks.common_networks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.fortran_network.html">pynucastro.networks.fortran_network module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.helper.html">pynucastro.networks.helper module</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">pynucastro.networks.network_compare module</a></li>
@@ -321,6 +330,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.alternate_rates.html">pynucastro.rates.alternate_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.approximate_rates.html">pynucastro.rates.approximate_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.aprox_family_rates.html">pynucastro.rates.aprox_family_rates module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.branched_rate.html">pynucastro.rates.branched_rate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.derived_rate.html">pynucastro.rates.derived_rate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.files.html">pynucastro.rates.files module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.known_duplicates.html">pynucastro.rates.known_duplicates module</a></li>
@@ -600,6 +610,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.rates_py_module"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.rates_py_module</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.rates_amrex"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.rates_amrex</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.rates_cxx"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.rates_cxx</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.enuc_py_inline"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.enuc_py_inline</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.enuc_py_module"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.enuc_py_module</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.enuc_amrex"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.enuc_amrex</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.enuc_cxx"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.enuc_cxx</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.T_eval"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.T_eval</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.rho_eval"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.rho_eval</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.evaluate"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.evaluate()</span></code></a></li>
@@ -736,6 +750,57 @@ backends to facilitate comparisons.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="pynucastro.networks.network_compare.NetworkCompare.enuc_py_inline">
+<span class="sig-name descname"><span class="pre">enuc_py_inline</span></span><a class="headerlink" href="#pynucastro.networks.network_compare.NetworkCompare.enuc_py_inline" title="Link to this definition">#</a></dt>
+<dd><p>The total energy generation rate from the mass changes (just
+strong reactions) in erg/g/s computed via
+<a class="reference internal" href="pynucastro.networks.rate_collection.html#pynucastro.networks.rate_collection.RateCollection.evaluate_energy_generation" title="pynucastro.networks.rate_collection.RateCollection.evaluate_energy_generation"><code class="xref py py-meth docutils literal notranslate"><span class="pre">evaluate_energy_generation</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynucastro.networks.network_compare.NetworkCompare.enuc_py_module">
+<span class="sig-name descname"><span class="pre">enuc_py_module</span></span><a class="headerlink" href="#pynucastro.networks.network_compare.NetworkCompare.enuc_py_module" title="Link to this definition">#</a></dt>
+<dd><p>The total energy generation rate from the mass changes (just
+strong reactions) in erg/g/s evaluated from a <a class="reference internal" href="pynucastro.networks.python_network.html#pynucastro.networks.python_network.PythonNetwork" title="pynucastro.networks.python_network.PythonNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">PythonNetwork</span></code></a> module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynucastro.networks.network_compare.NetworkCompare.enuc_amrex">
+<span class="sig-name descname"><span class="pre">enuc_amrex</span></span><a class="headerlink" href="#pynucastro.networks.network_compare.NetworkCompare.enuc_amrex" title="Link to this definition">#</a></dt>
+<dd><p>The total energy generation rate from the mass changes (just
+strong reactions) in erg/g/s parsed from a build of an
+<a class="reference internal" href="pynucastro.networks.amrexastro_cxx_network.html#pynucastro.networks.amrexastro_cxx_network.AmrexAstroCxxNetwork" title="pynucastro.networks.amrexastro_cxx_network.AmrexAstroCxxNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmrexAstroCxxNetwork</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynucastro.networks.network_compare.NetworkCompare.enuc_cxx">
+<span class="sig-name descname"><span class="pre">enuc_cxx</span></span><a class="headerlink" href="#pynucastro.networks.network_compare.NetworkCompare.enuc_cxx" title="Link to this definition">#</a></dt>
+<dd><p>The total energy generation rate from the mass changes (just
+strong reactions) in erg/g/s parsed from a build of a
+<a class="reference internal" href="pynucastro.networks.simple_cxx_network.html#pynucastro.networks.simple_cxx_network.SimpleCxxNetwork" title="pynucastro.networks.simple_cxx_network.SimpleCxxNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleCxxNetwork</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="pynucastro.networks.network_compare.NetworkCompare.T_eval">
 <span class="sig-name descname"><span class="pre">T_eval</span></span><a class="headerlink" href="#pynucastro.networks.network_compare.NetworkCompare.T_eval" title="Link to this definition">#</a></dt>
 <dd><p>The temperature used in the evaluation.</p>
@@ -839,6 +904,10 @@ network type run.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.rates_py_module"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.rates_py_module</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.rates_amrex"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.rates_amrex</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.rates_cxx"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.rates_cxx</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.enuc_py_inline"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.enuc_py_inline</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.enuc_py_module"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.enuc_py_module</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.enuc_amrex"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.enuc_amrex</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.enuc_cxx"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.enuc_cxx</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.T_eval"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.T_eval</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.rho_eval"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.rho_eval</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pynucastro.networks.network_compare.NetworkCompare.evaluate"><code class="docutils literal notranslate"><span class="pre">NetworkCompare.evaluate()</span></code></a></li>

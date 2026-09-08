@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pynucastro.rates.derived_rate module &#8212; pynucastro 0.0.post1781+g167aa061a documentation</title>
+    <title>pynucastro.rates.derived_rate module &#8212; pynucastro 0.0.post1823+g3d9979209 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=106bc651"></script>
+    <script src="_static/documentation_options.js?v=74959819"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -53,7 +53,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="pynucastro.rates.files module" href="pynucastro.rates.files.html" />
-    <link rel="prev" title="pynucastro.rates.aprox_family_rates module" href="pynucastro.rates.aprox_family_rates.html" />
+    <link rel="prev" title="pynucastro.rates.branched_rate module" href="pynucastro.rates.branched_rate.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.0" />
@@ -196,19 +196,20 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Rate Operations</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="screening-examples.html">Screening Rates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modify-example.html">Modifying Rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom-rates.html">Creating a Custom Rate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="derived-rates.html">Derived Rates</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Approximating Rates</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="alpha-gamma-approx.html">Approximating alpha-capture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="double-n-capture.html">Approximating double n-capture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modified-rates.html">Modified Rates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="co-approximations.html">Approximating C and O Burning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="branched-rates.html"><code class="docutils literal notranslate"><span class="pre">BranchedRate</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="not_in_ydot_term.html">Rate Sequences with Extra Reactants</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Network Operations</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="approximate-rates.html">Approximate and Modified Rates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="alpha-gamma-approx.html">Approximating alpha-capture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="double-n-capture.html">Approximating double n-capture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modified-rates.html">Modified Rates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="co-approximations.html">Approximating C and O Burning</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1"><a class="reference internal" href="nse-protons.html">Using NSE Protons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unimportant-rates.html">Removing Unimportant Rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network-cycles.html">Finding Cycles (with NetworkX)</a></li>
@@ -251,8 +252,15 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Some Useful Networks</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="common-nets.html">Common Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mesa-basic.html">MESA <code class="docutils literal notranslate"><span class="pre">basic.net</span></code> Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cno-network.html">CNO burning network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aprox13.html">The “aprox13” network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="he-burning-example.html">A He-burning Network</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working With Simulation Codes</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="mesa-nova.html">Importing MESA Models and Visualizing Reactive Flow</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples in Nuclear Astrophysics</span></p>
 <ul class="nav bd-sidenav">
@@ -292,6 +300,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="pynucastro.networks.html">pynucastro.networks package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.amrexastro_cxx_network.html">pynucastro.networks.amrexastro_cxx_network module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.base_cxx_network.html">pynucastro.networks.base_cxx_network module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.common_networks.html">pynucastro.networks.common_networks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.fortran_network.html">pynucastro.networks.fortran_network module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.helper.html">pynucastro.networks.helper module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.network_compare.html">pynucastro.networks.network_compare module</a></li>
@@ -321,6 +330,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.alternate_rates.html">pynucastro.rates.alternate_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.approximate_rates.html">pynucastro.rates.approximate_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.aprox_family_rates.html">pynucastro.rates.aprox_family_rates module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.branched_rate.html">pynucastro.rates.branched_rate module</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">pynucastro.rates.derived_rate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.files.html">pynucastro.rates.files module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.known_duplicates.html">pynucastro.rates.known_duplicates module</a></li>
@@ -719,12 +729,12 @@ to evaluate screening effects with.</p></li>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="pynucastro.rates.aprox_family_rates.html"
+       href="pynucastro.rates.branched_rate.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">pynucastro.rates.aprox_family_rates module</p>
+        <p class="prev-next-title">pynucastro.rates.branched_rate module</p>
       </div>
     </a>
     <a class="right-next"

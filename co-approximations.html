@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Approximating C and O Burning &#8212; pynucastro 0.0.post1781+g167aa061a documentation</title>
+    <title>Approximating C and O Burning &#8212; pynucastro 0.0.post1823+g3d9979209 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=106bc651"></script>
+    <script src="_static/documentation_options.js?v=74959819"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -54,7 +54,7 @@
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Using NSE Protons" href="nse-protons.html" />
+    <link rel="next" title="BranchedRate" href="branched-rates.html" />
     <link rel="prev" title="Modified Rates" href="modified-rates.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -198,19 +198,20 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Rate Operations</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="screening-examples.html">Screening Rates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modify-example.html">Modifying Rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom-rates.html">Creating a Custom Rate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="derived-rates.html">Derived Rates</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Network Operations</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Approximating Rates</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="approximate-rates.html">Approximate and Modified Rates</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="alpha-gamma-approx.html">Approximating alpha-capture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="double-n-capture.html">Approximating double n-capture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modified-rates.html">Modified Rates</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Approximating C and O Burning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="alpha-gamma-approx.html">Approximating alpha-capture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="double-n-capture.html">Approximating double n-capture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modified-rates.html">Modified Rates</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Approximating C and O Burning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="branched-rates.html"><code class="docutils literal notranslate"><span class="pre">BranchedRate</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="not_in_ydot_term.html">Rate Sequences with Extra Reactants</a></li>
 </ul>
-</details></li>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Network Operations</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="nse-protons.html">Using NSE Protons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unimportant-rates.html">Removing Unimportant Rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network-cycles.html">Finding Cycles (with NetworkX)</a></li>
@@ -253,8 +254,15 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Some Useful Networks</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="common-nets.html">Common Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mesa-basic.html">MESA <code class="docutils literal notranslate"><span class="pre">basic.net</span></code> Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cno-network.html">CNO burning network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aprox13.html">The “aprox13” network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="he-burning-example.html">A He-burning Network</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working With Simulation Codes</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="mesa-nova.html">Importing MESA Models and Visualizing Reactive Flow</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples in Nuclear Astrophysics</span></p>
 <ul class="nav bd-sidenav">
@@ -294,6 +302,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="pynucastro.networks.html">pynucastro.networks package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.amrexastro_cxx_network.html">pynucastro.networks.amrexastro_cxx_network module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.base_cxx_network.html">pynucastro.networks.base_cxx_network module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.common_networks.html">pynucastro.networks.common_networks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.fortran_network.html">pynucastro.networks.fortran_network module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.helper.html">pynucastro.networks.helper module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.network_compare.html">pynucastro.networks.network_compare module</a></li>
@@ -323,6 +332,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.alternate_rates.html">pynucastro.rates.alternate_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.approximate_rates.html">pynucastro.rates.approximate_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.aprox_family_rates.html">pynucastro.rates.aprox_family_rates module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.branched_rate.html">pynucastro.rates.branched_rate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.derived_rate.html">pynucastro.rates.derived_rate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.files.html">pynucastro.rates.files module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.known_duplicates.html">pynucastro.rates.known_duplicates module</a></li>
@@ -682,9 +692,9 @@ the C / O burning approximations.</p>
 <p>We’ll start by making a full C/O burning network, without any approximations.  This will contain all the nuclei present in the 3 rates sequences above.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="o">=</span> <span class="n">pyna</span><span class="o">.</span><span class="n">network_helper</span><span class="p">([</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;he4&quot;</span><span class="p">,</span> <span class="s2">&quot;c12&quot;</span><span class="p">,</span> <span class="s2">&quot;o16&quot;</span><span class="p">,</span>
-                           <span class="s2">&quot;ne20&quot;</span><span class="p">,</span> <span class="s2">&quot;mg24&quot;</span><span class="p">,</span> <span class="s2">&quot;si28&quot;</span><span class="p">,</span>
-                           <span class="s2">&quot;s32&quot;</span><span class="p">,</span> <span class="s2">&quot;na23&quot;</span><span class="p">,</span> <span class="s2">&quot;al27&quot;</span><span class="p">,</span> <span class="s2">&quot;p31&quot;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="o">=</span> <span class="n">pyna</span><span class="o">.</span><span class="n">network_helper</span><span class="p">([</span><span class="s2">"p"</span><span class="p">,</span> <span class="s2">"he4"</span><span class="p">,</span> <span class="s2">"c12"</span><span class="p">,</span> <span class="s2">"o16"</span><span class="p">,</span>
+                           <span class="s2">"ne20"</span><span class="p">,</span> <span class="s2">"mg24"</span><span class="p">,</span> <span class="s2">"si28"</span><span class="p">,</span>
+                           <span class="s2">"s32"</span><span class="p">,</span> <span class="s2">"na23"</span><span class="p">,</span> <span class="s2">"al27"</span><span class="p">,</span> <span class="s2">"p31"</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -692,8 +702,8 @@ the C / O burning approximations.</p>
 <p>We’ll remove the 3-<span class="math notranslate nohighlight">\(\alpha\)</span> rate so we just focus on C/O burning.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r3a</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">&quot;a(aa,g)C12&quot;</span><span class="p">)</span>
-<span class="n">r3a_reverse</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">&quot;c12(g,aa)a&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r3a</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">"a(aa,g)C12"</span><span class="p">)</span>
+<span class="n">r3a_reverse</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">"c12(g,aa)a"</span><span class="p">)</span>
 
 <span class="n">net</span><span class="o">.</span><span class="n">remove_rates</span><span class="p">([</span><span class="n">r3a</span><span class="p">,</span> <span class="n">r3a_reverse</span><span class="p">])</span>
 </pre></div>
@@ -703,10 +713,10 @@ the C / O burning approximations.</p>
 <p>We’ll also remove the <span class="math notranslate nohighlight">\({}^{20}\mathrm{Ne} + {}^{12}\mathrm{C}\)</span> rates and inverses, since these are not likely to happen due to the large Coulomb barrier.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rcne</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">&quot;ne20(c12,p)p31&quot;</span><span class="p">)</span>
-<span class="n">rcne2</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">&quot;ne20(c12,a)si28&quot;</span><span class="p">)</span>
-<span class="n">rcne_reverse</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">&quot;p31(p,c12)ne20&quot;</span><span class="p">)</span>
-<span class="n">rcne2_reverse</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">&quot;si28(a,c12)ne20&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rcne</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">"ne20(c12,p)p31"</span><span class="p">)</span>
+<span class="n">rcne2</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">"ne20(c12,a)si28"</span><span class="p">)</span>
+<span class="n">rcne_reverse</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">"p31(p,c12)ne20"</span><span class="p">)</span>
+<span class="n">rcne2_reverse</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">"si28(a,c12)ne20"</span><span class="p">)</span>
 
 <span class="n">net</span><span class="o">.</span><span class="n">remove_rates</span><span class="p">([</span><span class="n">rcne</span><span class="p">,</span> <span class="n">rcne2</span><span class="p">,</span> <span class="n">rcne_reverse</span><span class="p">,</span> <span class="n">rcne2_reverse</span><span class="p">])</span>
 </pre></div>
@@ -740,6 +750,7 @@ the C / O burning approximations.</p>
   weak tabular rates: 0
   approximate rates: 0
   derived rates: 19
+  branched rates: 0
   modified rates: 0
   custom rates: 0
 </pre></div>
@@ -765,8 +776,8 @@ the C / O burning approximations.</p>
 <span class="n">T</span> <span class="o">=</span> <span class="mf">3e9</span>
 
 <span class="n">comp</span> <span class="o">=</span> <span class="n">pyna</span><span class="o">.</span><span class="n">Composition</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">unique_nuclei</span><span class="p">,</span> <span class="n">small</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
-<span class="n">comp</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">pyna</span><span class="o">.</span><span class="n">Nucleus</span><span class="p">(</span><span class="s2">&quot;c12&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">comp</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">pyna</span><span class="o">.</span><span class="n">Nucleus</span><span class="p">(</span><span class="s2">&quot;o16&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">comp</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">pyna</span><span class="o">.</span><span class="n">Nucleus</span><span class="p">(</span><span class="s2">"c12"</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">comp</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">pyna</span><span class="o">.</span><span class="n">Nucleus</span><span class="p">(</span><span class="s2">"o16"</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">Y0</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">get_molar_array</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -786,8 +797,8 @@ the C / O burning approximations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.6/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:125: UserWarning: C12 partition function is not supported by tables: set log_pf = 0.0 by default
-  warnings.warn(UserWarning(f&#39;{nuc} partition function is not supported by tables: set log_pf = 0.0 by default&#39;))
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:125: UserWarning: C12 partition function is not supported by tables: set log_pf = 0.0 by default
+  warnings.warn(UserWarning(f'{nuc} partition function is not supported by tables: set log_pf = 0.0 by default'))
 </pre></div>
 </div>
 </div>
@@ -799,7 +810,7 @@ the C / O burning approximations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.6/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:496: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:496: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
   ax.set_xlim(tmin, tmax)
 </pre></div>
 </div>
@@ -819,21 +830,21 @@ the C / O burning approximations.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crates</span> <span class="o">=</span> <span class="n">make_CO_approx_rates</span><span class="p">(</span><span class="n">rates</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crates</span> <span class="o">=</span> <span class="n">make_CO_approx_rates</span><span class="p">(</span><span class="n">rates</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corates</span> <span class="o">=</span> <span class="n">make_CO_approx_rates</span><span class="p">(</span><span class="n">rates</span><span class="p">,</span> <span class="s2">&quot;CO&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corates</span> <span class="o">=</span> <span class="n">make_CO_approx_rates</span><span class="p">(</span><span class="n">rates</span><span class="p">,</span> <span class="s2">"CO"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">orates</span> <span class="o">=</span> <span class="n">make_CO_approx_rates</span><span class="p">(</span><span class="n">rates</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">orates</span> <span class="o">=</span> <span class="n">make_CO_approx_rates</span><span class="p">(</span><span class="n">rates</span><span class="p">,</span> <span class="s2">"O"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -848,10 +859,10 @@ the C / O burning approximations.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c12ag</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">&quot;c12(a,g)o16&quot;</span><span class="p">)</span>
-<span class="n">c12ag_reverse</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">&quot;o16(g,a)c12&quot;</span><span class="p">)</span>
-<span class="n">o16ag</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">&quot;o16(a,g)ne20&quot;</span><span class="p">)</span>
-<span class="n">o16ag_reverse</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">&quot;ne20(g,a)o16&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c12ag</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">"c12(a,g)o16"</span><span class="p">)</span>
+<span class="n">c12ag_reverse</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">"o16(g,a)c12"</span><span class="p">)</span>
+<span class="n">o16ag</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">"o16(a,g)ne20"</span><span class="p">)</span>
+<span class="n">o16ag_reverse</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="s2">"ne20(g,a)o16"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -890,6 +901,7 @@ the C / O burning approximations.</p>
   weak tabular rates: 0
   approximate rates: 18
   derived rates: 17
+  branched rates: 0
   modified rates: 0
   custom rates: 0
 </pre></div>
@@ -910,8 +922,8 @@ the C / O burning approximations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">comp</span> <span class="o">=</span> <span class="n">pyna</span><span class="o">.</span><span class="n">Composition</span><span class="p">(</span><span class="n">anet</span><span class="o">.</span><span class="n">unique_nuclei</span><span class="p">,</span> <span class="n">small</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
-<span class="n">comp</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">pyna</span><span class="o">.</span><span class="n">Nucleus</span><span class="p">(</span><span class="s2">&quot;c12&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">comp</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">pyna</span><span class="o">.</span><span class="n">Nucleus</span><span class="p">(</span><span class="s2">&quot;o16&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">comp</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">pyna</span><span class="o">.</span><span class="n">Nucleus</span><span class="p">(</span><span class="s2">"c12"</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">comp</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">pyna</span><span class="o">.</span><span class="n">Nucleus</span><span class="p">(</span><span class="s2">"o16"</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">Y0</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">get_molar_array</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -924,8 +936,8 @@ the C / O burning approximations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.6/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:125: UserWarning: C12 partition function is not supported by tables: set log_pf = 0.0 by default
-  warnings.warn(UserWarning(f&#39;{nuc} partition function is not supported by tables: set log_pf = 0.0 by default&#39;))
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:125: UserWarning: C12 partition function is not supported by tables: set log_pf = 0.0 by default
+  warnings.warn(UserWarning(f'{nuc} partition function is not supported by tables: set log_pf = 0.0 by default'))
 </pre></div>
 </div>
 </div>
@@ -937,7 +949,7 @@ the C / O burning approximations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.6/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:496: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:496: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
   ax.set_xlim(tmin, tmax)
 </pre></div>
 </div>
@@ -961,17 +973,17 @@ the C / O burning approximations.</p>
 
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">nuc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sol_approx</span><span class="o">.</span><span class="n">unique_nuclei</span><span class="p">):</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">sol_approx</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="n">sol_approx</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span>
-              <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>    
+              <span class="n">linestyle</span><span class="o">=</span><span class="s2">":"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s2">"C</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>    
     <span class="n">idx</span> <span class="o">=</span> <span class="n">sol_full</span><span class="o">.</span><span class="n">unique_nuclei</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">sol_full</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="n">sol_full</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="p">:],</span>
-              <span class="n">label</span><span class="o">=</span><span class="sa">rf</span><span class="s2">&quot;X$(</span><span class="si">{</span><span class="n">nuc</span><span class="o">.</span><span class="n">pretty</span><span class="si">}</span><span class="s2">)$&quot;</span><span class="p">,</span>              
-              <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+              <span class="n">label</span><span class="o">=</span><span class="sa">rf</span><span class="s2">"X$(</span><span class="si">{</span><span class="n">nuc</span><span class="o">.</span><span class="n">pretty</span><span class="si">}</span><span class="s2">)$"</span><span class="p">,</span>              
+              <span class="n">linestyle</span><span class="o">=</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s2">"C</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">1.e-6</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">1.e-10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;time (s)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"time (s)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"X"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
 </pre></div>
@@ -1005,11 +1017,11 @@ the C / O burning approximations.</p>
       </div>
     </a>
     <a class="right-next"
-       href="nse-protons.html"
+       href="branched-rates.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Using NSE Protons</p>
+        <p class="prev-next-title"><code class="docutils literal notranslate"><span class="pre">BranchedRate</span></code></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

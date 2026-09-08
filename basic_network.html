@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Basic Networks &#8212; pynucastro 0.0.post1781+g167aa061a documentation</title>
+    <title>Basic Networks &#8212; pynucastro 0.0.post1823+g3d9979209 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=106bc651"></script>
+    <script src="_static/documentation_options.js?v=74959819"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -198,19 +198,20 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Rate Operations</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="screening-examples.html">Screening Rates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modify-example.html">Modifying Rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom-rates.html">Creating a Custom Rate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="derived-rates.html">Derived Rates</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Approximating Rates</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="alpha-gamma-approx.html">Approximating alpha-capture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="double-n-capture.html">Approximating double n-capture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modified-rates.html">Modified Rates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="co-approximations.html">Approximating C and O Burning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="branched-rates.html"><code class="docutils literal notranslate"><span class="pre">BranchedRate</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="not_in_ydot_term.html">Rate Sequences with Extra Reactants</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Network Operations</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="approximate-rates.html">Approximate and Modified Rates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="alpha-gamma-approx.html">Approximating alpha-capture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="double-n-capture.html">Approximating double n-capture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modified-rates.html">Modified Rates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="co-approximations.html">Approximating C and O Burning</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1"><a class="reference internal" href="nse-protons.html">Using NSE Protons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unimportant-rates.html">Removing Unimportant Rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network-cycles.html">Finding Cycles (with NetworkX)</a></li>
@@ -253,8 +254,15 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Some Useful Networks</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="common-nets.html">Common Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mesa-basic.html">MESA <code class="docutils literal notranslate"><span class="pre">basic.net</span></code> Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cno-network.html">CNO burning network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aprox13.html">The “aprox13” network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="he-burning-example.html">A He-burning Network</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working With Simulation Codes</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="mesa-nova.html">Importing MESA Models and Visualizing Reactive Flow</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples in Nuclear Astrophysics</span></p>
 <ul class="nav bd-sidenav">
@@ -294,6 +302,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="pynucastro.networks.html">pynucastro.networks package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.amrexastro_cxx_network.html">pynucastro.networks.amrexastro_cxx_network module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.base_cxx_network.html">pynucastro.networks.base_cxx_network module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.common_networks.html">pynucastro.networks.common_networks module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.fortran_network.html">pynucastro.networks.fortran_network module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.helper.html">pynucastro.networks.helper module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.networks.network_compare.html">pynucastro.networks.network_compare module</a></li>
@@ -323,6 +332,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.alternate_rates.html">pynucastro.rates.alternate_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.approximate_rates.html">pynucastro.rates.approximate_rates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.aprox_family_rates.html">pynucastro.rates.aprox_family_rates module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.branched_rate.html">pynucastro.rates.branched_rate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.derived_rate.html">pynucastro.rates.derived_rate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.files.html">pynucastro.rates.files module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pynucastro.rates.known_duplicates.html">pynucastro.rates.known_duplicates module</a></li>
@@ -612,6 +622,10 @@ rates are more general.</p></li>
 </ul>
 <p>pynucastro gives you control over each of these steps, which is needed for some complex network types. But if you just want to create a network that has all possible links connecting a set of nuclei, then the
 <a class="reference internal" href="pynucastro.networks.helper.html#pynucastro.networks.helper.network_helper" title="pynucastro.networks.helper.network_helper"><code class="xref py py-func docutils literal notranslate"><span class="pre">network_helper</span></code></a> function is enough.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can pass in the names of individual nuclei, or a range of nuclei, like <code class="docutils literal notranslate"><span class="pre">&quot;ni56-58&quot;</span></code>, or a comma-separated group of the same element, like <code class="docutils literal notranslate"><span class="pre">&quot;ni56,58,60&quot;</span></code>.</p>
+</div>
 <p>Here’s an example of a CNO network with some breakout.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -622,12 +636,9 @@ rates are more general.</p></li>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nuclei</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;he4&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;c12&quot;</span><span class="p">,</span> <span class="s2">&quot;c13&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;n13&quot;</span><span class="p">,</span> <span class="s2">&quot;n14&quot;</span><span class="p">,</span> <span class="s2">&quot;n15&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;o14&quot;</span><span class="p">,</span> <span class="s2">&quot;o15&quot;</span><span class="p">,</span> <span class="s2">&quot;o16&quot;</span><span class="p">,</span> <span class="s2">&quot;o17&quot;</span><span class="p">,</span> <span class="s2">&quot;o18&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;f17&quot;</span><span class="p">,</span> <span class="s2">&quot;f18&quot;</span><span class="p">,</span> <span class="s2">&quot;f19&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;ne18&quot;</span><span class="p">,</span> <span class="s2">&quot;ne19&quot;</span><span class="p">,</span> <span class="s2">&quot;ne20&quot;</span><span class="p">,</span> <span class="s2">&quot;ne21&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nuclei</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"p"</span><span class="p">,</span> <span class="s2">"he4"</span><span class="p">,</span>
+          <span class="s2">"c12-13"</span><span class="p">,</span> <span class="s2">"n13-15"</span><span class="p">,</span> <span class="s2">"o14-18"</span><span class="p">,</span>
+          <span class="s2">"f17-19"</span><span class="p">,</span> <span class="s2">"ne18-21"</span><span class="p">]</span>
 <span class="n">net</span> <span class="o">=</span> <span class="n">pyna</span><span class="o">.</span><span class="n">network_helper</span><span class="p">(</span><span class="n">nuclei</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -688,6 +699,7 @@ this can be changed via the <code class="docutils literal notranslate"><span cla
   weak tabular rates: 8
   approximate rates: 0
   derived rates: 29
+  branched rates: 0
   modified rates: 0
   custom rates: 0
 </pre></div>
