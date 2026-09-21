@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Integrating Networks with Temperature Evolution &#8212; pynucastro 0.0.post1823+g3d9979209 documentation</title>
+    <title>Integrating Networks with Temperature Evolution &#8212; pynucastro 0.0.post1844+gbd6e68df4 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=74959819"></script>
+    <script src="_static/documentation_options.js?v=801ada44"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -215,6 +215,7 @@
 <li class="toctree-l1"><a class="reference internal" href="nse-protons.html">Using NSE Protons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unimportant-rates.html">Removing Unimportant Rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network-cycles.html">Finding Cycles (with NetworkX)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="most-probable-path.html">Finding the Likely Path Between Nuclei (with NetworkX)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stiffness.html">Assessing the Stiffness of a Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reduction.html">Network Reduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sens_analysis_example.html">Sensitivity Analysis</a></li>
@@ -271,12 +272,14 @@
 <li class="toctree-l1"><a class="reference internal" href="examples/hot-CNO-breakout-example.html">hot-CNO and breakout</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/triple_alpha_eval.html">Computing the Screened Triple-alpha rate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/he-burning.html">Ratio of C/O from He burning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/c-burning-products.html">Products of Carbon Burning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/supernova-lightcurve.html">A Supernova Lightcurve</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adding-rates.html">Adding Rates from the Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nets-devel.html">Working with Network Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -358,6 +361,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.mesa_utils.html">pynucastro.mesa_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.mpi_utils.html">pynucastro.mpi_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.numba_util.html">pynucastro.numba_util module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pynucastro.sort_utils.html">pynucastro.sort_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.utils.html">pynucastro.utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.yt_utils.html">pynucastro.yt_utils module</a></li>
 </ul>
@@ -654,7 +658,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a9cc9f5a97545744133c19df01ac034f48eaeb4aca548cceaa9e71ee79fd2338.png" src="_images/a9cc9f5a97545744133c19df01ac034f48eaeb4aca548cceaa9e71ee79fd2338.png" />
+<img alt="_images/c7bb77a2eb37c1350d7945df56953096559fed03dfcfe7c0238b2b201e4bcccd.png" src="_images/c7bb77a2eb37c1350d7945df56953096559fed03dfcfe7c0238b2b201e4bcccd.png" />
 </div>
 </div>
 <section id="no-temperature-evolution">
@@ -687,9 +691,9 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:125: UserWarning: C12 partition function is not supported by tables: set log_pf = 0.0 by default
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:129: UserWarning: C12 partition function is not supported by tables: set log_pf = 0.0 by default
   warnings.warn(UserWarning(f'{nuc} partition function is not supported by tables: set log_pf = 0.0 by default'))
-/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:125: UserWarning: N13 partition function is not supported by tables: set log_pf = 0.0 by default
+/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:129: UserWarning: N13 partition function is not supported by tables: set log_pf = 0.0 by default
   warnings.warn(UserWarning(f'{nuc} partition function is not supported by tables: set log_pf = 0.0 by default'))
 </pre></div>
 </div>
@@ -702,11 +706,11 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:496: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:495: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
   ax.set_xlim(tmin, tmax)
 </pre></div>
 </div>
-<img alt="_images/25ab2f18022b1e60daff515732742a0dc576b889ad74464682c82adf27f2271d.png" src="_images/25ab2f18022b1e60daff515732742a0dc576b889ad74464682c82adf27f2271d.png" />
+<img alt="_images/f57e16c95e50d6215cce131022a1f4378bb2d9a83cbae9ba4553963af44b1f2c.png" src="_images/f57e16c95e50d6215cce131022a1f4378bb2d9a83cbae9ba4553963af44b1f2c.png" />
 </div>
 </div>
 <p>We see it takes about <span class="math notranslate nohighlight">\(10^6\)</span> s for the He mass fraction to start to deplete significantly.</p>
@@ -740,11 +744,11 @@ is not Numba-compiled.  As a result, integrating with temperature evolution can 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:496: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:495: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
   ax.set_xlim(tmin, tmax)
 </pre></div>
 </div>
-<img alt="_images/df7def0d19e1d5cf6bf13e6c001963b24ba95cf2cf89b5890745e15595dccd1f.png" src="_images/df7def0d19e1d5cf6bf13e6c001963b24ba95cf2cf89b5890745e15595dccd1f.png" />
+<img alt="_images/08741e6bd7a71bba18ccbe0ead4dade876a308f2199724cf8423ccb782bd6019.png" src="_images/08741e6bd7a71bba18ccbe0ead4dade876a308f2199724cf8423ccb782bd6019.png" />
 </div>
 </div>
 <p>This looks dramatically different than the fixed-temperature case.  This is not too surprising, since at these temperatures, the 3-<span class="math notranslate nohighlight">\(\alpha\)</span> rate is very temperature sensitive, so as the temperature increases due to the energy release from burning, the He burning rate increases dramatically.</p>
@@ -755,11 +759,11 @@ is not Numba-compiled.  As a result, integrating with temperature evolution can 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:568: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:567: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
   ax.set_xlim(tmin, tmax)
 </pre></div>
 </div>
-<img alt="_images/7ea7540de62ce8b4f579f2fa9824c1033766e3e982e9c1494660af13cd1f4fa1.png" src="_images/7ea7540de62ce8b4f579f2fa9824c1033766e3e982e9c1494660af13cd1f4fa1.png" />
+<img alt="_images/8b94cb2edaceacb07245ecbad7436ab9cd77fb266012a60132c548a840e17be5.png" src="_images/8b94cb2edaceacb07245ecbad7436ab9cd77fb266012a60132c548a840e17be5.png" />
 </div>
 </div>
 <p>We see that the temperature increased from <span class="math notranslate nohighlight">\(2\times 10^8\)</span> K to over <span class="math notranslate nohighlight">\(1.6\times 10^9\)</span> K.</p>

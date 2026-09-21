@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Computing the Screened Triple-alpha rate &#8212; pynucastro 0.0.post1823+g3d9979209 documentation</title>
+    <title>Computing the Screened Triple-alpha rate &#8212; pynucastro 0.0.post1844+gbd6e68df4 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=74959819"></script>
+    <script src="../_static/documentation_options.js?v=801ada44"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -215,6 +215,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../nse-protons.html">Using NSE Protons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../unimportant-rates.html">Removing Unimportant Rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../network-cycles.html">Finding Cycles (with NetworkX)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../most-probable-path.html">Finding the Likely Path Between Nuclei (with NetworkX)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../stiffness.html">Assessing the Stiffness of a Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reduction.html">Network Reduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sens_analysis_example.html">Sensitivity Analysis</a></li>
@@ -271,12 +272,14 @@
 <li class="toctree-l1"><a class="reference internal" href="hot-CNO-breakout-example.html">hot-CNO and breakout</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Computing the Screened Triple-alpha rate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="he-burning.html">Ratio of C/O from He burning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c-burning-products.html">Products of Carbon Burning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="supernova-lightcurve.html">A Supernova Lightcurve</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rates-devel.html">Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../adding-rates.html">Adding Rates from the Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nets-devel.html">Working with Network Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -358,6 +361,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../pynucastro.mesa_utils.html">pynucastro.mesa_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../pynucastro.mpi_utils.html">pynucastro.mpi_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../pynucastro.numba_util.html">pynucastro.numba_util module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pynucastro.sort_utils.html">pynucastro.sort_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../pynucastro.utils.html">pynucastro.utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../pynucastro.yt_utils.html">pynucastro.yt_utils module</a></li>
 </ul>
@@ -652,7 +656,7 @@ We’ll do this 2 different ways (but both will get the same answer).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/094d216f7d3f58dad6ea76e1ed5374e9c43f47dc7d988a3ae9999aaa1fa383e5.png" src="../_images/094d216f7d3f58dad6ea76e1ed5374e9c43f47dc7d988a3ae9999aaa1fa383e5.png" />
+<img alt="../_images/6adcaf71e9fd140a1b9269821ddd053d297c56e21328379bf1abef7c78498177.png" src="../_images/6adcaf71e9fd140a1b9269821ddd053d297c56e21328379bf1abef7c78498177.png" />
 </div>
 </div>
 <section id="manual-method">
@@ -680,7 +684,7 @@ We’ll do this 2 different ways (but both will get the same answer).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cdc7b557bbafaa5008250d167980c6e93514d16c52d11072f2040be4228010c5.png" src="../_images/cdc7b557bbafaa5008250d167980c6e93514d16c52d11072f2040be4228010c5.png" />
+<img alt="../_images/58257ca5ad383a1a0efb25c04726ee6103b78ac7afad515c8c29a0a2914e085f.png" src="../_images/58257ca5ad383a1a0efb25c04726ee6103b78ac7afad515c8c29a0a2914e085f.png" />
 </div>
 </div>
 <p>To compute the screening, we first need to get the plasma state</p>
@@ -744,7 +748,7 @@ We’ll do this 2 different ways (but both will get the same answer).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9ac279cedc1acabc81b26ef8d141bfa099d0f0392e42a7e184c7912c0616ec8a.png" src="../_images/9ac279cedc1acabc81b26ef8d141bfa099d0f0392e42a7e184c7912c0616ec8a.png" />
+<img alt="../_images/40a16e509f48c92931b8b9fe771668be7ac171975cb3d9bf2473725bc6c0274d.png" src="../_images/40a16e509f48c92931b8b9fe771668be7ac171975cb3d9bf2473725bc6c0274d.png" />
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">evaluate_rates()</span></code> method will take the thermodynamic state and screening function (optionally) and compute the value of each of the rates in the network.</p>

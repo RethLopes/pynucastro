@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pynucastro.screening.screening_util &#8212; pynucastro 0.0.post1823+g3d9979209 documentation</title>
+    <title>pynucastro.screening.screening_util &#8212; pynucastro 0.0.post1844+gbd6e68df4 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=74959819"></script>
+    <script src="../../../_static/documentation_options.js?v=801ada44"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -212,6 +212,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../nse-protons.html">Using NSE Protons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../unimportant-rates.html">Removing Unimportant Rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../network-cycles.html">Finding Cycles (with NetworkX)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../most-probable-path.html">Finding the Likely Path Between Nuclei (with NetworkX)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../stiffness.html">Assessing the Stiffness of a Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../reduction.html">Network Reduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../sens_analysis_example.html">Sensitivity Analysis</a></li>
@@ -268,12 +269,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/hot-CNO-breakout-example.html">hot-CNO and breakout</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/triple_alpha_eval.html">Computing the Screened Triple-alpha rate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/he-burning.html">Ratio of C/O from He burning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/c-burning-products.html">Products of Carbon Burning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/supernova-lightcurve.html">A Supernova Lightcurve</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rates-devel.html">Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../adding-rates.html">Adding Rates from the Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nets-devel.html">Working with Network Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -355,6 +358,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../pynucastro.mesa_utils.html">pynucastro.mesa_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../pynucastro.mpi_utils.html">pynucastro.mpi_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../pynucastro.numba_util.html">pynucastro.numba_util module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../pynucastro.sort_utils.html">pynucastro.sort_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../pynucastro.utils.html">pynucastro.utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../pynucastro.yt_utils.html">pynucastro.yt_utils module</a></li>
 </ul>
@@ -523,9 +527,6 @@
   <h1>Source code for pynucastro.screening.screening_util</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""Some helper functions for determining which rates need screening"""</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pynucastro.rates.approximate_rates</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApproximateRate</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pynucastro.rates.branched_rate</span><span class="w"> </span><span class="kn">import</span> <span class="n">BranchedRate</span>
-
 
 <div class="viewcode-block" id="get_screening_pair_set">
 <a class="viewcode-back" href="../../../pynucastro.screening.screening_util.html#pynucastro.screening.screening_util.get_screening_pair_set">[docs]</a>
@@ -535,7 +536,9 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    rates : Iterable(Rate)</span>
-<span class="sd">        A list of the rates in our network.</span>
+<span class="sd">        A list of the rates in our network.  We expect this to be the</span>
+<span class="sd">        complete list of rates (including any child rates of composite</span>
+<span class="sd">        rate types), e.g., ``RateCollection.all_rates``</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -543,21 +546,9 @@
 
 <span class="sd">    """</span>
 
-    <span class="c1"># we need to consider the child rates that come with</span>
-    <span class="c1"># ApproximateRate</span>
-    <span class="n">all_rates</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rates</span><span class="p">:</span>
-        <span class="c1"># check if rate is an ApproximateRate</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">ApproximateRate</span><span class="p">):</span>
-            <span class="n">all_rates</span> <span class="o">+=</span> <span class="n">r</span><span class="o">.</span><span class="n">get_child_rates</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">BranchedRate</span><span class="p">):</span>
-            <span class="n">all_rates</span> <span class="o">+=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">underlying_rate</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">primary_branch</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">other_branch</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">all_rates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-
     <span class="c1"># Create a full set of unique screening pairs across all rates</span>
     <span class="n">unique_pairs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">all_rates</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rates</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">scn_pair</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">screening_pairs</span><span class="p">:</span>
             <span class="n">unique_pairs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">scn_pair</span><span class="p">)</span>
 

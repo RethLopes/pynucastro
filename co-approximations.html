@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Approximating C and O Burning &#8212; pynucastro 0.0.post1823+g3d9979209 documentation</title>
+    <title>Approximating C and O Burning &#8212; pynucastro 0.0.post1844+gbd6e68df4 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=74959819"></script>
+    <script src="_static/documentation_options.js?v=801ada44"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -215,6 +215,7 @@
 <li class="toctree-l1"><a class="reference internal" href="nse-protons.html">Using NSE Protons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unimportant-rates.html">Removing Unimportant Rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network-cycles.html">Finding Cycles (with NetworkX)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="most-probable-path.html">Finding the Likely Path Between Nuclei (with NetworkX)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stiffness.html">Assessing the Stiffness of a Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reduction.html">Network Reduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sens_analysis_example.html">Sensitivity Analysis</a></li>
@@ -271,12 +272,14 @@
 <li class="toctree-l1"><a class="reference internal" href="examples/hot-CNO-breakout-example.html">hot-CNO and breakout</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/triple_alpha_eval.html">Computing the Screened Triple-alpha rate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/he-burning.html">Ratio of C/O from He burning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/c-burning-products.html">Products of Carbon Burning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/supernova-lightcurve.html">A Supernova Lightcurve</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adding-rates.html">Adding Rates from the Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nets-devel.html">Working with Network Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -358,6 +361,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.mesa_utils.html">pynucastro.mesa_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.mpi_utils.html">pynucastro.mpi_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.numba_util.html">pynucastro.numba_util module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pynucastro.sort_utils.html">pynucastro.sort_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.utils.html">pynucastro.utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.yt_utils.html">pynucastro.yt_utils module</a></li>
 </ul>
@@ -764,7 +768,7 @@ the C / O burning approximations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9db18c1b1a2431233517257b22fb427de9cac1b25f09dd651f67a3878d34a82b.png" src="_images/9db18c1b1a2431233517257b22fb427de9cac1b25f09dd651f67a3878d34a82b.png" />
+<img alt="_images/5879bce89cf43a863bc98568b0589ff869cc1e58dfc924b62c2b239f80211f63.png" src="_images/5879bce89cf43a863bc98568b0589ff869cc1e58dfc924b62c2b239f80211f63.png" />
 </div>
 </div>
 <p>Note that we left in the <span class="math notranslate nohighlight">\((\alpha,\gamma)\)</span> links between the odd-numbered nuclei that we will approximate out (e.g., <span class="math notranslate nohighlight">\({}^{23}\mathrm{Na}(\alpha,\gamma){}^{27}\mathrm{Al}\)</span>).  These links will not be present in the approximate network we consider next.</p>
@@ -797,7 +801,7 @@ the C / O burning approximations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:125: UserWarning: C12 partition function is not supported by tables: set log_pf = 0.0 by default
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:129: UserWarning: C12 partition function is not supported by tables: set log_pf = 0.0 by default
   warnings.warn(UserWarning(f'{nuc} partition function is not supported by tables: set log_pf = 0.0 by default'))
 </pre></div>
 </div>
@@ -810,11 +814,11 @@ the C / O burning approximations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:496: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:495: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
   ax.set_xlim(tmin, tmax)
 </pre></div>
 </div>
-<img alt="_images/57a1e5811176bc5a413057c8d7cf0a47ffc0e75f4b38dfbb0c18c569130a03bb.png" src="_images/57a1e5811176bc5a413057c8d7cf0a47ffc0e75f4b38dfbb0c18c569130a03bb.png" />
+<img alt="_images/cfae7fa7153103f65b4ae39b30c4a60f8bd5226b1478ddbf5c57ee1ce8ec4930.png" src="_images/cfae7fa7153103f65b4ae39b30c4a60f8bd5226b1478ddbf5c57ee1ce8ec4930.png" />
 </div>
 </div>
 </section>
@@ -916,7 +920,7 @@ the C / O burning approximations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3a0af41d209c54e250a576ce169bcd4fe78a778f6450e80064018ed6a7bd1e06.png" src="_images/3a0af41d209c54e250a576ce169bcd4fe78a778f6450e80064018ed6a7bd1e06.png" />
+<img alt="_images/d8dd9b6f178c740b7c57426fa2d9368bc21b8b1538614a4fd81a7d92ae720a27.png" src="_images/d8dd9b6f178c740b7c57426fa2d9368bc21b8b1538614a4fd81a7d92ae720a27.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -936,7 +940,7 @@ the C / O burning approximations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:125: UserWarning: C12 partition function is not supported by tables: set log_pf = 0.0 by default
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/rates/derived_rate.py:129: UserWarning: C12 partition function is not supported by tables: set log_pf = 0.0 by default
   warnings.warn(UserWarning(f'{nuc} partition function is not supported by tables: set log_pf = 0.0 by default'))
 </pre></div>
 </div>
@@ -949,11 +953,11 @@ the C / O burning approximations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:496: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:495: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
   ax.set_xlim(tmin, tmax)
 </pre></div>
 </div>
-<img alt="_images/438a1ba25f49da8b649a4922c35a5d976abb22a8ca90ed59fdb08cdc1cff9a94.png" src="_images/438a1ba25f49da8b649a4922c35a5d976abb22a8ca90ed59fdb08cdc1cff9a94.png" />
+<img alt="_images/a6181567bbee64253da6d375e94620eca7f09883e3b62251b11ac6599390c8e8.png" src="_images/a6181567bbee64253da6d375e94620eca7f09883e3b62251b11ac6599390c8e8.png" />
 </div>
 </div>
 </section>
@@ -990,7 +994,7 @@ the C / O burning approximations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e0665df6c6c0a1daa024b9c58818167e78172e58d278d03c552e8be0f7106f53.png" src="_images/e0665df6c6c0a1daa024b9c58818167e78172e58d278d03c552e8be0f7106f53.png" />
+<img alt="_images/e2aa517044424d886f99b2c0f21a866aa34143fae3f613888b60f814428a8efd.png" src="_images/e2aa517044424d886f99b2c0f21a866aa34143fae3f613888b60f814428a8efd.png" />
 </div>
 </div>
 </section>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>A Supernova Lightcurve &#8212; pynucastro 0.0.post1823+g3d9979209 documentation</title>
+    <title>A Supernova Lightcurve &#8212; pynucastro 0.0.post1844+gbd6e68df4 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=74959819"></script>
+    <script src="../_static/documentation_options.js?v=801ada44"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -54,8 +54,8 @@
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Notes on Working with Rate Objects" href="../rates-devel.html" />
-    <link rel="prev" title="Ratio of C/O from He burning" href="he-burning.html" />
+    <link rel="next" title="Working with Rate Objects" href="../rates-devel.html" />
+    <link rel="prev" title="Products of Carbon Burning" href="c-burning-products.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.0" />
@@ -215,6 +215,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../nse-protons.html">Using NSE Protons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../unimportant-rates.html">Removing Unimportant Rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../network-cycles.html">Finding Cycles (with NetworkX)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../most-probable-path.html">Finding the Likely Path Between Nuclei (with NetworkX)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../stiffness.html">Assessing the Stiffness of a Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reduction.html">Network Reduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sens_analysis_example.html">Sensitivity Analysis</a></li>
@@ -271,12 +272,14 @@
 <li class="toctree-l1"><a class="reference internal" href="hot-CNO-breakout-example.html">hot-CNO and breakout</a></li>
 <li class="toctree-l1"><a class="reference internal" href="triple_alpha_eval.html">Computing the Screened Triple-alpha rate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="he-burning.html">Ratio of C/O from He burning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c-burning-products.html">Products of Carbon Burning</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">A Supernova Lightcurve</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rates-devel.html">Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../adding-rates.html">Adding Rates from the Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nets-devel.html">Working with Network Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -358,6 +361,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../pynucastro.mesa_utils.html">pynucastro.mesa_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../pynucastro.mpi_utils.html">pynucastro.mpi_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../pynucastro.numba_util.html">pynucastro.numba_util module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pynucastro.sort_utils.html">pynucastro.sort_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../pynucastro.utils.html">pynucastro.utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../pynucastro.yt_utils.html">pynucastro.yt_utils module</a></li>
 </ul>
@@ -732,7 +736,7 @@ Ni56 ⟶ Co56 + e⁺ + 𝜈           [Q =   2.13 MeV] (Ni56 --&gt; Co56 &lt;rea
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, 'X')
 </pre></div>
 </div>
-<img alt="../_images/7ba04d54978b609c02f1a1ba3ae0bd29c3f49e0375e55c214232b4933070dbff.png" src="../_images/7ba04d54978b609c02f1a1ba3ae0bd29c3f49e0375e55c214232b4933070dbff.png" />
+<img alt="../_images/3096ecf24824cd659a9e40604a1ed2a6ba3d0bbeda5bb86ebbc1dbaba70f5c4f.png" src="../_images/3096ecf24824cd659a9e40604a1ed2a6ba3d0bbeda5bb86ebbc1dbaba70f5c4f.png" />
 </div>
 </div>
 <p>If we want the luminosity, we can compute that as the instantaneous energy release.  Note: this assumes that all of the energy release is given to photons.  For this, we need the rates, which we can get these by iterating over the solution</p>
@@ -780,7 +784,7 @@ Ni56 ⟶ Co56 + e⁺ + 𝜈           [Q =   2.13 MeV] (Ni56 --&gt; Co56 &lt;rea
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, 'luminosity (solar)')
 </pre></div>
 </div>
-<img alt="../_images/fc8e463e3b8ac616af74ca40162d629750100b9cbb4c3843b27d6266d00771e8.png" src="../_images/fc8e463e3b8ac616af74ca40162d629750100b9cbb4c3843b27d6266d00771e8.png" />
+<img alt="../_images/3770de51358061165db707dfb3992e1dc1921fd519d44b5da598f40b0ab9fa2e.png" src="../_images/3770de51358061165db707dfb3992e1dc1921fd519d44b5da598f40b0ab9fa2e.png" />
 </div>
 </div>
 </section>
@@ -797,12 +801,12 @@ Ni56 ⟶ Co56 + e⁺ + 𝜈           [Q =   2.13 MeV] (Ni56 --&gt; Co56 &lt;rea
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="he-burning.html"
+       href="c-burning-products.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Ratio of C/O from He burning</p>
+        <p class="prev-next-title">Products of Carbon Burning</p>
       </div>
     </a>
     <a class="right-next"
@@ -810,7 +814,7 @@ Ni56 ⟶ Co56 + e⁺ + 𝜈           [Q =   2.13 MeV] (Ni56 --&gt; Co56 &lt;rea
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</p>
+        <p class="prev-next-title">Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

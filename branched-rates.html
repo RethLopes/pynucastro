@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>BranchedRate &#8212; pynucastro 0.0.post1823+g3d9979209 documentation</title>
+    <title>BranchedRate &#8212; pynucastro 0.0.post1844+gbd6e68df4 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=74959819"></script>
+    <script src="_static/documentation_options.js?v=801ada44"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -215,6 +215,7 @@
 <li class="toctree-l1"><a class="reference internal" href="nse-protons.html">Using NSE Protons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unimportant-rates.html">Removing Unimportant Rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network-cycles.html">Finding Cycles (with NetworkX)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="most-probable-path.html">Finding the Likely Path Between Nuclei (with NetworkX)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stiffness.html">Assessing the Stiffness of a Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reduction.html">Network Reduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sens_analysis_example.html">Sensitivity Analysis</a></li>
@@ -271,12 +272,14 @@
 <li class="toctree-l1"><a class="reference internal" href="examples/hot-CNO-breakout-example.html">hot-CNO and breakout</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/triple_alpha_eval.html">Computing the Screened Triple-alpha rate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/he-burning.html">Ratio of C/O from He burning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/c-burning-products.html">Products of Carbon Burning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/supernova-lightcurve.html">A Supernova Lightcurve</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adding-rates.html">Adding Rates from the Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nets-devel.html">Working with Network Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -358,6 +361,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.mesa_utils.html">pynucastro.mesa_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.mpi_utils.html">pynucastro.mpi_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.numba_util.html">pynucastro.numba_util module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pynucastro.sort_utils.html">pynucastro.sort_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.utils.html">pynucastro.utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.yt_utils.html">pynucastro.yt_utils module</a></li>
 </ul>
@@ -692,7 +696,7 @@ nuclei, by breaking it into 2 sequences:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f4976b71508dfba9ff144b36c5c043071560ea1c8c657ba93ed6f6642259afae.png" src="_images/f4976b71508dfba9ff144b36c5c043071560ea1c8c657ba93ed6f6642259afae.png" />
+<img alt="_images/b2bf4858c92a4512caa8bf036c68c60ad60257fcc2fa9ffc40e0097f3bfd771f.png" src="_images/b2bf4858c92a4512caa8bf036c68c60ad60257fcc2fa9ffc40e0097f3bfd771f.png" />
 </div>
 </div>
 <p>We see that this also has <span class="math notranslate nohighlight">\({}^{12}\mathrm{C}(\alpha, \gamma){}^{16}\mathrm{O}\)</span> and 3-<span class="math notranslate nohighlight">\(\alpha\)</span>, but we will work at temperatures where we don’t expect these to be dominant.</p>
@@ -772,11 +776,11 @@ nuclei, by breaking it into 2 sequences:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:496: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:495: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
   ax.set_xlim(tmin, tmax)
 </pre></div>
 </div>
-<img alt="_images/59a31d0147ff464d959943c11c56c5582d6fe3123fe2d33aaf3e9731a2885f0c.png" src="_images/59a31d0147ff464d959943c11c56c5582d6fe3123fe2d33aaf3e9731a2885f0c.png" />
+<img alt="_images/33d51d4ddb86051845bc3fa0f8e7dd8d146c80020120bf1e5df5ecf0baf61b91.png" src="_images/33d51d4ddb86051845bc3fa0f8e7dd8d146c80020120bf1e5df5ecf0baf61b91.png" />
 </div>
 </div>
 </section>
@@ -878,7 +882,7 @@ first rate, then we need to specify the stoichiometry.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>@numba.njit()
-def N14_p_p_to_He4_C12_beta_pos_branched(rate_eval, tf, log_scor=0.0):
+def N14_p_p_to_He4_C12_beta_pos_branched(rate_eval, log_scor=0.0):
     # N14 + p + p --&gt; He4 + C12
     # represents the sequence: N14(p,g)O15(,e+nu)N15(p,a)C12
 
@@ -1008,7 +1012,7 @@ def N14_p_p_to_He4_C12_beta_pos_branched(rate_eval, tf, log_scor=0.0):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cbf9bad5547055f6248c0ac1a8099e19f7f16d126ef5d0c1fec9f1dc4bb5c56e.png" src="_images/cbf9bad5547055f6248c0ac1a8099e19f7f16d126ef5d0c1fec9f1dc4bb5c56e.png" />
+<img alt="_images/a9ed2c6223cc0cc2f8404814ae8b32dba59f68acc83c9c487e401a1d36a1c8a1.png" src="_images/a9ed2c6223cc0cc2f8404814ae8b32dba59f68acc83c9c487e401a1d36a1c8a1.png" />
 </div>
 </div>
 <p>Now we’ll integrate it.  We need a new composition for this because there is a different set of nuclei</p>
@@ -1038,11 +1042,11 @@ def N14_p_p_to_He4_C12_beta_pos_branched(rate_eval, tf, log_scor=0.0):
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:496: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.14.7/x64/lib/python3.14/site-packages/pynucastro/networks/python_network.py:495: UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
   ax.set_xlim(tmin, tmax)
 </pre></div>
 </div>
-<img alt="_images/e026ce428b156ec7efd45c5733f01786372b1cf3a9453db411a883b04d821cc0.png" src="_images/e026ce428b156ec7efd45c5733f01786372b1cf3a9453db411a883b04d821cc0.png" />
+<img alt="_images/3b9dea5352ac851db5d6c1e6bc1e425afee26b2ed1d269606eb484b887da0a28.png" src="_images/3b9dea5352ac851db5d6c1e6bc1e425afee26b2ed1d269606eb484b887da0a28.png" />
 </div>
 </div>
 <p>We can see what the righthand side function looks like by writing it out and importing it</p>
@@ -1143,7 +1147,7 @@ def ydot_eq(Y, rho, rate_eval):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/fedfab1cfc32d29bbb91714fef82de0260fbc559ee1b41af654a0f4fc2f3569a.png" src="_images/fedfab1cfc32d29bbb91714fef82de0260fbc559ee1b41af654a0f4fc2f3569a.png" />
+<img alt="_images/48c7286b84c9a9a7a0109aa89aba3de5ffdaa49a77b2554977f97897923b6259.png" src="_images/48c7286b84c9a9a7a0109aa89aba3de5ffdaa49a77b2554977f97897923b6259.png" />
 </div>
 </div>
 <p>Here we see that the overall trends are very close, with only small deviations in the <span class="math notranslate nohighlight">\({}^{14}\mathrm{N}\)</span> and <span class="math notranslate nohighlight">\({}^{12}\mathrm{C}\)</span> abundances.</p>

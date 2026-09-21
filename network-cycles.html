@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Finding Cycles (with NetworkX) &#8212; pynucastro 0.0.post1823+g3d9979209 documentation</title>
+    <title>Finding Cycles (with NetworkX) &#8212; pynucastro 0.0.post1844+gbd6e68df4 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=74959819"></script>
+    <script src="_static/documentation_options.js?v=801ada44"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -54,7 +54,7 @@
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Assessing the Stiffness of a Network" href="stiffness.html" />
+    <link rel="next" title="Finding the Likely Path Between Nuclei (with NetworkX)" href="most-probable-path.html" />
     <link rel="prev" title="Removing Unimportant Rates" href="unimportant-rates.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -215,6 +215,7 @@
 <li class="toctree-l1"><a class="reference internal" href="nse-protons.html">Using NSE Protons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unimportant-rates.html">Removing Unimportant Rates</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Finding Cycles (with NetworkX)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="most-probable-path.html">Finding the Likely Path Between Nuclei (with NetworkX)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stiffness.html">Assessing the Stiffness of a Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reduction.html">Network Reduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sens_analysis_example.html">Sensitivity Analysis</a></li>
@@ -271,12 +272,14 @@
 <li class="toctree-l1"><a class="reference internal" href="examples/hot-CNO-breakout-example.html">hot-CNO and breakout</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/triple_alpha_eval.html">Computing the Screened Triple-alpha rate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/he-burning.html">Ratio of C/O from He burning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/c-burning-products.html">Products of Carbon Burning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/supernova-lightcurve.html">A Supernova Lightcurve</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Notes on Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rates-devel.html">Working with <code class="docutils literal notranslate"><span class="pre">Rate</span></code> Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adding-rates.html">Adding Rates from the Literature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nets-devel.html">Working with Network Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Comparing Backends</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
@@ -358,6 +361,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.mesa_utils.html">pynucastro.mesa_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.mpi_utils.html">pynucastro.mpi_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.numba_util.html">pynucastro.numba_util module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pynucastro.sort_utils.html">pynucastro.sort_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.utils.html">pynucastro.utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pynucastro.yt_utils.html">pynucastro.yt_utils module</a></li>
 </ul>
@@ -677,7 +681,7 @@ the network.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8c072b98127dc823ea9af008207b6679bf347ae1543553e0955eef742fd43905.png" src="_images/8c072b98127dc823ea9af008207b6679bf347ae1543553e0955eef742fd43905.png" />
+<img alt="_images/b7abc9d674f8566c3532ded59be565ad6063b5fa872cd4a3106260495ae16665.png" src="_images/b7abc9d674f8566c3532ded59be565ad6063b5fa872cd4a3106260495ae16665.png" />
 </div>
 </div>
 </section>
@@ -778,7 +782,7 @@ the network.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/202752826e90b41f1b1540484875cf3de8d96a43d0bcb8f073d3fc7a82730e05.png" src="_images/202752826e90b41f1b1540484875cf3de8d96a43d0bcb8f073d3fc7a82730e05.png" />
+<img alt="_images/02a16ecb48bbf0087d9fc9ac7d536d57e6ed42142ed2eaeb14df7792240a3a38.png" src="_images/02a16ecb48bbf0087d9fc9ac7d536d57e6ed42142ed2eaeb14df7792240a3a38.png" />
 </div>
 </div>
 <p>Now a lot of rates connecting to the <span class="math notranslate nohighlight">\(\mathrm{F}\)</span> isotopes are gone.</p>
@@ -820,7 +824,7 @@ the network.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5ad67d3e06d9aeb7ff600b71bce911cfc5a9e90432d3f1fc2cb96e04339c3148.png" src="_images/5ad67d3e06d9aeb7ff600b71bce911cfc5a9e90432d3f1fc2cb96e04339c3148.png" />
+<img alt="_images/b27b0b6a8fa8128224b50b63547f8be29ccf693ae0f760bb95c5671bb0ff7e4e.png" src="_images/b27b0b6a8fa8128224b50b63547f8be29ccf693ae0f760bb95c5671bb0ff7e4e.png" />
 </div>
 </div>
 <p>We see that this has filtered out the proton capture on <span class="math notranslate nohighlight">\({}^{13}\mathrm{N}\)</span>, removing the hot-CNO cycle.</p>
@@ -906,11 +910,11 @@ the network.</p>
       </div>
     </a>
     <a class="right-next"
-       href="stiffness.html"
+       href="most-probable-path.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Assessing the Stiffness of a Network</p>
+        <p class="prev-next-title">Finding the Likely Path Between Nuclei (with NetworkX)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
