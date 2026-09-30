@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>NSE vs. Direct Integration &#8212; pynucastro 0.0.post1844+gbd6e68df4 documentation</title>
+    <title>NSE vs. Direct Integration &#8212; pynucastro 0.0.post1866+gf65f3ff24 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=801ada44"></script>
+    <script src="_static/documentation_options.js?v=1de37e5e"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -954,8 +954,7 @@ by the total activity of the rate (forward + reverse) by doing <code class="docu
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rho</span> <span class="o">=</span> <span class="mf">1e7</span>
 <span class="n">T</span> <span class="o">=</span> <span class="mf">6e9</span>
-<span class="n">comp</span> <span class="o">=</span> <span class="n">pyna</span><span class="o">.</span><span class="n">Composition</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">unique_nuclei</span><span class="p">)</span>
-<span class="n">comp</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">sol</span><span class="o">.</span><span class="n">Y</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">comp</span><span class="o">.</span><span class="n">A</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
+<span class="n">comp</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">comp_at</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span>
                <span class="n">screen_func</span><span class="o">=</span><span class="n">potekhin_1998</span><span class="p">,</span>
@@ -967,7 +966,7 @@ by the total activity of the rate (forward + reverse) by doing <code class="docu
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3b917a037c774e6bd1c6b293fce097856767a76b9224f554be5d3dd40e6f5161.png" src="_images/3b917a037c774e6bd1c6b293fce097856767a76b9224f554be5d3dd40e6f5161.png" />
+<img alt="_images/084a4fbead87f5785fb95e50c170d60062bc274fd309aa91fb06d219f7c833dd.png" src="_images/084a4fbead87f5785fb95e50c170d60062bc274fd309aa91fb06d219f7c833dd.png" />
 </div>
 </div>
 <p>Here we see that the normalized net rates are all &lt; <span class="math notranslate nohighlight">\(10^{-12}\)</span>, so we are effectively seeing the integration tolerance, and are very close to machine precision.</p>
@@ -1115,8 +1114,8 @@ Let’s verify its prediction by integrating the network.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a1b75b7a8d8ab928be4b04012acf3e4c33d63e64a139ef677f3a60d3bfdb7293.png" src="_images/a1b75b7a8d8ab928be4b04012acf3e4c33d63e64a139ef677f3a60d3bfdb7293.png" />
-<img alt="_images/58e19ac8665ecb5883f806fd472556e33451fc734d63ec0436a78e4df9d37b1a.png" src="_images/58e19ac8665ecb5883f806fd472556e33451fc734d63ec0436a78e4df9d37b1a.png" />
+<img alt="_images/8ed165c661581d13a20445adc4187cec7fcf5b887a1bccdd8fa904b8e177d374.png" src="_images/8ed165c661581d13a20445adc4187cec7fcf5b887a1bccdd8fa904b8e177d374.png" />
+<img alt="_images/e739bd2c5ad6c325a9f28d2409042b320c0ad28226ffb33dbc9e92cc41ad8206.png" src="_images/e739bd2c5ad6c325a9f28d2409042b320c0ad28226ffb33dbc9e92cc41ad8206.png" />
 </div>
 </div>
 <p>The error plot above shows that NSE and integration agrees to machine-precision once again.</p>

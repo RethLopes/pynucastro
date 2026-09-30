@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pynucastro.rates.library &#8212; pynucastro 0.0.post1844+gbd6e68df4 documentation</title>
+    <title>pynucastro.rates.library &#8212; pynucastro 0.0.post1866+gf65f3ff24 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../../_static/documentation_options.js?v=801ada44"></script>
+    <script src="../../../_static/documentation_options.js?v=1de37e5e"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -873,7 +873,8 @@
 <a class="viewcode-back" href="../../../pynucastro.rates.library.html#pynucastro.rates.library.Library.remove_rate">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">remove_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">"""Manually remove a rate from the library by supplying the</span>
-<span class="sd">        short name "A(x,y)B", a Rate object, or the rate id</span>
+<span class="sd">        short name "A(x,y)B", a ``Rate`` object, or the rate id</span>
+<span class="sd">        (``Rate.id``)</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -886,11 +887,18 @@
             <span class="n">rid</span> <span class="o">=</span> <span class="n">rate</span><span class="o">.</span><span class="n">id</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_rates</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">rid</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rate</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">rid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span><span class="o">.</span><span class="n">id</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_rates</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">rid</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># we assume that a rate id as provided</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_rates</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span></div>
+            <span class="k">if</span> <span class="n">rate</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rates</span><span class="p">:</span>
+                <span class="c1"># we matched on rate.id</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_rates</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="n">_rate_name_to_nuc</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"unknown rate identifier: </span><span class="si">{</span><span class="n">rate</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">found_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rate_by_name</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">found_rate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"rate not found: </span><span class="si">{</span><span class="n">rate</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">found_rate</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"ambiguous rate name: </span><span class="si">{</span><span class="n">rate</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_rates</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">found_rate</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Library.get_nuclei">
@@ -1269,6 +1277,12 @@
 <span class="sd">        derive reverse rates via detailed balance.  This means that</span>
 <span class="sd">        they cannot be tabular or weak rates.</span>
 
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        use_unreliable_spins : bool</span>
+<span class="sd">            Do we use spin data that is not marked as reliable in the</span>
+<span class="sd">            Nubase nuclear data evaluations?</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        Library</span>
@@ -1277,6 +1291,8 @@
 
         <span class="n">collect_rates</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">onlyfwd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">onlyfwd</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Library</span><span class="p">()</span>
 
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">onlyfwd</span><span class="o">.</span><span class="n">get_rates</span><span class="p">():</span>
 
@@ -1287,8 +1303,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">collect_rates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 
-        <span class="n">list1</span> <span class="o">=</span> <span class="n">Library</span><span class="p">(</span><span class="n">rates</span><span class="o">=</span><span class="n">collect_rates</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">list1</span></div>
+        <span class="k">return</span> <span class="n">Library</span><span class="p">(</span><span class="n">rates</span><span class="o">=</span><span class="n">collect_rates</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Library.derived_backward">
@@ -1615,7 +1630,7 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        filename : str</span>
+<span class="sd">        filename : str or pathlib.Path</span>
 <span class="sd">            The filename to use for the library</span>
 <span class="sd">        prepend_rates_dir : bool</span>
 <span class="sd">            If ``True``, then output to the pynucastro rate file</span>
@@ -1623,8 +1638,9 @@
 
 <span class="sd">        """</span>
 
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">prepend_rates_dir</span><span class="p">:</span>
-            <span class="n">filename</span> <span class="o">=</span> <span class="n">get_rates_dir</span><span class="p">()</span><span class="o">/</span><span class="n">filename</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">get_rates_dir</span><span class="p">()</span> <span class="o">/</span> <span class="n">filename</span>
 
         <span class="k">with</span> <span class="n">filename</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">rate</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rates</span><span class="p">():</span>

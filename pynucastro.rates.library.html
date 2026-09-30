@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pynucastro.rates.library module &#8212; pynucastro 0.0.post1844+gbd6e68df4 documentation</title>
+    <title>pynucastro.rates.library module &#8212; pynucastro 0.0.post1866+gf65f3ff24 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=801ada44"></script>
+    <script src="_static/documentation_options.js?v=1de37e5e"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -835,8 +835,12 @@ and does not necessarily mean Q &gt; 0.</p>
 derive reverse rates via detailed balance.  This means that
 they cannot be tabular or weak rates.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#pynucastro.rates.library.Library" title="pynucastro.rates.library.Library">Library</a></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>use_unreliable_spins</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Do we use spin data that is not marked as reliable in the
+Nubase nuclear data evaluations?</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#pynucastro.rates.library.Library" title="pynucastro.rates.library.Library">Library</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -986,7 +990,8 @@ nuclei is not linked.</p></li>
 <dt class="sig sig-object py" id="pynucastro.rates.library.Library.remove_rate">
 <span class="sig-name descname"><span class="pre">remove_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynucastro/rates/library.html#Library.remove_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynucastro.rates.library.Library.remove_rate" title="Link to this definition">#</a></dt>
 <dd><p>Manually remove a rate from the library by supplying the
-short name “A(x,y)B”, a Rate object, or the rate id</p>
+short name “A(x,y)B”, a <code class="docutils literal notranslate"><span class="pre">Rate</span></code> object, or the rate id
+(<code class="docutils literal notranslate"><span class="pre">Rate.id</span></code>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>rate</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference internal" href="pynucastro.rates.rate.html#pynucastro.rates.rate.Rate" title="pynucastro.rates.rate.Rate"><em>Rate</em></a>) – The rate to remove from the library.</p>
@@ -1112,7 +1117,7 @@ Reaclib format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The filename to use for the library</p></li>
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>pathlib.Path</em></a>) – The filename to use for the library</p></li>
 <li><p><strong>prepend_rates_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, then output to the pynucastro rate file
 directory.</p></li>
 </ul>
